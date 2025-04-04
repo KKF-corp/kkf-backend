@@ -5,16 +5,17 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>pl.corp.kkf</groupId>
-        <artifactId>kkf-commons</artifactId>
+        <artifactId>kkf</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>base-services</artifactId>
+    <artifactId>kkf-deps</artifactId>
+    <packaging>pom</packaging>
 
-    <properties>
-<!--        <maven.compiler.source>23</maven.compiler.source>-->
-<!--        <maven.compiler.target>23</maven.compiler.target>-->
-<!--        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>-->
-    </properties>
+    <modules>
+        <module>model-deps</module>
+        <module>service-api-deps</module>
+        <module>service-impl-deps</module>
+    </modules>
 
 </project>
