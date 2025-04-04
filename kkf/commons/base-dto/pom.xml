@@ -5,11 +5,11 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>pl.corp.kkf</groupId>
-        <artifactId>kkf-billings</artifactId>
+        <artifactId>kkf-commons</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>kkf-billings-api</artifactId>
+    <artifactId>base-dto</artifactId>
 
     <properties>
 <!--        <maven.compiler.source>23</maven.compiler.source>-->
@@ -18,16 +18,8 @@
     </properties>
     <dependencies>
         <dependency>
-            <groupId>pl.corp.kkf</groupId>
-            <artifactId>base-dto</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>pl.corp.kkf</groupId>
-            <artifactId>kkf-billings-shared-types</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
-            <scope>compile</scope>
+            <groupId>io.swagger.core.v3</groupId>
+            <artifactId>swagger-annotations</artifactId>
         </dependency>
     </dependencies>
 

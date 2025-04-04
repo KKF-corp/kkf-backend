@@ -5,21 +5,16 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>pl.corp.kkf</groupId>
-        <artifactId>kkf</artifactId>
+        <artifactId>kkf-commons</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>kkf-commons</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
-    <packaging>pom</packaging>
-    <name>kkf-commons</name>
+    <artifactId>base-service</artifactId>
 
-    <modules>
-        <module>base-model</module>
-        <module>base-shared-types</module>
-        <module>rest-types-api</module>
-        <module>base-service</module>
-        <module>base-dto</module>
-    </modules>
+    <properties>
+<!--        <maven.compiler.source>23</maven.compiler.source>-->
+<!--        <maven.compiler.target>23</maven.compiler.target>-->
+<!--        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>-->
+    </properties>
 
 </project>
