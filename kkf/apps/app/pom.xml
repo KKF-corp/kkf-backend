@@ -64,23 +64,31 @@
             <artifactId>jersey-media-multipart</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.openapitools</groupId>
+            <artifactId>jackson-databind-nullable</artifactId>
+            <version>0.2.6</version>
+        </dependency>
+        <dependency>
+            <groupId>io.swagger.core.v3</groupId>
+            <artifactId>swagger-core</artifactId>
+            <version>2.2.20</version>
+        </dependency>
+        <dependency>
+            <groupId>io.swagger.core.v3</groupId>
+            <artifactId>swagger-models</artifactId>
+            <version>2.2.20</version>
+        </dependency>
+        <dependency>
             <groupId>io.swagger.core.v3</groupId>
             <artifactId>swagger-annotations</artifactId>
-            <version>2.2.1</version>
-            <scope>compile</scope>
+            <version>2.2.20</version>
         </dependency>
-        <!-- W głównym pom.xml -->
-        <dependency>
-            <groupId>org.springdoc</groupId>
-            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-            <version>2.3.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springdoc</groupId>
-            <artifactId>springdoc-openapi-starter-webmvc-api</artifactId>
-            <version>2.3.0</version>
-        </dependency>
-
+       
+      
+        
+        
+    
+       
     </dependencies>
 
     <build>
@@ -117,6 +125,30 @@
                             <includeScope>runtime</includeScope>
                             <outputDirectory>${project.build.directory}/lib/</outputDirectory>
                             <prependGroupId>true</prependGroupId>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            
+            <plugin>
+                <groupId>io.swagger.codegen.v3</groupId>
+                <artifactId>swagger-codegen-maven-plugin</artifactId>
+                <version>${swagger.codegen.maven.plugin.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <phase>package</phase>
+                        <configuration>
+                            <inputSpec>
+                                ${basedir}/target/swagger-resources/META-INF/resources/swagger-${project.artifactId}.json
+                            </inputSpec>
+                            <language>typescript-angular</language>
+                            <output>${basedir}/target/ts-client</output>
+                            <addCompileSourceRoot>false</addCompileSourceRoot>
+                            <apiPackage>pl.corp.kkf.swagger.api</apiPackage>
+                            <modelPackage>pl.corp.kkf.swagger.model</modelPackage>
                         </configuration>
                     </execution>
                 </executions>

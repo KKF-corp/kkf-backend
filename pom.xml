@@ -114,37 +114,12 @@
                 <version>2.2.8</version>
             </dependency>
 <!--            <dependency>-->
-<!--                <groupId>io.openapitools.swagger</groupId>-->
-<!--                <artifactId>swagger-maven-plugin</artifactId>-->
-<!--                <version>${swagger.maven.plugin.version}</version>-->
-<!--            </dependency>-->
-<!--            <dependency>-->
-<!--                <groupId>io.swagger.codegen.v3</groupId>-->
-<!--                <artifactId>swagger-codegen-project</artifactId>-->
-<!--                <version>3.0.62</version>-->
-<!--            </dependency>-->
-<!--            <dependency>-->
-<!--                <groupId>io.swagger.codegen.v3</groupId>-->
-<!--                <artifactId>swagger-annotations</artifactId>-->
-<!--                <version>2.2.1</version>-->
-<!--            </dependency>-->
-<!--            <dependency>-->
 <!--                <groupId>io.swagger.codegen.v3</groupId>-->
 <!--                <artifactId>swagger-codegen-maven-plugin</artifactId>-->
 <!--                <version>${swagger.codegen.maven.plugin.version}</version>-->
 <!--            </dependency>-->
 
             <!-- Swagger 3 -->
-            <dependency>
-                <groupId>org.springdoc</groupId>
-                <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-                <version>2.3.0</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springdoc</groupId>
-                <artifactId>springdoc-openapi-starter-webmvc-api</artifactId>
-                <version>2.3.0</version>
-            </dependency>
 
             <dependency>
                 <groupId>org.apache.cxf</groupId>
@@ -178,11 +153,6 @@
     <build>
         <pluginManagement>
         <plugins>
-<!--            <plugin>-->
-<!--                <groupId>org.apache.cxf</groupId>-->
-<!--                <artifactId>cxf.codegen-plugin</artifactId>-->
-<!--                <version>${cxf-version}</version>-->
-<!--            </plugin>-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
@@ -256,97 +226,6 @@
                     <password>secret</password>
                 </configuration>
             </plugin>
-<!--            TODO: gdy ogarniemy dockerka-->
-<!--            <plugin>-->
-<!--                &lt;!&ndash;                Buduje i publikuje obrazy Dockera:&ndash;&gt;-->
-<!--                <groupId>com.spotify</groupId>-->
-<!--                <artifactId>dockerfile-maven-plugin</artifactId>-->
-<!--                <version>1.4.13</version>-->
-<!--                <executions>-->
-<!--                    <execution>-->
-<!--                        <id>default</id>-->
-<!--                        <goals><goal>build</goal></goals>-->
-<!--                    </execution>-->
-<!--                </executions>-->
-<!--                <configuration>-->
-<!--                    <repository>my-registry/app</repository>-->
-<!--                    <tag>${project.version}</tag>-->
-<!--                </configuration>-->
-<!--            </plugin>-->
-
-<!--                TODO: wywala błędy - zastąpiony springdoc, ale nie wiem z takimi możliwościami konfiguracyjnymi ręcznie-->
-<!--            <plugin>-->
-<!--                <groupId>io.openapitools.swagger</groupId>-->
-<!--                <artifactId>swagger-maven-plugin</artifactId>-->
-<!--                <version>${swagger.maven.plugin.version}</version>-->
-<!--                <configuration>-->
-<!--                    <resourcePackages>-->
-<!--                        <resourcePackage>pl.corp.kkf</resourcePackage>-->
-<!--                    </resourcePackages>-->
-<!--                    <useResourcePackagesChildren>true</useResourcePackagesChildren>-->
-<!--                    <outputDirectory>${basedir}/target/swagger-resources/META-INF/resources</outputDirectory>-->
-<!--                    <outputFilename>swagger-${project.artifactId}}</outputFilename>-->
-<!--                    <outputFormats>JSON,YAML</outputFormats>-->
-<!--                    <prettyPrint>true</prettyPrint>-->
-<!--                    <attachSwaggerArtifact>true</attachSwaggerArtifact>-->
-
-<!--                    <swaggerConfig>-->
-<!--                        <servers>-->
-<!--                            <server>-->
-<!--                                <url>http://localhost/kkf/services</url>-->
-<!--                                <description>Usługi KKF</description>-->
-<!--                            </server>-->
-<!--                        </servers>-->
-<!--                        <info>-->
-<!--                            <title>Moduł ${project.groupId}:${project.artifactId}</title>-->
-<!--                            <version>${project.version}-yyyy-MM-dd-HHmmss-${git.commit.id}</version>-->
-<!--                        </info>-->
-<!--                    </swaggerConfig>-->
-<!--                </configuration>-->
-<!--                <executions>-->
-<!--                    <execution>-->
-<!--                        <goals>-->
-<!--                            <goal>generate</goal>-->
-<!--                        </goals>-->
-<!--                        <phase>process-classes</phase>-->
-<!--                    </execution>-->
-<!--                </executions>-->
-<!--            </plugin>-->
-
-<!--            TODO: to complete-->
-<!--            <plugin>-->
-<!--                <groupId>io.swagger.codegen.v3</groupId>-->
-<!--                <artifactId>swagger-codegen-maven-plugin</artifactId>-->
-<!--                <version>${swagger.codegen.maven.plugin.version}</version>-->
-<!--                <dependencies>-->
-<!--&lt;!&ndash;                    <dependency>&ndash;&gt;-->
-<!--&lt;!&ndash;                        <groupId>pl.corp.kkf</groupId>&ndash;&gt;-->
-<!--&lt;!&ndash;                        <artifactId>kkf-commons-openapi-codegen-extension</artifactId>&ndash;&gt;-->
-<!--&lt;!&ndash;                        <version>${project.version}</version>&ndash;&gt;-->
-<!--&lt;!&ndash;                    </dependency>&ndash;&gt;-->
-<!--                </dependencies>-->
-<!--                <executions>-->
-<!--                    <execution>-->
-<!--                        <goals>-->
-<!--                            <goal>generate</goal>-->
-<!--                        </goals>-->
-<!--                        <phase>package</phase>-->
-<!--                        <configuration>-->
-<!--                            <inputSpec>-->
-<!--                                ${basedir}/target/swagger-resources/META-INF/resources/swagger-${project.artifactId}.json-->
-<!--                            </inputSpec>-->
-<!--&lt;!&ndash;                            TODO: dokończyć&ndash;&gt;-->
-<!--                            <language>typescript-angular-extension</language>-->
-<!--                            <output>${basedir}/target/ts-client</output>-->
-<!--                            <addCompileSourceRoot>false</addCompileSourceRoot>-->
-<!--                        </configuration>-->
-<!--                    </execution>-->
-<!--                </executions>-->
-<!--            </plugin>-->
-
-
-
-
 <!--            <plugin>-->
 <!--&lt;!&ndash;                Wymusza wersje Java/Maven:&ndash;&gt;-->
 <!--                <groupId>org.apache.maven.plugins</groupId>-->
@@ -406,8 +285,34 @@
                     <tagNameFormat>v@{project.version}</tagNameFormat>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>io.swagger.codegen.v3</groupId>
+                <artifactId>swagger-codegen-maven-plugin</artifactId>
+                <version>${swagger.codegen.maven.plugin.version}</version>
+                <dependencies>
+                    <!--                    <dependency>-->
+                    <!--                        <groupId>pl.corp.kkf</groupId>-->
+                    <!--                        <artifactId>kkf-commons-openapi-codegen-extension</artifactId>-->
+                    <!--                        <version>${project.version}</version>-->
+                    <!--                    </dependency>-->
+                </dependencies>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <phase>package</phase>
+                        <configuration>
+                            <inputSpec>${basedir}/target/swagger-resources/META-INF/resources/swagger-${project.artifactId}.json</inputSpec>
+                            <language>typescript-angular</language>
+                            <output>${basedir}/target/ts-client</output>
+                            <addCompileSourceRoot>false</addCompileSourceRoot>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
-    </pluginManagement>
+        </pluginManagement>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

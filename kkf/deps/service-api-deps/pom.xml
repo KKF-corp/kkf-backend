@@ -33,4 +33,30 @@
         </dependency>
     </dependencies>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>io.swagger.codegen.v3</groupId>
+                <artifactId>swagger-codegen-maven-plugin</artifactId>
+                <version>${swagger.codegen.maven.plugin.version}</version>
+                <dependencies>
+                    <!--                    <dependency>-->
+                    <!--                        <groupId>pl.corp.kkf</groupId>-->
+                    <!--                        <artifactId>kkf-commons-openapi-codegen-extension</artifactId>-->
+                    <!--                        <version>${project.version}</version>-->
+                    <!--                    </dependency>-->
+                </dependencies>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <phase>package</phase>
+                        <configuration>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 </project>
