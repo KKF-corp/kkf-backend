@@ -1,0 +1,61 @@
+version: "3.6"
+services:
+  kkf-db:
+    ports:
+      - 5432:5432
+    command: postgres -c 'max_connections=200'
+    image: postgres:14.5-bullseye
+    environment:
+      POSTGRES_DB: ${APP_DB_DATABASE_NAME:-kkf}
+      POSTGRES_USER: ${APP_DB_DATABASE_USER:-kkf}
+      POSTGRES_PASSWORD: ${APP_DB_DATABASE_PASSWORD:-kkf}
+    volumes:
+      - type: bind
+        source: ${APP_DB_DIR:-/usr/app/kkf/kkf-db/data}
+        target: /var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 15
+    networks:
+      - kkf-backend-network
+  kkf-front:
+    ports:
+      - ${FRONT_PORT:-443}:443
+    profiles: ["off"]
+    image: ${DOCKER_REGISTRY:-usr/kkf/kkf-front/app:${latest:-01}}
+#    environment:
+    volumes:
+      - type: bind
+        source: ${FRONT_LOG_DIR:-/usr/app/kkf/kkf-front/logs}
+        target: /usr/logs
+      - type: bind
+        source: ${FRONT_CONFIG_DIR:-/usr/app/kkf/kkf-front/config}
+        target: /usr/config
+    networks:
+      - kkf-front-network
+    depends_on:
+      - kkf-app
+  kkf-app:
+    profiles: ["off"]
+    image: ${DOCKER_REGISTRY:-usr/kkf/kkf-apps/app:${latest:-01}}
+    environment:
+      - EXTRA_JVM_OPTIONS=${EXTRA_JVM_OPTIONS:- -Xmx3g}
+    volumes:
+      - type: bind
+        source: ${APP_LOG_DIR:-/usr/app/kkf/kkf-app/log}
+        target: /usr/app/log
+      - type: bind
+        source: ${APP_CONFIG_DIR:-/usr/app/kkf/kkf-app/config}
+        target: /usr/app/config
+    networks:
+      - kkf-front-network
+      - kkf-backend-network
+    depends_on:
+      - kkf-db
+networks:
+  kkf-front-network:
+    driver: bridge
+  kkf-backend-network:
+    driver: bridge
