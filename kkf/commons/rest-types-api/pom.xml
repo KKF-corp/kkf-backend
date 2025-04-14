@@ -9,7 +9,7 @@
         <version>1.0.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>rest-types-api</artifactId>
+    <artifactId>kkf-commons-rest-types-api</artifactId>
     <version>1.0.0-SNAPSHOT</version>
 
 <!--    <name>kkf-</name>-->

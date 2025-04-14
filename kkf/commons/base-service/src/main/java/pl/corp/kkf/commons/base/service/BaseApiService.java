@@ -1,4 +1,4 @@
-package pl.corp.kkf.commons.base.services;
+package pl.corp.kkf.commons.base.service;
 
 public interface BaseApiService<T> {
 

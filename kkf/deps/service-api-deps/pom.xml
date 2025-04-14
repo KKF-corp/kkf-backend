@@ -28,7 +28,7 @@
         </dependency>
         <dependency>
             <groupId>pl.corp.kkf</groupId>
-            <artifactId>base-shared-types</artifactId>
+            <artifactId>kkf-commons-base-shared-types</artifactId>
             <version>${project.version}</version>
         </dependency>
     </dependencies>
