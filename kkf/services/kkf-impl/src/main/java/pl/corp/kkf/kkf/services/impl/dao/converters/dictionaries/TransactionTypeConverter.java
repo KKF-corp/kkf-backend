@@ -1,0 +1,23 @@
+package pl.corp.kkf.kkf.services.impl.dao.converters.dictionaries;
+
+import pl.corp.kkf.kkf.services.api.dictionaries.transactiontypes.dto.TransactionType;
+import pl.corp.kkf.kkf.services.model.dictionaries.TransactionTypeEntity;
+
+public class TransactionTypeConverter {
+
+    public static TransactionTypeEntity toEntity(TransactionType dto) {
+        TransactionTypeEntity entity = new TransactionTypeEntity();
+        entity.setId(dto.getId());
+        entity.setName(dto.getName());
+        entity.setType(dto.getType());
+        return entity;
+    }
+
+    public static TransactionType toDto(TransactionTypeEntity entity) {
+        TransactionType dto = new TransactionType();
+        dto.setId(entity.getId());
+        dto.setName(entity.getName());
+        dto.setType(entity.getType());
+        return dto;
+    }
+}
