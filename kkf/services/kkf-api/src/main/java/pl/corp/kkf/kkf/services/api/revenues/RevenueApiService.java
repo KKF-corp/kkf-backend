@@ -52,4 +52,10 @@ public interface RevenueApiService {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     List<Revenue> getAllRevenues();
+
+    @POST
+    @Path("/pages")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    RevenueSearchResponse findByCriteria(@Parameter(description = "Zapytanie wyszukiwania przychodów") RevenueSearchRequest request);
 }

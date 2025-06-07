@@ -19,30 +19,30 @@ public class ContractorApiServiceImpl implements ContractorApiService {
     private ContractorService contractorService;
 
     @Override
-    public ContractorResponse getContractor(long id) {
+    public Contractor getContractor(long id) {
         try {
             Contractor contractor = contractorService.getContractor(id);
-            return ContractorConverter.convertToContractorResponse(contractor);
+            return contractor;
         } catch (ContractorException e) {
             throw new ContractorException(Strings.EMPTY);
         }
     }
 
     @Override
-    public ContractorResponse createContractor(Contractor dto) {
+    public Contractor createContractor(Contractor dto) {
         try {
             Contractor contractor = contractorService.createContractor(dto);
-            return ContractorConverter.convertToContractorResponse(contractor);
+            return contractor;
         } catch (ContractorException e) {
             throw new ContractorException(Strings.EMPTY);
         }
     }
 
     @Override
-    public ContractorResponse updateContractor(Contractor dto) {
+    public Contractor updateContractor(Contractor dto) {
         try {
             Contractor contractor = contractorService.updateContractor(dto);
-            return ContractorConverter.convertToContractorResponse(contractor);
+            return contractor;
         } catch (ContractorException e) {
             throw new ContractorException(Strings.EMPTY);
         }
@@ -67,10 +67,10 @@ public class ContractorApiServiceImpl implements ContractorApiService {
     }
 
     @Override
-    public ContractorListResponse getAllContractors() {
+    public List<Contractor> getAllContractors() {
         try {
             List<Contractor> allContractors = contractorService.getAllContractors();
-            return ContractorConverter.convertToContractorListResponse(allContractors);
+            return allContractors;
         } catch (ContractorException e) {
             throw new ContractorException(Strings.EMPTY);
         }
