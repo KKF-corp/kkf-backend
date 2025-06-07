@@ -52,4 +52,10 @@ public interface ExpenseApiService {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     List<Expense> getAllExpenses();
+
+     @POST
+    @Path("/pages")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    ExpenseSearchResponse findByCriteria(@Parameter(description = "Zapytanie wyszukiwania wydatków") ExpenseSearchRequest request);
 }

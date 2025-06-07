@@ -18,21 +18,21 @@ public interface ContractorApiService {
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     @Operation(description = "Pobranie kontrahenta")
-    ContractorResponse getContractor(@Parameter(description = "Identyfikator kontrahenta")
+    Contractor getContractor(@Parameter(description = "Identyfikator kontrahenta")
                                      @PathParam("id") long id);
 
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     @Operation(description = "Utworzenie kontrahenta")
-    ContractorResponse createContractor(@Parameter(description = "Obiekt kontrahenta")
+    Contractor createContractor(@Parameter(description = "Obiekt kontrahenta")
                                         Contractor contractor);
 
     @PUT
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     @Operation(description = "Modyfikacja kontrahenta")
-    ContractorResponse updateContractor(@Parameter(description = "Obiekt kontrahenta")
+    Contractor updateContractor(@Parameter(description = "Obiekt kontrahenta")
                                         Contractor contractor);
 
     @POST
@@ -52,7 +52,7 @@ public interface ContractorApiService {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    ContractorListResponse getAllContractors();
+    List<Contractor> getAllContractors();
 
     @POST
     @Path("/pages")
