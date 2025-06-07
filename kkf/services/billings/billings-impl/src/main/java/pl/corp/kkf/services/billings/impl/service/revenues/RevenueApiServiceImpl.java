@@ -5,10 +5,8 @@ import org.springframework.stereotype.Service;
 import pl.corp.kkf.services.billings.api.revenues.RevenueApiService;
 import pl.corp.kkf.services.billings.api.revenues.dto.Revenue;
 import pl.corp.kkf.commons.rest.types.api.responses.GeneralResponse;
-import pl.corp.kkf.services.billings.impl.dao.converters.RevenueConverter;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class RevenueApiServiceImpl implements RevenueApiService {

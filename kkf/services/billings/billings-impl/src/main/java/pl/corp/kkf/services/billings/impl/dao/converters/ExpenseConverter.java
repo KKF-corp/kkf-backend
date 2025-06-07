@@ -1,7 +1,7 @@
 package pl.corp.kkf.services.billings.impl.dao.converters;
 
 import pl.corp.kkf.services.billings.api.expenses.dto.Expense;
-import pl.corp.kkf.services.billings.model.expenses.ExpenseEntity;
+import pl.corp.kkf.services.billings.model.ExpenseEntity;
 import pl.corp.kkf.services.dictionaries.impl.dao.converters.TransactionTypeConverter;
 import pl.corp.kkf.services.dictionaries.impl.dao.converters.ContractorConverter;
 import pl.corp.kkf.services.dictionaries.model.TransactionTypeEntity;

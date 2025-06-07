@@ -1,4 +1,4 @@
-package pl.corp.kkf.services.billings.api.services.dto;
+package pl.corp.kkf.services.billings.api.transactionservices.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import pl.corp.kkf.services.dictionaries.api.servicetypes.dto.ServiceType;
@@ -6,7 +6,7 @@ import pl.corp.kkf.services.dictionaries.api.servicetypes.dto.ServiceType;
 import java.math.BigDecimal;
 
 @Schema(description = "Wpis dla usługi")
-public class Service {
+public class TransactionServiceDto {
 
     @Schema(description = "Identyfikator")
     private Long id;

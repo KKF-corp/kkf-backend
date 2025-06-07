@@ -1,19 +1,20 @@
-package pl.corp.kkf.services.dictionaries.model;
+package pl.corp.kkf.services.billings.model;
 
 import jakarta.persistence.*;
 import pl.corp.kkf.commons.base.model.BaseEntity;
+import pl.corp.kkf.services.dictionaries.model.ServiceTypeEntity;
 
 import java.math.BigDecimal;
 import java.util.Objects;
 
 @Entity
-@Table(name = "SERVICES", schema = "DICTIONARIES")
-public class ServiceEntity extends BaseEntity {
+@Table(name = "TRANSACTION_SERVICES", schema = "BILLING")
+public class TransactionServiceEntity extends BaseEntity {
 
     @Id
     @Column(name = "ID")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SequenceServiceEntity")
-    @SequenceGenerator(name = "SequenceServiceEntity", schema = "DICTIONARIES", sequenceName = "SEQ_SERVICES")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SequenceTransactionServiceEntity")
+    @SequenceGenerator(name = "SequenceTransactionServiceEntity", schema = "BILLING", sequenceName = "SEQ_TRANSACTION_SERVICES")
     private Long id;
 
     @Column(name = "NAME")
@@ -21,9 +22,6 @@ public class ServiceEntity extends BaseEntity {
 
     @Column(name = "DESCRIPTION")
     private String description;
-
-    @Column(name = "ARCHIVAL")
-    private Boolean archival;
 
     @Column(name = "DISCOUNT")
     private BigDecimal discount;
@@ -47,6 +45,9 @@ public class ServiceEntity extends BaseEntity {
     @JoinColumn(name = "SERVICE_TYPE_ID")
     private ServiceTypeEntity serviceType;
 
+    @Column(name = "ARCHIVAL")
+    private Boolean archival;
+
     public Long getId() {
         return id;
     }
@@ -69,14 +70,6 @@ public class ServiceEntity extends BaseEntity {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public Boolean getArchival() {
-        return archival;
-    }
-
-    public void setArchival(Boolean archival) {
-        this.archival = archival;
     }
 
     public BigDecimal getDiscount() {
@@ -135,16 +128,24 @@ public class ServiceEntity extends BaseEntity {
         this.serviceType = serviceType;
     }
 
+    public Boolean getArchival() {
+        return archival;
+    }
+
+    public void setArchival(Boolean archival) {
+        this.archival = archival;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ServiceEntity that = (ServiceEntity) o;
-        return Objects.equals(id, that.id) && Objects.equals(name, that.name) && Objects.equals(description, that.description) && Objects.equals(archival, that.archival) && Objects.equals(discount, that.discount) && Objects.equals(netPrice, that.netPrice) && Objects.equals(grossPrice, that.grossPrice) && Objects.equals(vat, that.vat) && Objects.equals(unit, that.unit) && Objects.equals(quantity, that.quantity) && Objects.equals(serviceType, that.serviceType);
+        TransactionServiceEntity that = (TransactionServiceEntity) o;
+        return Objects.equals(id, that.id) && Objects.equals(name, that.name) && Objects.equals(description, that.description) && Objects.equals(discount, that.discount) && Objects.equals(netPrice, that.netPrice) && Objects.equals(grossPrice, that.grossPrice) && Objects.equals(vat, that.vat) && Objects.equals(unit, that.unit) && Objects.equals(quantity, that.quantity) && Objects.equals(serviceType, that.serviceType) && Objects.equals(archival, that.archival);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, description, archival, discount, netPrice, grossPrice, vat, unit, quantity, serviceType);
+        return Objects.hash(id, name, description, discount, netPrice, grossPrice, vat, unit, quantity, serviceType, archival);
     }
 }

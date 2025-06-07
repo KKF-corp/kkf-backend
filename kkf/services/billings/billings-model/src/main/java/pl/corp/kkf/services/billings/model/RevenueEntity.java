@@ -1,4 +1,4 @@
-package pl.corp.kkf.services.billings.model.revenues;
+package pl.corp.kkf.services.billings.model;
 
 import jakarta.persistence.*;
 import pl.corp.kkf.commons.base.model.BaseEntity;
