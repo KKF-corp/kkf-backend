@@ -5,10 +5,8 @@ import org.springframework.stereotype.Service;
 import pl.corp.kkf.services.billings.api.expenses.ExpenseApiService;
 import pl.corp.kkf.services.billings.api.expenses.dto.Expense;
 import pl.corp.kkf.commons.rest.types.api.responses.GeneralResponse;
-import pl.corp.kkf.services.billings.impl.dao.converters.ExpenseConverter;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class ExpenseApiServiceImpl implements ExpenseApiService {

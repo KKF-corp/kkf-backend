@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import pl.corp.kkf.services.billings.api.revenues.dto.Revenue;
 import pl.corp.kkf.services.billings.impl.dao.converters.RevenueConverter;
 import pl.corp.kkf.services.billings.impl.dao.repositories.RevenueRepository;
-import pl.corp.kkf.services.billings.model.revenues.RevenueEntity;
+import pl.corp.kkf.services.billings.model.RevenueEntity;
 
 import java.util.List;
 import java.util.stream.Collectors;

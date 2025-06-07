@@ -1,14 +1,14 @@
 package pl.corp.kkf.services.billings.impl.dao.converters;
 
-import pl.corp.kkf.services.billings.api.services.dto.Service;
-import pl.corp.kkf.services.billings.model.services.ServiceEntity;
+import pl.corp.kkf.services.billings.api.transactionservices.dto.TransactionServiceDto;
+import pl.corp.kkf.services.billings.model.TransactionServiceEntity;
 import pl.corp.kkf.services.dictionaries.impl.dao.converters.ServiceTypeConverter;
 import pl.corp.kkf.services.dictionaries.model.ServiceTypeEntity;
 
-public class ServiceConverter {
+public class TransactionServiceConverter {
 
-    public static ServiceEntity toEntity(Service dto) {
-        ServiceEntity entity = new ServiceEntity();
+    public static TransactionServiceEntity toEntity(TransactionServiceDto dto) {
+        TransactionServiceEntity entity = new TransactionServiceEntity();
         entity.setId(dto.getId());
         entity.setName(dto.getName());
         entity.setDescription(dto.getDescription());
@@ -28,8 +28,8 @@ public class ServiceConverter {
         return entity;
     }
 
-    public static Service toDto(ServiceEntity entity) {
-        Service dto = new Service();
+    public static TransactionServiceDto toDto(TransactionServiceEntity entity) {
+        TransactionServiceDto dto = new TransactionServiceDto();
         dto.setId(entity.getId());
         dto.setName(entity.getName());
         dto.setDescription(entity.getDescription());
