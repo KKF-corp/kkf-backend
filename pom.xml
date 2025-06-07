@@ -250,11 +250,11 @@
                 <groupId>org.flywaydb</groupId>
                 <artifactId>flyway-maven-plugin</artifactId>
                 <version>10.11.0</version>
-                <configuration>
-                    <url>jdbc:postgresql://localhost:5432/appdb</url>
-                    <user>admin</user>
-                    <password>secret</password>
-                </configuration>
+<!--                <configuration>-->
+<!--                    <url>jdbc:postgresql://localhost:5432/appdb</url>-->
+<!--                    <user>admin</user>-->
+<!--                    <password>secret</password>-->
+<!--                </configuration>-->
             </plugin>
 <!--            TODO: gdy ogarniemy dockerka-->
 <!--            <plugin>-->
