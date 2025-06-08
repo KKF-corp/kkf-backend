@@ -9,6 +9,7 @@ import pl.corp.kkf.kkf.services.model.dictionaries.AddressEntity;
 import pl.corp.kkf.kkf.services.model.dictionaries.ContractorEntity;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 public class ContractorConverter {
@@ -48,7 +49,10 @@ public class ContractorConverter {
         entity.setBankName(dto.getBankName());
         entity.setFax(dto.getFax());
         entity.setSwift(dto.getSwift());
-        entity.setAddress(AddressConverter.toEntity(Optional.ofNullable(entity.getAddress()).orElse(new AddressEntity()), dto.getAddress()));
+        if (Objects.nonNull(dto.getAddress())) {
+            entity.setAddress(AddressConverter.toEntity(Optional.ofNullable(entity.getAddress())
+                    .orElse(new AddressEntity()), dto.getAddress()));
+        }
         return entity;
     }
 

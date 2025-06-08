@@ -36,5 +36,11 @@
             <version>${project.version}</version>
             <scope>compile</scope>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.hibernate.tool/hibernate-tools-maven -->
+        <dependency>
+            <groupId>org.hibernate.tool</groupId>
+            <artifactId>hibernate-tools-maven</artifactId>
+            <version>7.0.2.Final</version>
+        </dependency>
     </dependencies>
 </project>

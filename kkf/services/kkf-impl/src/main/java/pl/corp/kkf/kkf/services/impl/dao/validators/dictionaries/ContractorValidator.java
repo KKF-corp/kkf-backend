@@ -1,4 +1,4 @@
-package pl.corp.kkf.kkf.services.impl.dao.validators;
+package pl.corp.kkf.kkf.services.impl.dao.validators.dictionaries;
 
 import jakarta.validation.constraints.NotNull;
 import pl.corp.kkf.kkf.services.api.dictionaries.contractors.dto.Contractor;
@@ -6,19 +6,19 @@ import pl.corp.kkf.kkf.services.impl.dao.exceptions.dictionaries.ContractorExcep
 
 public class ContractorValidator {
 
-    public static void validateCreation(@NotNull Contractor contractor) {
+    public static void validateForCreation(@NotNull Contractor contractor) {
         if (contractor.getId() != null) {
             throw new ContractorException("Identyfikator już istnieje podczas tworzenia!");
         }
     }
 
-    public static void validateUpdate(@NotNull Contractor contractor) {
+    public static void validateForUpdate(@NotNull Contractor contractor) {
         if (contractor.getId() == null) {
             throw new ContractorException("Identyfikator nie istnieje podczas modyfikacji!");
         }
     }
 
-    public static void validateArchivization(boolean isArchival, boolean archivization) {
+    public static void validateForArchivization(boolean isArchival, boolean archivization) {
         if (isArchival && archivization) {
             throw new ContractorException("Nie można zarchiwizować już archiwalnego obiektu!");
         } else if (!isArchival && !archivization) {

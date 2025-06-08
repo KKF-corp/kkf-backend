@@ -1,6 +1,8 @@
 package pl.corp.kkf.kkf.services.impl.service.dictionaries.transactionservicetypes;
 
-import pl.corp.kkf.kkf.services.api.dictionaries.servicetypes.dto.TransactionServiceType;
+import pl.corp.kkf.commons.rest.types.api.pages.PageDTO;
+import pl.corp.kkf.kkf.services.api.dictionaries.transactionservicetypes.dto.TransactionServiceType;
+import pl.corp.kkf.kkf.services.api.dictionaries.transactionservicetypes.dto.TransactionServiceTypeSearchRequest;
 
 import java.util.List;
 
@@ -17,4 +19,6 @@ public interface TransactionServiceTypeService {
     void unarchiveTransactionServiceType(long id);
 
     List<TransactionServiceType> getAllTransactionServiceTypes();
+
+    PageDTO<TransactionServiceType> findByCriteria(TransactionServiceTypeSearchRequest request);
 }

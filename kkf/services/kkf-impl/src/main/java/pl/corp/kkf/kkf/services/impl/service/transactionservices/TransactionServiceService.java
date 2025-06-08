@@ -8,7 +8,9 @@ public interface TransactionServiceService {
 
     TransactionServiceDto getTransactionService(long id);
 
-    TransactionServiceDto createTransactionService(TransactionServiceDto service);
+    TransactionServiceDto createRevenueService(TransactionServiceDto transactionService);
+
+    TransactionServiceDto createExpenseService(TransactionServiceDto transactionService);
 
     TransactionServiceDto updateTransactionService(TransactionServiceDto service);
 

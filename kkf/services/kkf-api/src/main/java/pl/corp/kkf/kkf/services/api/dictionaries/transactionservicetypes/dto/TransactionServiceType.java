@@ -1,27 +1,30 @@
-package pl.corp.kkf.kkf.services.api.dictionaries.servicetypes.dto;
+package pl.corp.kkf.kkf.services.api.dictionaries.transactionservicetypes.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotNull;
 
 @Schema(description = "Wpis dla typu usługa")
 public class TransactionServiceType {
 
     @Schema(description = "Identyfikator")
-    private long id;
+    private Long id;
 
+    @NotNull
     @Schema(description = "Nazwa")
     private String name;
 
+    @NotNull
     @Schema(description = "Opis")
     private String description;
 
     @Schema(description = "Wskaźnik czy archiwalny")
     private Boolean archival;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

@@ -39,18 +39,11 @@ public interface ExpenseApiService {
                           @Valid Expense expense);
 
     @POST
-    @Path("/archive/{id}")
+    @Path("/delete/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    @Operation(description = "Archiwizacja wydatku")
+    @Operation(description = "Usunięcie wydatku")
     GeneralResponse archiveExpense(@Parameter(description = "Identyfikator wydatku")
                                    @PathParam("id") long id);
-
-    @POST
-    @Path("/un-archive/{id}")
-    @Produces(MediaType.APPLICATION_JSON)
-    @Operation(description = "Odarchiwizowanie wydatku")
-    GeneralResponse unarchiveExpense(@Parameter(description = "Identyfikator wydatku")
-                                     @PathParam("id") long id);
 
     @GET
     @Path("/all")

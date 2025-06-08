@@ -1,6 +1,8 @@
 package pl.corp.kkf.kkf.services.impl.dao.converters.dictionaries;
 
+import pl.corp.kkf.commons.rest.types.api.pages.PageDTO;
 import pl.corp.kkf.kkf.services.api.dictionaries.transactiontypes.dto.TransactionType;
+import pl.corp.kkf.kkf.services.api.dictionaries.transactiontypes.dto.TransactionTypeSearchResponse;
 import pl.corp.kkf.kkf.services.model.dictionaries.TransactionTypeEntity;
 
 public class TransactionTypeConverter {
@@ -18,5 +20,9 @@ public class TransactionTypeConverter {
         dto.setName(entity.getName());
         dto.setType(entity.getType());
         return dto;
+    }
+
+    public static TransactionTypeSearchResponse convertToContractorSearchResponse(PageDTO<TransactionType> byCriteria) {
+        return null;
     }
 }

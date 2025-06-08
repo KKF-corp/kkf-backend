@@ -18,7 +18,7 @@ public class ExpenseEntity extends BaseEntity {
     @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SequenceExpenseEntity")
     @SequenceGenerator(name = "SequenceExpenseEntity", schema = "BILLING", sequenceName = "SEQ_EXPENSES")
-    private long id;
+    private Long id;
 
     @Column(name = "NAME")
     private String name;
@@ -47,13 +47,13 @@ public class ExpenseEntity extends BaseEntity {
     private ContractorEntity contractor;
 
     @OneToMany(mappedBy = "expense", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<TransactionServiceEntity> transactionServices;
+    private Set<ExpenseTransactionServiceEntity> transactionServices;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -121,11 +121,11 @@ public class ExpenseEntity extends BaseEntity {
         this.contractor = contractor;
     }
 
-    public Set<TransactionServiceEntity> getTransactionServices() {
+    public Set<ExpenseTransactionServiceEntity> getTransactionServices() {
         return transactionServices;
     }
 
-    public void setTransactionServices(Set<TransactionServiceEntity> transactionServices) {
+    public void setTransactionServices(Set<ExpenseTransactionServiceEntity> transactionServices) {
         this.transactionServices = transactionServices;
     }
 
