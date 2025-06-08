@@ -53,4 +53,10 @@ public interface TransactionServiceTypeApiService {
     @Path("/all")
     @Produces(MediaType.APPLICATION_JSON)
     List<TransactionServiceType> getAllTransactionServiceTypes();
+
+    @POST
+    @Path("/pages")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    TransactionServiceTypeSearchResponse findByCriteria(@Parameter(description = "Zapytanie wyszukiwania typu usługa") TransactionServiceTypeSearchRequest request);
 }

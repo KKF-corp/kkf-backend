@@ -6,12 +6,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import pl.corp.kkf.kkf.services.api.dictionaries.addresses.dto.AddressCriteria;
 import pl.corp.kkf.kkf.services.model.dictionaries.AddressEntity;
-import pl.corp.kkf.kkf.services.model.dictionaries.ContractorEntity;
+import pl.corp.kkf.commons.base.dao.FilterBuilder;
 
 public interface AddressRepository extends JpaRepository<AddressEntity, Long>,
         JpaSpecificationExecutor<AddressEntity> {
 
-    default Specification<AddressEntity> getSpecification(@NotNull AddressCriteria criteria) {
+   default Specification<AddressEntity> getSpecification(@NotNull AddressCriteria criteria) {
         return null;
     }
 }

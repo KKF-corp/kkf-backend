@@ -1,30 +1,25 @@
 package pl.corp.kkf.kkf.services.impl.service.expenses;
 
-import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
-import pl.corp.kkf.commons.base.service.rest.PageUtils;
 import pl.corp.kkf.commons.rest.types.api.pages.PageDTO;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Page;
+import pl.corp.kkf.commons.rest.types.api.responses.GeneralResponse;
 import pl.corp.kkf.kkf.services.api.expenses.dto.Expense;
 import pl.corp.kkf.kkf.services.api.expenses.dto.ExpenseSearchRequest;
-import pl.corp.kkf.kkf.services.impl.dao.converters.ExpenseConverter;
-import pl.corp.kkf.kkf.services.impl.dao.exceptions.dictionaries.ContractorException;
 import pl.corp.kkf.kkf.services.impl.dao.repositories.ExpenseRepository;
+import pl.corp.kkf.kkf.services.impl.dao.converters.ExpenseConverter;
+import pl.corp.kkf.commons.base.service.PageUtils;
 import pl.corp.kkf.kkf.services.model.ExpenseEntity;
+import org.springframework.data.jpa.domain.Specification;
+import pl.corp.kkf.kkf.services.api.expenses.dto.ExpenseCriteria;
 
 import java.util.List;
-import java.util.function.Supplier;
 import java.util.stream.Collectors;
-
-import static pl.corp.kkf.kkf.services.impl.dao.converters.ExpenseConverter.toDto;
 
 @Service
 public class ExpenseServiceImpl implements ExpenseService {
-
-    public static final Supplier<@NotNull ContractorException> EXPENSE_NOT_FOUND_EXCEPTION_SUPPLIER = () -> new ContractorException("Nie znaleziono rozchodu o podanym identyfikatorze");
 
     @Autowired
     private ExpenseRepository expenseRepository;
@@ -77,11 +72,12 @@ public class ExpenseServiceImpl implements ExpenseService {
                 .collect(Collectors.toList());
     }
 
-    @Override
+     @Override
     public PageDTO<Expense> findByCriteria(ExpenseSearchRequest request) {
         Pageable pageable = PageUtils.convertTo(request.getPageRequestDTO());
         Specification<ExpenseEntity> specification = expenseRepository.getSpecification(request.getCriteria());
-        Page<ExpenseEntity> entities = expenseRepository.findAll(specification, pageable);
-        return PageUtils.convertTo(entities.map(ExpenseConverter::toDto));
+        Page<ExpenseEntity> expenseEntities = expenseRepository.findAll(specification, pageable);
+        PageDTO<Expense> pageDTO = PageUtils.convertTo(expenseEntities.map(ExpenseConverter::toDto));
+        return pageDTO;
     }
 }

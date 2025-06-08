@@ -5,8 +5,7 @@ import pl.corp.kkf.kkf.services.model.dictionaries.TransactionServiceEntity;
 
 public class TransactionServiceDictionaryConverter {
 
-    public static TransactionServiceEntity toEntity(TransactionServiceDto dto) {
-        TransactionServiceEntity entity = new TransactionServiceEntity();
+    public static TransactionServiceEntity toEntity(TransactionServiceEntity entity, TransactionServiceDto dto) {
         entity.setId(dto.getId());
         entity.setName(dto.getName());
         entity.setDescription(dto.getDescription());
