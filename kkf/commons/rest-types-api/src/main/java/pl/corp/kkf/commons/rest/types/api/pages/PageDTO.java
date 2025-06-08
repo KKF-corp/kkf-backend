@@ -1,16 +1,26 @@
 package pl.corp.kkf.commons.rest.types.api.pages;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.Valid;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@Schema(description = "Strona z danymi")
 public class PageDTO<T> {
 
+    @Valid
+    @Schema(description = "Zawartość strony")
     private List<T> content = new ArrayList<>();
 
-    private Long totalElements;
+    @Schema(description = "Ilość wszystkich elemenetów na wszystkich stronach")
+    private Long total;
 
-    private Long TotalPages;
+    @Schema(description = "Ilość stron")
+    private Long totalPages;
 
+    @Valid
+    @Schema(description = "Obecna strona")
     private PageRequestDTO currentPage;
 
     public List<T> getContent() {
@@ -21,20 +31,20 @@ public class PageDTO<T> {
         this.content = content;
     }
 
-    public Long getTotalElements() {
-        return totalElements;
+    public Long getTotal() {
+        return total;
     }
 
-    public void setTotalElements(Long totalElements) {
-        this.totalElements = totalElements;
+    public void setTotal(Long total) {
+        this.total = total;
     }
 
     public Long getTotalPages() {
-        return TotalPages;
+        return totalPages;
     }
 
     public void setTotalPages(Long totalPages) {
-        TotalPages = totalPages;
+        this.totalPages = totalPages;
     }
 
     public PageRequestDTO getCurrentPage() {

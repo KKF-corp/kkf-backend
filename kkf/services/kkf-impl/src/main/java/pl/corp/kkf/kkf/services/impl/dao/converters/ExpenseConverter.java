@@ -1,18 +1,14 @@
 package pl.corp.kkf.kkf.services.impl.dao.converters;
 
-import pl.corp.kkf.kkf.services.api.dictionaries.contractors.dto.Contractor;
-import pl.corp.kkf.kkf.services.api.dictionaries.transactiontypes.dto.TransactionType;
 import pl.corp.kkf.kkf.services.api.expenses.dto.Expense;
 import pl.corp.kkf.kkf.services.impl.dao.converters.dictionaries.ContractorConverter;
 import pl.corp.kkf.kkf.services.impl.dao.converters.dictionaries.TransactionTypeConverter;
 import pl.corp.kkf.kkf.services.model.ExpenseEntity;
 import pl.corp.kkf.kkf.services.model.dictionaries.ContractorEntity;
-import pl.corp.kkf.kkf.services.model.dictionaries.TransactionTypeEntity;
 
 public class ExpenseConverter {
 
-    public static ExpenseEntity toEntity(Expense dto) {
-        ExpenseEntity entity = new ExpenseEntity();
+    public static ExpenseEntity toEntity(ExpenseEntity entity, Expense dto) {
         entity.setId(dto.getId());
         entity.setName(dto.getName());
         entity.setDescription(dto.getDescription());
@@ -22,13 +18,11 @@ public class ExpenseConverter {
         entity.setTotalGrossPrice(dto.getTotalGrossPrice());
 
         if (dto.getTransactionType() != null) {
-            TransactionTypeEntity transactionTypeEntity = TransactionTypeConverter.toEntity(dto.getTransactionType());
-            entity.setTransactionType(transactionTypeEntity);
+            entity.setTransactionType(TransactionTypeConverter.toEntity(dto.getTransactionType()));
         }
 
         if (dto.getContractor() != null) {
-            ContractorEntity contractorEntity = ContractorConverter.convertToContractorEntity(dto.getContractor());
-            entity.setContractor(contractorEntity);
+            entity.setContractor(ContractorConverter.toEntity(new ContractorEntity(), dto.getContractor()));
         }
 
         return entity;
@@ -45,13 +39,11 @@ public class ExpenseConverter {
         dto.setTotalGrossPrice(entity.getTotalGrossPrice());
 
         if (entity.getTransactionType() != null) {
-            TransactionType transactionTypeDto = TransactionTypeConverter.toDto(entity.getTransactionType());
-            dto.setTransactionType(transactionTypeDto);
+            dto.setTransactionType(TransactionTypeConverter.toDto(entity.getTransactionType()));
         }
 
         if (entity.getContractor() != null) {
-            Contractor contractorDto = ContractorConverter.convertToContractor(entity.getContractor());
-            dto.setContractor(contractorDto);
+            dto.setContractor(ContractorConverter.toDto(entity.getContractor()));
         }
 
         return dto;

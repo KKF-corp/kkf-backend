@@ -1,60 +1,72 @@
 package pl.corp.kkf.kkf.services.impl.service.expenses;
 
+import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import pl.corp.kkf.commons.base.service.rest.PageUtils;
+import pl.corp.kkf.commons.rest.types.api.pages.PageDTO;
 import pl.corp.kkf.kkf.services.api.expenses.dto.Expense;
+import pl.corp.kkf.kkf.services.api.expenses.dto.ExpenseSearchRequest;
 import pl.corp.kkf.kkf.services.impl.dao.converters.ExpenseConverter;
+import pl.corp.kkf.kkf.services.impl.dao.exceptions.dictionaries.ContractorException;
 import pl.corp.kkf.kkf.services.impl.dao.repositories.ExpenseRepository;
 import pl.corp.kkf.kkf.services.model.ExpenseEntity;
 
 import java.util.List;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
+
+import static pl.corp.kkf.kkf.services.impl.dao.converters.ExpenseConverter.toDto;
 
 @Service
 public class ExpenseServiceImpl implements ExpenseService {
 
-    private final ExpenseRepository expenseRepository;
+    public static final Supplier<@NotNull ContractorException> EXPENSE_NOT_FOUND_EXCEPTION_SUPPLIER = () -> new ContractorException("Nie znaleziono rozchodu o podanym identyfikatorze");
 
     @Autowired
-    public ExpenseServiceImpl(ExpenseRepository expenseRepository) {
-        this.expenseRepository = expenseRepository;
-    }
+    private ExpenseRepository expenseRepository;
 
     @Override
     public Expense getExpense(long id) {
         ExpenseEntity expenseEntity = expenseRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Expense not found with id: " + id));
-        return ExpenseConverter.toDto(expenseEntity);
+                .orElseThrow(EXPENSE_NOT_FOUND_EXCEPTION_SUPPLIER);
+        return toDto(expenseEntity);
     }
 
     @Override
     public Expense createExpense(Expense expense) {
-        ExpenseEntity expenseEntity = ExpenseConverter.toEntity(expense);
-        ExpenseEntity savedExpenseEntity = expenseRepository.save(expenseEntity);
-        return ExpenseConverter.toDto(savedExpenseEntity);
+        // TODO: walidacja
+        ExpenseEntity expenseEntity = ExpenseConverter.toEntity(new ExpenseEntity(), expense);
+        return toDto(expenseRepository.save(expenseEntity));
     }
 
     @Override
     public Expense updateExpense(Expense expense) {
-        ExpenseEntity expenseEntity = ExpenseConverter.toEntity(expense);
-        ExpenseEntity updatedExpenseEntity = expenseRepository.save(expenseEntity);
-        return ExpenseConverter.toDto(updatedExpenseEntity);
+        // TODO: walidacja
+        ExpenseEntity entity = expenseRepository.findById(expense.getId())
+                .orElseThrow(EXPENSE_NOT_FOUND_EXCEPTION_SUPPLIER);
+        return toDto(expenseRepository.save(ExpenseConverter.toEntity(entity, expense)));
     }
 
     @Override
     public void archiveExpense(long id) {
-        ExpenseEntity expenseEntity = expenseRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Expense not found with id: " + id));
-        expenseEntity.setDeleted(true);
-        expenseRepository.save(expenseEntity);
+        // TODO: walidacja
+        ExpenseEntity entity = expenseRepository.findById(id)
+                .orElseThrow(EXPENSE_NOT_FOUND_EXCEPTION_SUPPLIER);
+        entity.setDeleted(true);
+        expenseRepository.save(entity);
     }
 
     @Override
     public void unarchiveExpense(long id) {
-        ExpenseEntity expenseEntity = expenseRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Expense not found with id: " + id));
-        expenseEntity.setDeleted(false);
-        expenseRepository.save(expenseEntity);
+        // TODO: walidacja
+        ExpenseEntity entity = expenseRepository.findById(id)
+                .orElseThrow(EXPENSE_NOT_FOUND_EXCEPTION_SUPPLIER);
+        entity.setDeleted(false);
+        expenseRepository.save(entity);
     }
 
     @Override
@@ -63,5 +75,13 @@ public class ExpenseServiceImpl implements ExpenseService {
         return expenseEntities.stream()
                 .map(ExpenseConverter::toDto)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public PageDTO<Expense> findByCriteria(ExpenseSearchRequest request) {
+        Pageable pageable = PageUtils.convertTo(request.getPageRequestDTO());
+        Specification<ExpenseEntity> specification = expenseRepository.getSpecification(request.getCriteria());
+        Page<ExpenseEntity> entities = expenseRepository.findAll(specification, pageable);
+        return PageUtils.convertTo(entities.map(ExpenseConverter::toDto));
     }
 }

@@ -50,6 +50,7 @@ public interface TransactionServiceTypeApiService {
                                                     @PathParam("id") long id);
 
     @GET
+    @Path("/all")
     @Produces(MediaType.APPLICATION_JSON)
     List<TransactionServiceType> getAllTransactionServiceTypes();
 }

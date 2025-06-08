@@ -6,7 +6,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 public class TransactionServiceType {
 
     @Schema(description = "Identyfikator")
-    private Long id;
+    private long id;
 
     @Schema(description = "Nazwa")
     private String name;
@@ -17,7 +17,7 @@ public class TransactionServiceType {
     @Schema(description = "Wskaźnik czy archiwalny")
     private Boolean archival;
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 

@@ -27,7 +27,7 @@ public class RevenueConverter {
         }
 
         if (dto.getContractor() != null) {
-            ContractorEntity contractorEntity = ContractorConverter.convertToContractorEntity(dto.getContractor());
+            ContractorEntity contractorEntity = ContractorConverter.toEntity(dto.getContractor());
             entity.setContractor(contractorEntity);
         }
 
@@ -50,7 +50,7 @@ public class RevenueConverter {
         }
 
         if (entity.getContractor() != null) {
-            Contractor contractorDto = ContractorConverter.convertToContractor(entity.getContractor());
+            Contractor contractorDto = ContractorConverter.toDto(entity.getContractor());
             dto.setContractor(contractorDto);
         }
 

@@ -1,16 +1,15 @@
-package pl.corp.kkf.commons.base.service;
+package pl.corp.kkf.commons.base.service.rest;
 
+import org.apache.commons.collections4.MapUtils;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.domain.Page;
-import pl.corp.kkf.commons.rest.types.api.pages.PageRequestDTO;
 import pl.corp.kkf.commons.rest.types.api.pages.PageDTO;
+import pl.corp.kkf.commons.rest.types.api.pages.PageRequestDTO;
 import pl.corp.kkf.commons.rest.types.api.pages.SortDirection;
 
-import java.util.List;
-import java.util.Map;
-import java.util.HashMap;
+import java.util.*;
 
 public class PageUtils {
 
@@ -23,52 +22,87 @@ public class PageUtils {
         put(SortDirection.DESC, Sort.Direction.DESC);
     }};
 
-    public static final Map<Sort.Direction, SortDirection> directionReverseMap = new HashMap<>() {{
-        put(Sort.Direction.ASC, SortDirection.ASC);
-        put(Sort.Direction.DESC, SortDirection.DESC);
-    }};
+    public static final Map<Sort.Direction, SortDirection> directionReverseMap = MapUtils.invertMap(directionMap);
 
-    public static Pageable convertToPageable(PageRequestDTO pageRequestDTO) {
-        validatePageRequest(pageRequestDTO);
-        Sort sort = Sort.unsorted();
-        if (pageRequestDTO.getSortBy() != null && !pageRequestDTO.getSortBy().isEmpty()) {
-            Sort.Direction direction = directionMap.get(pageRequestDTO.getSortDirection());
-            sort = Sort.by(direction, pageRequestDTO.getSortBy());
+    public static Pageable convertTo(PageRequestDTO pageRequestDTO, Sort.Order... orders) {
+//        validatePageRequest(pageRequestDTO);
+
+        if (pageRequestDTO == null) {
+            if (orders == null || orders.length == 0) {
+                return PageRequest.of(FIRST_PAGE, DEFAULT_PAGE_SIZE);
+            } else {
+                return PageRequest.of(FIRST_PAGE, DEFAULT_PAGE_SIZE, Sort.by(orders));
+            }
         }
 
-        int page = pageRequestDTO.getPage() != null ? pageRequestDTO.getPage() : FIRST_PAGE;
-        int size = pageRequestDTO.getPageSize() != null ? pageRequestDTO.getPageSize() : DEFAULT_PAGE_SIZE;
+        if (pageRequestDTO.getPage() == null || pageRequestDTO.getPage() < FIRST_PAGE) {
+            pageRequestDTO.setPage((long) FIRST_PAGE);
+        }
 
-        return PageRequest.of(page, size, sort);
-    }}
+        if (pageRequestDTO.getSize() == null || pageRequestDTO.getSize() <= 0) {
+            pageRequestDTO.setSize((long) DEFAULT_PAGE_SIZE);
+        }
 
-    public static PageRequestDTO convertToPageRequestDTO(Pageable pageable) {
+        if (pageRequestDTO.getSize() > MAX_PAGE_SIZE) {
+            pageRequestDTO.setSize((long) MAX_PAGE_SIZE);
+        }
+
+        return PageRequest.of(pageRequestDTO.getPage().intValue(), pageRequestDTO.getSize().intValue(), convertToSort(pageRequestDTO, orders));
+    }
+
+    public static PageRequestDTO convertTo(Pageable pageable) {
         PageRequestDTO pageRequestDTO = new PageRequestDTO();
-        pageRequestDTO.setPage(pageable.getPageNumber());
-        pageRequestDTO.setPageSize(pageable.getPageSize());
+        pageRequestDTO.setPage((long) pageable.getPageNumber());
+        pageRequestDTO.setSize((long) pageable.getPageSize());
+        Sort sort = pageable.getSort();
 
-        if (pageable.getSort().isSorted()) {
-            Sort.Order order = pageable.getSort().iterator().next();
-            pageRequestDTO.setSortBy(order.getProperty());
-            pageRequestDTO.setSortDirection(directionReverseMap.get(order.getDirection()));
-        }
+        sort.get()
+                .findFirst()
+                .ifPresent(order -> {
+                    pageRequestDTO.setDirection(getReverseDirection(order));
+                    pageRequestDTO.setSortBy(order.getProperty());
+                });
 
         return pageRequestDTO;
-    }}
+    }
 
-    public static <T> PageDTO<T> convertToPageDTO(Page<T> page) {
-        PageDTO<T> pageDTO = new PageDTO<>();
-        pageDTO.setContent(page.getContent());
-        pageDTO.setNumber(page.getNumber());
-        pageDTO.setSize(page.getSize());
-        pageDTO.setTotalElements(page.getTotalElements());
-        pageDTO.setTotalPages(page.getTotalPages());
-        return pageDTO;
-    }}
+    public static Sort convertToSort(PageRequestDTO pageRequestDTO, Sort.Order[] sortOrders) {
+        List<Sort.Order> orders = new LinkedList<>();
+        String sortBy = pageRequestDTO.getSortBy();
+
+        if (sortBy != null) {
+            orders.add(new Sort.Order(getDirection(pageRequestDTO), sortBy));
+        }
+
+        if (sortOrders != null) {
+            orders.addAll(Arrays.asList(sortOrders));
+        }
+
+        return orders.isEmpty() ? Sort.unsorted() : Sort.by(orders);
+    }
+
+    private static Sort.Direction getDirection(PageRequestDTO requestDTO) {
+        return Optional.ofNullable(requestDTO.getDirection())
+                .map(directionMap::get)
+                .orElse(Sort.Direction.ASC);
+    }
+
+    private static SortDirection getReverseDirection(Sort.Order order) {
+        return directionReverseMap.get(order.getDirection());
+    }
+
+    public static <T> PageDTO<T> convertTo(Page<T> page) {
+        PageDTO<T> results = new PageDTO<>();
+        results.setContent(page.getContent());
+        results.setTotal(page.getTotalElements());
+        results.setTotalPages((long) page.getTotalPages());
+        results.setCurrentPage(convertTo(page.getPageable()));
+        return results;
+    }
 
     private static void validatePageRequest(PageRequestDTO pageRequestDTO) {
-        if (pageRequestDTO.getPageSize() != null && pageRequestDTO.getPageSize() > MAX_PAGE_SIZE) {
+        if (pageRequestDTO.getSize() != null && pageRequestDTO.getSize() > MAX_PAGE_SIZE) {
             throw new IllegalArgumentException("Page size cannot be greater than " + MAX_PAGE_SIZE);
         }
-    }}
+    }
 }
