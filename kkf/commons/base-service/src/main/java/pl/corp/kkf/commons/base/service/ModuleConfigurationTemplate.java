@@ -13,6 +13,8 @@ import java.util.Properties;
 
 public abstract class ModuleConfigurationTemplate {
 
+    public static final String COMMON_ROOT_PACKAGE = "pl.corp.kkf";
+
     protected DataSource dataSource;
 
     private Properties jpaProperties = new Properties();
@@ -23,7 +25,7 @@ public abstract class ModuleConfigurationTemplate {
 
     public DataSource getDataSource() {
         HikariDataSource hikariDataSource = new HikariDataSource();
-        hikariDataSource.setPoolName(getModuleName() + "-HikariPool");
+        hikariDataSource.setPoolName(getModuleName() + "HikariPool");
         dataSource = hikariDataSource;
         return dataSource;
     }
@@ -40,7 +42,7 @@ public abstract class ModuleConfigurationTemplate {
     }
 
     public LocalContainerEntityManagerFactoryBean getEntityManagerFactory(String persistenceUnitName) {
-        flywayMigrate();
+//        flywayMigrate();
         LocalContainerEntityManagerFactoryBean entity = new LocalContainerEntityManagerFactoryBean();
         entity.setDataSource(dataSource);
         entity.setPersistenceProviderClass(HibernatePersistenceProvider.class);
@@ -55,17 +57,37 @@ public abstract class ModuleConfigurationTemplate {
     }
 
     protected String getModelPackage() {
-        return "pl.corp.kkf.services." + getModuleNameAsDotted() + ".model";
+        return "pl.corp.kkf." + getModuleNameAsDotted() + ".services.model";
     }
 
     private String getModuleNameAsDotted() {
         return getModuleName()
                 .replaceAll("([A-Z]+)([A-Z][a-z])", "$1\\.$2")
-                .replaceAll("([a-z])([A-Z])", "$1\\.$2");
+                .replaceAll("([a-z])([A-Z])", "$1\\.$2")
+                .toLowerCase();
     }
 
     private String getSchemaLocation() {
         String schemaName = getModuleName();
-        return "classpath:db/" + schemaName + "/migration";
+        return "classpath:db/" + getModuleName()
+                .replaceAll("([A-Z]+)([A-Z][a-z])", "$1\\/$2")
+                .replaceAll("([a-z])([A-Z])", "$1\\/$2")
+                .toLowerCase() + "/migration";
+    }
+
+    public Properties getJpaProperties() {
+        return jpaProperties;
+    }
+
+    public void setJpaProperties(Properties jpaProperties) {
+        this.jpaProperties = jpaProperties;
+    }
+
+    public Properties getFlywayProperties() {
+        return flywayProperties;
+    }
+
+    public void setFlywayProperties(Properties flywayProperties) {
+        this.flywayProperties = flywayProperties;
     }
 }

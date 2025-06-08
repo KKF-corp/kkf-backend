@@ -13,7 +13,7 @@ public class TransactionServiceTypeEntity extends BaseEntity {
     @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SequenceTransactionServiceTypeEntity")
     @SequenceGenerator(name = "SequenceTransactionServiceTypeEntity", schema = "DICTIONARIES", sequenceName = "SEQ_TRANSACTION_SERVICE_TYPES")
-    private long id;
+    private Long id;
 
     @Column(name = "NAME")
     private String name;
@@ -22,13 +22,13 @@ public class TransactionServiceTypeEntity extends BaseEntity {
     private String description;
 
     @Column(name = "ARCHIVAL")
-    private Boolean archival;
+    private boolean archival;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -48,11 +48,11 @@ public class TransactionServiceTypeEntity extends BaseEntity {
         this.description = description;
     }
 
-    public Boolean getArchival() {
+    public boolean isArchival() {
         return archival;
     }
 
-    public void setArchival(Boolean archival) {
+    public void setArchival(boolean archival) {
         this.archival = archival;
     }
 

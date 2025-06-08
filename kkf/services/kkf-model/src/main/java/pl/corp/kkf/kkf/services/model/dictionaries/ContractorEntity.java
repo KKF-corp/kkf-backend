@@ -16,7 +16,7 @@ public class ContractorEntity extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SequenceContractorEntity")
     @SequenceGenerator(name = "SequenceContractorEntity", schema = "DICTIONARIES",
             sequenceName = "SEQ_CONTRACTORS")
-    private long id;
+    private Long id;
 
     @Column(name = "NAME")
     private String name;
@@ -62,11 +62,11 @@ public class ContractorEntity extends BaseEntity {
     @JoinColumn(name = "ADDRESS_ID", referencedColumnName = "ID")
     private AddressEntity address;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

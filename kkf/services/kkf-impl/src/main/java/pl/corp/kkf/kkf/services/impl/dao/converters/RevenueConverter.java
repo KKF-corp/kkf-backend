@@ -1,18 +1,21 @@
 package pl.corp.kkf.kkf.services.impl.dao.converters;
 
+import pl.corp.kkf.commons.rest.types.api.pages.PageDTO;
 import pl.corp.kkf.kkf.services.api.dictionaries.contractors.dto.Contractor;
 import pl.corp.kkf.kkf.services.api.dictionaries.transactiontypes.dto.TransactionType;
 import pl.corp.kkf.kkf.services.api.revenues.dto.Revenue;
+import pl.corp.kkf.kkf.services.api.revenues.dto.RevenueSearchResponse;
 import pl.corp.kkf.kkf.services.impl.dao.converters.dictionaries.ContractorConverter;
 import pl.corp.kkf.kkf.services.impl.dao.converters.dictionaries.TransactionTypeConverter;
 import pl.corp.kkf.kkf.services.model.RevenueEntity;
 import pl.corp.kkf.kkf.services.model.dictionaries.ContractorEntity;
 import pl.corp.kkf.kkf.services.model.dictionaries.TransactionTypeEntity;
 
+import java.util.Optional;
+
 public class RevenueConverter {
 
-    public static RevenueEntity toEntity(Revenue dto) {
-        RevenueEntity entity = new RevenueEntity();
+    public static RevenueEntity toEntity(RevenueEntity entity, Revenue dto) {
         entity.setId(dto.getId());
         entity.setName(dto.getName());
         entity.setDescription(dto.getDescription());
@@ -22,12 +25,13 @@ public class RevenueConverter {
         entity.setTotalGrossPrice(dto.getTotalGrossPrice());
 
         if (dto.getTransactionType() != null) {
-            TransactionTypeEntity transactionTypeEntity = TransactionTypeConverter.toEntity(dto.getTransactionType());
-            entity.setTransactionType(transactionTypeEntity);
+            entity.setTransactionType(TransactionTypeConverter.toEntity(Optional.ofNullable(entity.getTransactionType())
+                    .orElse(new TransactionTypeEntity()), dto.getTransactionType()));
         }
 
         if (dto.getContractor() != null) {
-            ContractorEntity contractorEntity = ContractorConverter.toEntity(dto.getContractor());
+            ContractorEntity contractorEntity = ContractorConverter.toEntity(Optional.ofNullable(entity.getContractor())
+                    .orElse(new ContractorEntity()), dto.getContractor());
             entity.setContractor(contractorEntity);
         }
 
@@ -55,5 +59,9 @@ public class RevenueConverter {
         }
 
         return dto;
+    }
+
+    public static RevenueSearchResponse convertToSearchResponse(PageDTO<Revenue> byCriteria) {
+        return null;
     }
 }

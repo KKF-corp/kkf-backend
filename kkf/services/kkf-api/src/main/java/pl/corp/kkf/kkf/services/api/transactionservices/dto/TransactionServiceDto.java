@@ -1,37 +1,59 @@
 package pl.corp.kkf.kkf.services.api.transactionservices.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import pl.corp.kkf.kkf.services.api.dictionaries.servicetypes.dto.TransactionServiceType;
+import jakarta.validation.constraints.*;
+import pl.corp.kkf.kkf.services.api.dictionaries.transactionservicetypes.dto.TransactionServiceType;
 
 import java.math.BigDecimal;
 
+/*@JsonTypeInfo(
+        use = JsonTypeInfo.Id.NAME,
+        include = JsonTypeInfo.As.PROPERTY,
+        property = "type")
+@JsonSubTypes({
+        @Type(value = RevenueServiceDto.class, name = "Revenue"),
+        @Type(value = ExpenseServiceDto.class, name = "Expense")
+})*/
 @Schema(description = "Wpis dla usługi")
-public class TransactionServiceDto {
+public abstract class TransactionServiceDto {
 
     @Schema(description = "Identyfikator")
-    private long id;
+    private Long id;
 
+    @NotNull
+    @Size(max = 255)
     @Schema(description = "Nazwa")
     private String name;
 
     @Schema(description = "Opis")
     private String description;
 
+    @NotNull
+    @PositiveOrZero
     @Schema(description = "Rabat")
     private BigDecimal discount;
 
+    @NotNull
+    @PositiveOrZero
     @Schema(description = "Cena netto")
     private BigDecimal netPrice;
 
+    @PositiveOrZero
     @Schema(description = "Cena brutto")
     private BigDecimal grossPrice;
 
+    @NotNull
+    @PositiveOrZero
     @Schema(description = "VAT")
     private BigDecimal vat;
 
+    @NotNull
+    @Size(max = 10)
     @Schema(description = "Jednostka")
     private String unit;
 
+    @NotNull
+    @PositiveOrZero
     @Schema(description = "Ilość")
     private Integer quantity;
 
@@ -41,11 +63,11 @@ public class TransactionServiceDto {
     @Schema(description = "Wskaźnik czy archiwalny")
     private Boolean archival;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

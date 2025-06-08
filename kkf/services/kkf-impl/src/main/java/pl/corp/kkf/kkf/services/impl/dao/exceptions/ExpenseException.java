@@ -1,4 +1,4 @@
-package pl.corp.kkf.kkf.services.impl.dao.exceptions.dictionaries;
+package pl.corp.kkf.kkf.services.impl.dao.exceptions;
 
 public class ExpenseException extends RuntimeException { // extends MultiException
 

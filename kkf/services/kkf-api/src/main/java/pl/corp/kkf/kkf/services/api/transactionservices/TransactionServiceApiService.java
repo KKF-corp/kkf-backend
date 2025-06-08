@@ -3,6 +3,7 @@ package pl.corp.kkf.kkf.services.api.transactionservices;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import pl.corp.kkf.commons.rest.types.api.responses.GeneralResponse;
@@ -26,14 +27,14 @@ public interface TransactionServiceApiService {
     @Consumes(MediaType.APPLICATION_JSON)
     @Operation(description = "Utworzenie usługi")
     TransactionServiceDto createTransactionService(@Parameter(description = "Obiekt usługi")
-                                                   TransactionServiceDto transactionServiceDto);
+                                                   @Valid TransactionServiceDto transactionServiceDto);
 
     @PUT
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     @Operation(description = "Modyfikacja usługi")
     TransactionServiceDto updateTransactionService(@Parameter(description = "Obiekt usługi")
-                                                   TransactionServiceDto transactionServiceDto);
+                                                   @Valid TransactionServiceDto transactionServiceDto);
 
     @POST
     @Path("/archive/{id}")

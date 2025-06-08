@@ -15,11 +15,13 @@ public interface ContractorService {
 
     Contractor updateContractor(Contractor contractor);
 
-    GeneralResponse archiveContractor(long id);
+    void archiveContractor(long id);
 
-    GeneralResponse unarchiveContractor(long id);
+    void unarchiveContractor(long id);
 
     List<Contractor> getAllContractors();
 
     PageDTO<Contractor> findByCriteria(ContractorSearchRequest request);
+
+    boolean existsById(long id);
 }

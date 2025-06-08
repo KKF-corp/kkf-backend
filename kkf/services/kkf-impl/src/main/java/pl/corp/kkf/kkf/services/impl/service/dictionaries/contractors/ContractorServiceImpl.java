@@ -8,13 +8,12 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import pl.corp.kkf.commons.base.service.rest.PageUtils;
 import pl.corp.kkf.commons.rest.types.api.pages.PageDTO;
-import pl.corp.kkf.commons.rest.types.api.responses.GeneralResponse;
 import pl.corp.kkf.kkf.services.api.dictionaries.contractors.dto.Contractor;
 import pl.corp.kkf.kkf.services.api.dictionaries.contractors.dto.ContractorSearchRequest;
 import pl.corp.kkf.kkf.services.impl.dao.converters.dictionaries.ContractorConverter;
 import pl.corp.kkf.kkf.services.impl.dao.exceptions.dictionaries.ContractorException;
 import pl.corp.kkf.kkf.services.impl.dao.repositories.dictionaries.ContractorRepository;
-import pl.corp.kkf.kkf.services.impl.dao.validators.ContractorValidator;
+import pl.corp.kkf.kkf.services.impl.dao.validators.dictionaries.ContractorValidator;
 import pl.corp.kkf.kkf.services.model.dictionaries.ContractorEntity;
 
 import java.util.List;
@@ -39,37 +38,34 @@ public class ContractorServiceImpl implements ContractorService {
 
     @Override
     public Contractor createContractor(Contractor contractor) {
-        ContractorValidator.validateCreation(contractor);
-        ContractorEntity entity = toEntity(new ContractorEntity(), contractor);
-        return toDto(contractorRepository.save(entity));
+        ContractorValidator.validateForCreation(contractor);
+        return toDto(contractorRepository.save(toEntity(new ContractorEntity(), contractor)));
     }
 
     @Override
     public Contractor updateContractor(Contractor contractor) {
-        ContractorValidator.validateUpdate(contractor);
+        ContractorValidator.validateForUpdate(contractor);
         ContractorEntity entity = contractorRepository.findById(contractor.getId())
                 .orElseThrow(CONTRACTOR_NOT_FOUND_EXCEPTION_SUPPLIER);
         return toDto(contractorRepository.save(toEntity(entity, contractor)));
     }
 
     @Override
-    public GeneralResponse archiveContractor(long id) {
+    public void archiveContractor(long id) {
         ContractorEntity entity = contractorRepository.findById(id)
                 .orElseThrow(CONTRACTOR_NOT_FOUND_EXCEPTION_SUPPLIER);
-        ContractorValidator.validateArchivization(entity.isArchival(), true);
+        ContractorValidator.validateForArchivization(entity.isArchival(), true);
         entity.setArchival(true);
         contractorRepository.save(entity);
-        return new GeneralResponse(true);
     }
 
     @Override
-    public GeneralResponse unarchiveContractor(long id) {
+    public void unarchiveContractor(long id) {
         ContractorEntity entity = contractorRepository.findById(id)
                 .orElseThrow(CONTRACTOR_NOT_FOUND_EXCEPTION_SUPPLIER);
-        ContractorValidator.validateArchivization(entity.isArchival(), false);
+        ContractorValidator.validateForArchivization(entity.isArchival(), false);
         entity.setArchival(false);
         contractorRepository.save(entity);
-        return new GeneralResponse(true);
     }
 
     @Override
@@ -85,6 +81,11 @@ public class ContractorServiceImpl implements ContractorService {
         Specification<ContractorEntity> specification = contractorRepository.getSpecification(request.getCriteria());
         Page<ContractorEntity> contractorEntities = contractorRepository.findAll(specification, pageable);
         return PageUtils.convertTo(contractorEntities.map(ContractorConverter::toDto));
+    }
+
+    @Override
+    public boolean existsById(long id) {
+        return contractorRepository.existsById(id);
     }
 
 }

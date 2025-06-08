@@ -1,27 +1,38 @@
 package pl.corp.kkf.kkf.services.api.revenues.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PastOrPresent;
+import jakarta.validation.constraints.Size;
 import pl.corp.kkf.kkf.services.api.dictionaries.contractors.dto.Contractor;
 import pl.corp.kkf.kkf.services.api.dictionaries.transactiontypes.dto.TransactionType;
+import pl.corp.kkf.kkf.services.api.transactionservices.dto.RevenueServiceDto;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 @Schema(description = "Wpis dla przychodu")
 public class Revenue {
 
     @Schema(description = "Identyfikator")
-    private long id;
+    private Long id;
 
+    @NotNull
+    @Size(max = 255)
     @Schema(description = "Nazwa")
     private String name;
 
+    @Size(max = 500)
     @Schema(description = "Opis")
     private String description;
 
     @Schema(description = "Wskaźnik czy usunięty")
     private Boolean deleted;
 
+    @NotNull
+    @PastOrPresent
     @Schema(description = "Data sprzedaży")
     private LocalDate saleDate;
 
@@ -31,17 +42,22 @@ public class Revenue {
     @Schema(description = "Cena brutto")
     private BigDecimal totalGrossPrice;
 
+    @NotNull
     @Schema(description = "Typ transakcji")
     private TransactionType transactionType;
 
     @Schema(description = "Kontrahent")
     private Contractor contractor;
 
-    public long getId() {
+    @NotNull
+    @Schema(description = "Pozycje przychodu")
+    private List<RevenueServiceDto> revenueServiceDtos;
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -107,5 +123,13 @@ public class Revenue {
 
     public void setContractor(Contractor contractor) {
         this.contractor = contractor;
+    }
+
+    public List<RevenueServiceDto> getRevenueServiceDtos() {
+        return revenueServiceDtos;
+    }
+
+    public void setRevenueServiceDtos(List<RevenueServiceDto> revenueServiceDtos) {
+        this.revenueServiceDtos = revenueServiceDtos;
     }
 }

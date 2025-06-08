@@ -1,10 +1,15 @@
 package pl.corp.kkf.kkf.services.impl.dao.converters;
 
+import pl.corp.kkf.commons.rest.types.api.pages.PageDTO;
 import pl.corp.kkf.kkf.services.api.expenses.dto.Expense;
+import pl.corp.kkf.kkf.services.api.expenses.dto.ExpenseSearchResponse;
 import pl.corp.kkf.kkf.services.impl.dao.converters.dictionaries.ContractorConverter;
 import pl.corp.kkf.kkf.services.impl.dao.converters.dictionaries.TransactionTypeConverter;
 import pl.corp.kkf.kkf.services.model.ExpenseEntity;
 import pl.corp.kkf.kkf.services.model.dictionaries.ContractorEntity;
+import pl.corp.kkf.kkf.services.model.dictionaries.TransactionTypeEntity;
+
+import java.util.Optional;
 
 public class ExpenseConverter {
 
@@ -18,7 +23,8 @@ public class ExpenseConverter {
         entity.setTotalGrossPrice(dto.getTotalGrossPrice());
 
         if (dto.getTransactionType() != null) {
-            entity.setTransactionType(TransactionTypeConverter.toEntity(dto.getTransactionType()));
+            entity.setTransactionType(TransactionTypeConverter.toEntity(Optional.ofNullable(entity.getTransactionType())
+                    .orElse(new TransactionTypeEntity()), dto.getTransactionType()));
         }
 
         if (dto.getContractor() != null) {
@@ -47,5 +53,9 @@ public class ExpenseConverter {
         }
 
         return dto;
+    }
+
+    public static ExpenseSearchResponse convertToSearchResponse(PageDTO<Expense> byCriteria) {
+        return null;
     }
 }

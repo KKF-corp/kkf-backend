@@ -1,7 +1,9 @@
 package pl.corp.kkf.kkf.services.api.dictionaries.transactionservices.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import pl.corp.kkf.kkf.services.api.dictionaries.servicetypes.dto.TransactionServiceType;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+import pl.corp.kkf.kkf.services.api.dictionaries.transactionservicetypes.dto.TransactionServiceType;
 
 import java.math.BigDecimal;
 
@@ -9,11 +11,14 @@ import java.math.BigDecimal;
 public class TransactionServiceDto {
 
     @Schema(description = "Identyfikator")
-    private long id;
+    private Long id;
 
+    @NotNull
+    @Size(max = 255)
     @Schema(description = "Nazwa")
     private String name;
 
+    @Size(max = 255)
     @Schema(description = "Opis")
     private String description;
 
@@ -32,6 +37,7 @@ public class TransactionServiceDto {
     @Schema(description = "VAT")
     private BigDecimal vat;
 
+    @Size(max = 10)
     @Schema(description = "Jednostka")
     private String unit;
 
@@ -41,11 +47,11 @@ public class TransactionServiceDto {
     @Schema(description = "Typ usługi")
     private TransactionServiceType transactionServiceType;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -121,11 +127,11 @@ public class TransactionServiceDto {
         this.quantity = quantity;
     }
 
-    public TransactionServiceType getServiceType() {
+    public TransactionServiceType getTransactionServiceType() {
         return transactionServiceType;
     }
 
-    public void setServiceType(TransactionServiceType transactionServiceType) {
+    public void setTransactionServiceType(TransactionServiceType transactionServiceType) {
         this.transactionServiceType = transactionServiceType;
     }
 }

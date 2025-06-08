@@ -4,6 +4,7 @@ package pl.corp.kkf.kkf.services.api.dictionaries.addresses;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import pl.corp.kkf.commons.rest.types.api.responses.GeneralResponse;
@@ -25,14 +26,14 @@ public interface AddressApiService {
     @Consumes(MediaType.APPLICATION_JSON)
     @Operation(description = "Utworzenie adresu")
     AddressResponse createAddress(@Parameter(description = "Obiekt adresu")
-                                  Address address);
+                                  @Valid Address address);
 
     @PUT
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     @Operation(description = "Modyfikacja adresu")
     AddressResponse updateAddress(@Parameter(description = "Obiekt adresu")
-                                  Address address);
+                                  @Valid Address address);
 
     @POST
     @Path("/archive/{id}")
@@ -59,5 +60,5 @@ public interface AddressApiService {
     @Consumes(MediaType.APPLICATION_JSON)
     @Operation(description = "Wyszukiwanie adresów według kryteriów")
     AddressSearchResponse findByCriteria(@Parameter(description = "Zapytanie wyszukiwania adresów")
-                                         AddressSearchRequest request);
+                                         @Valid AddressSearchRequest request);
 }

@@ -14,9 +14,7 @@ public interface ExpenseService {
 
     Expense updateExpense(Expense expense);
 
-    void archiveExpense(long id);
-
-    void unarchiveExpense(long id);
+    void deleteExpense(long id);
 
     List<Expense> getAllExpenses();
 

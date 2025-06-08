@@ -16,7 +16,7 @@ public abstract class TransactionServiceEntity extends BaseEntity {
     @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SequenceTransactionServiceEntity")
     @SequenceGenerator(name = "SequenceTransactionServiceEntity", schema = "BILLING", sequenceName = "SEQ_TRANSACTION_SERVICES")
-    private long id;
+    private Long id;
 
     @Column(name = "NAME")
     private String name;
@@ -47,7 +47,7 @@ public abstract class TransactionServiceEntity extends BaseEntity {
     private TransactionServiceTypeEntity transactionServiceType;
 
     @Column(name = "ARCHIVAL")
-    private Boolean archival;
+    private boolean archival;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "DTYPE")
@@ -61,11 +61,11 @@ public abstract class TransactionServiceEntity extends BaseEntity {
     @JoinColumn(name = "EXPENSE_ID", referencedColumnName = "ID")
     private ExpenseEntity expense;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -141,11 +141,11 @@ public abstract class TransactionServiceEntity extends BaseEntity {
         this.transactionServiceType = serviceType;
     }
 
-    public Boolean getArchival() {
+    public boolean getArchival() {
         return archival;
     }
 
-    public void setArchival(Boolean archival) {
+    public void setArchival(boolean archival) {
         this.archival = archival;
     }
 

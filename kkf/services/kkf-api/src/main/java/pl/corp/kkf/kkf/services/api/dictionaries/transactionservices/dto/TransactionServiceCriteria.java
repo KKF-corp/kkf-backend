@@ -1,6 +1,8 @@
-package pl.corp.kkf.kkf.services.api.dictionaries.transactionservices;
+package pl.corp.kkf.kkf.services.api.dictionaries.transactionservices.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+
+import java.math.BigDecimal;
 
 @Schema(description = "Filtr do wyszukiwania usługi")
 public class TransactionServiceCriteria {
@@ -15,16 +17,16 @@ public class TransactionServiceCriteria {
     private Boolean filterByArchival;
 
     @Schema(description = "Filtrowanie według discount")
-    private Double filterByDiscount;
+    private BigDecimal filterByDiscount;
 
     @Schema(description = "Filtrowanie według netPrice")
-    private Double filterByNetPrice;
+    private BigDecimal filterByNetPrice;
 
     @Schema(description = "Filtrowanie według grossPrice")
-    private Double filterByGrossPrice;
+    private BigDecimal filterByGrossPrice;
 
     @Schema(description = "Filtrowanie według vat")
-    private Double filterByVat;
+    private BigDecimal filterByVat;
 
     @Schema(description = "Filtrowanie według unit")
     private String filterByUnit;
@@ -59,35 +61,35 @@ public class TransactionServiceCriteria {
         this.filterByArchival = filterByArchival;
     }
 
-     public Double getFilterByDiscount() {
+     public BigDecimal getFilterByDiscount() {
         return filterByDiscount;
     }
 
-    public void setFilterByDiscount(Double filterByDiscount) {
+    public void setFilterByDiscount(BigDecimal filterByDiscount) {
         this.filterByDiscount = filterByDiscount;
     }
 
-    public Double getFilterByNetPrice() {
+    public BigDecimal getFilterByNetPrice() {
         return filterByNetPrice;
     }
 
-    public void setFilterByNetPrice(Double filterByNetPrice) {
+    public void setFilterByNetPrice(BigDecimal filterByNetPrice) {
         this.filterByNetPrice = filterByNetPrice;
     }
 
-    public Double getFilterByGrossPrice() {
+    public BigDecimal getFilterByGrossPrice() {
         return filterByGrossPrice;
     }
 
-    public void setFilterByGrossPrice(Double filterByGrossPrice) {
+    public void setFilterByGrossPrice(BigDecimal filterByGrossPrice) {
         this.filterByGrossPrice = filterByGrossPrice;
     }
 
-    public Double getFilterByVat() {
+    public BigDecimal getFilterByVat() {
         return filterByVat;
     }
 
-    public void setFilterByVat(Double filterByVat) {
+    public void setFilterByVat(BigDecimal filterByVat) {
         this.filterByVat = filterByVat;
     }
 

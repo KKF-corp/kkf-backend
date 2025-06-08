@@ -7,11 +7,9 @@ import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import pl.corp.kkf.commons.rest.types.api.responses.GeneralResponse;
-import pl.corp.kkf.kkf.services.api.dictionaries.addresses.dto.AddressSearchRequest;
-import pl.corp.kkf.kkf.services.api.dictionaries.addresses.dto.AddressSearchResponse;
 import pl.corp.kkf.kkf.services.api.dictionaries.transactiontypes.dto.TransactionType;
 import pl.corp.kkf.kkf.services.api.dictionaries.transactiontypes.dto.TransactionTypeSearchRequest;
-import pl.corp.kkf.commons.rest.types.api.pages.PageDTO;
+import pl.corp.kkf.kkf.services.api.dictionaries.transactiontypes.dto.TransactionTypeSearchResponse;
 
 import java.util.List;
 
@@ -64,5 +62,6 @@ public interface TransactionTypeApiService {
     @Path("/pages")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    TransactionServiceTypeSearchResponse findByCriteria(@Parameter(description = "Zapytanie wyszukiwania typu transakcji") TransactionTypeSearchRequest request);
+    TransactionTypeSearchResponse findByCriteria(@Parameter(description = "Zapytanie wyszukiwania typu transakcji")
+                                                 @Valid TransactionTypeSearchRequest request);
 }

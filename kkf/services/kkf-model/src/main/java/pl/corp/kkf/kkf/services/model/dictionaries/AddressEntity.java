@@ -13,7 +13,7 @@ public class AddressEntity extends BaseEntity {
     @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SequenceAddressEntity")
     @SequenceGenerator(name = "SequenceAddressEntity", schema = "DICTIONARIES", sequenceName = "SEQ_ADDRESSES")
-    private long id;
+    private Long id;
 
     @Column(name = "STREET")
     private String street;
@@ -30,11 +30,11 @@ public class AddressEntity extends BaseEntity {
     @Column(name = "ARCHIVAL")
     private boolean archival;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

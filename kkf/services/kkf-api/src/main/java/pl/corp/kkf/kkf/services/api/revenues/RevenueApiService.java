@@ -3,6 +3,7 @@ package pl.corp.kkf.kkf.services.api.revenues;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import pl.corp.kkf.commons.rest.types.api.responses.GeneralResponse;
@@ -28,28 +29,21 @@ public interface RevenueApiService {
     @Consumes(MediaType.APPLICATION_JSON)
     @Operation(description = "Utworzenie przychodu")
     Revenue createRevenue(@Parameter(description = "Obiekt przychodu")
-                          Revenue revenue);
+                          @Valid Revenue revenue);
 
     @PUT
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     @Operation(description = "Modyfikacja przychodu")
     Revenue updateRevenue(@Parameter(description = "Obiekt przychodu")
-                          Revenue revenue);
+                          @Valid Revenue revenue);
 
     @POST
-    @Path("/archive/{id}")
+    @Path("/delete/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    @Operation(description = "Archiwizacja przychodu")
-    GeneralResponse archiveRevenue(@Parameter(description = "Identyfikator przychodu")
-                                   @PathParam("id") long id);
-
-    @POST
-    @Path("/un-archive/{id}")
-    @Produces(MediaType.APPLICATION_JSON)
-    @Operation(description = "Odarchiwizowanie przychodu")
-    GeneralResponse unarchiveRevenue(@Parameter(description = "Identyfikator przychodu")
-                                     @PathParam("id") long id);
+    @Operation(description = "Usunięcie przychodu")
+    GeneralResponse deleteRevenue(@Parameter(description = "Identyfikator przychodu")
+                                  @PathParam("id") long id);
 
     @GET
     @Path("/all")
@@ -61,5 +55,5 @@ public interface RevenueApiService {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     RevenueSearchResponse findByCriteria(@Parameter(description = "Zapytanie wyszukiwania przychodów")
-                                         RevenueSearchRequest request);
+                                         @Valid RevenueSearchRequest request);
 }

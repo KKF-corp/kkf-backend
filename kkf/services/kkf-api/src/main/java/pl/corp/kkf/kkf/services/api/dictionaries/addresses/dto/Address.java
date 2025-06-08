@@ -1,12 +1,14 @@
 package pl.corp.kkf.kkf.services.api.dictionaries.addresses.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 @Schema(description = "Wpis dla adresu")
 public class Address {
 
     @Schema(description = "Identyfikator")
-    private long id;
+    private Long id;
 
     @Schema(description = "Ulica")
     private String street;
@@ -17,17 +19,19 @@ public class Address {
     @Schema(description = "Miasto")
     private String city;
 
+    @NotNull
+    @Size(max = 50)
     @Schema(description = "Kraj")
     private String country;
 
-     @Schema(description = "Wskaźnik czy archiwalny")
+    @Schema(description = "Wskaźnik czy archiwalny")
     private Boolean archival;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

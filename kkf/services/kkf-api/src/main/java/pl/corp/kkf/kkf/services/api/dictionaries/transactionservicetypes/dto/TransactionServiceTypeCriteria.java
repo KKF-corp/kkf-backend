@@ -1,4 +1,4 @@
-package pl.corp.kkf.kkf.services.api.dictionaries.servicetypes;
+package pl.corp.kkf.kkf.services.api.dictionaries.transactionservicetypes.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 

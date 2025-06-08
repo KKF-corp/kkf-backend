@@ -1,7 +1,13 @@
 package pl.corp.kkf.kkf.services.impl.dao.converters.dictionaries;
 
+import pl.corp.kkf.commons.rest.types.api.pages.PageDTO;
 import pl.corp.kkf.kkf.services.api.dictionaries.transactionservices.dto.TransactionServiceDto;
+import pl.corp.kkf.kkf.services.api.dictionaries.transactionservices.dto.TransactionServiceSearchResponse;
 import pl.corp.kkf.kkf.services.model.dictionaries.TransactionServiceEntity;
+import pl.corp.kkf.kkf.services.model.dictionaries.TransactionServiceTypeEntity;
+
+import java.util.Objects;
+import java.util.Optional;
 
 public class TransactionServiceDictionaryConverter {
 
@@ -16,7 +22,10 @@ public class TransactionServiceDictionaryConverter {
         entity.setVat(dto.getVat());
         entity.setUnit(dto.getUnit());
         entity.setQuantity(dto.getQuantity());
-        entity.setTransactionServiceType(ServiceTypeConverter.toEntity(dto.getServiceType()));
+        if (Objects.nonNull(dto.getTransactionServiceType())) {
+            entity.setTransactionServiceType(TransactionServiceTypeConverter.toEntity(Optional.ofNullable(entity.getTransactionServiceType())
+                    .orElse(new TransactionServiceTypeEntity()), dto.getTransactionServiceType()));
+        }
         return entity;
     }
 
@@ -32,7 +41,11 @@ public class TransactionServiceDictionaryConverter {
         dto.setVat(entity.getVat());
         dto.setUnit(entity.getUnit());
         dto.setQuantity(entity.getQuantity());
-        dto.setServiceType(ServiceTypeConverter.toDto(entity.getTransactionServiceType()));
+        dto.setTransactionServiceType(TransactionServiceTypeConverter.toDto(entity.getTransactionServiceType()));
         return dto;
+    }
+
+    public static TransactionServiceSearchResponse convertToContractorSearchResponse(PageDTO<TransactionServiceDto> byCriteria) {
+        return null;
     }
 }
