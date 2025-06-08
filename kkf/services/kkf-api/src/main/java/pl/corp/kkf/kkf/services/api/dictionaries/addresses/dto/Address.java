@@ -6,7 +6,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 public class Address {
 
     @Schema(description = "Identyfikator")
-    private Long id;
+    private long id;
 
     @Schema(description = "Ulica")
     private String street;
@@ -23,7 +23,7 @@ public class Address {
      @Schema(description = "Wskaźnik czy archiwalny")
     private Boolean archival;
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 

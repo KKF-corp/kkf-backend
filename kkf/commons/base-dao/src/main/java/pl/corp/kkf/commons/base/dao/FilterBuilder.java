@@ -1,22 +1,30 @@
 package pl.corp.kkf.commons.base.dao;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
-import org.springframework.data.jpa.domain.Specification;
+import jakarta.persistence.criteria.AbstractQuery;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.Predicate;
+import jakarta.persistence.criteria.Root;
+import jakarta.persistence.metamodel.SingularAttribute;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static java.util.Objects.nonNull;
 
 public class FilterBuilder<T> {
 
     private final List<Predicate> predicates = new ArrayList<>();
     private final Root<T> root;
-    private final CriteriaQuery<?> query;
+    private final AbstractQuery<?> query;
     private final CriteriaBuilder criteriaBuilder;
 
-    public FilterBuilder(Root<T> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
+    private void commonEqualTo(SingularAttribute<? super T, ?> field, Object value) {
+        if (nonNull(value)) {
+            predicates.add(criteriaBuilder.equal(root.get(field), value));
+        }
+    }
+
+    public FilterBuilder(Root<T> root, AbstractQuery<?> query, CriteriaBuilder criteriaBuilder) {
         this.root = root;
         this.query = query;
         this.criteriaBuilder = criteriaBuilder;
@@ -36,12 +44,15 @@ public class FilterBuilder<T> {
         return this;
     }
 
-    public Specification<T> build() {
-        return (root, query, criteriaBuilder) -> {
-            if (predicates.isEmpty()) {
-                return criteriaBuilder.conjunction();
-            }
-            Predicate[] predicatesArray = predicates.toArray(new Predicate[0]);
-            return criteriaBuilder.and(predicatesArray);
-        }};
+    public FilterBuilder<T> equalTo(SingularAttribute<? super T, String> field, Object value) {
+        commonEqualTo(field, value);
+        return this;
+    }
+
+    public Predicate build() {
+        if (predicates.isEmpty()) {
+            return null;
+        }
+        return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
+    }
 }

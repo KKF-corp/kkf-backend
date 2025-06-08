@@ -11,7 +11,7 @@ import java.time.LocalDate;
 public class Revenue {
 
     @Schema(description = "Identyfikator")
-    private Long id;
+    private long id;
 
     @Schema(description = "Nazwa")
     private String name;
@@ -37,7 +37,7 @@ public class Revenue {
     @Schema(description = "Kontrahent")
     private Contractor contractor;
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 

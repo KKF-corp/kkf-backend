@@ -9,6 +9,8 @@ import jakarta.ws.rs.core.MediaType;
 import pl.corp.kkf.commons.rest.types.api.responses.GeneralResponse;
 import pl.corp.kkf.kkf.services.api.dictionaries.contractors.dto.*;
 
+import java.util.List;
+
 @Path("/dictionaries/contractors")
 @Tag(name = "ContractorApiService", description = "Usługa obsługi danych słownikowych kontrahenta")
 public interface ContractorApiService {
@@ -50,6 +52,7 @@ public interface ContractorApiService {
                                         @PathParam("id") long id);
 
     @GET
+    @Path("/all")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     List<Contractor> getAllContractors();

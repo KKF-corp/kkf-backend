@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 public class TransactionServiceDto {
 
     @Schema(description = "Identyfikator")
-    private Long id;
+    private long id;
 
     @Schema(description = "Nazwa")
     private String name;
@@ -41,7 +41,7 @@ public class TransactionServiceDto {
     @Schema(description = "Wskaźnik czy archiwalny")
     private Boolean archival;
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 

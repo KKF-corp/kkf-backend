@@ -16,7 +16,7 @@ public class ContractorEntity extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SequenceContractorEntity")
     @SequenceGenerator(name = "SequenceContractorEntity", schema = "DICTIONARIES",
             sequenceName = "SEQ_CONTRACTORS")
-    private Long id;
+    private long id;
 
     @Column(name = "NAME")
     private String name;
@@ -31,7 +31,7 @@ public class ContractorEntity extends BaseEntity {
     private String description;
 
     @Column(name = "ARCHIVAL")
-    private Boolean archival;
+    private boolean archival;
 
     @Column(name = "NIP")
     private String nip;
@@ -62,7 +62,7 @@ public class ContractorEntity extends BaseEntity {
     @JoinColumn(name = "ADDRESS_ID", referencedColumnName = "ID")
     private AddressEntity address;
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
@@ -102,11 +102,11 @@ public class ContractorEntity extends BaseEntity {
         this.description = description;
     }
 
-    public Boolean getArchival() {
+    public boolean isArchival() {
         return archival;
     }
 
-    public void setArchival(Boolean archival) {
+    public void setArchival(boolean archival) {
         this.archival = archival;
     }
 

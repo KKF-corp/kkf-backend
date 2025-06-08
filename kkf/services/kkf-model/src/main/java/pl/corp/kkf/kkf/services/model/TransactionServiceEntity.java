@@ -16,7 +16,7 @@ public abstract class TransactionServiceEntity extends BaseEntity {
     @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SequenceTransactionServiceEntity")
     @SequenceGenerator(name = "SequenceTransactionServiceEntity", schema = "BILLING", sequenceName = "SEQ_TRANSACTION_SERVICES")
-    private Long id;
+    private long id;
 
     @Column(name = "NAME")
     private String name;
@@ -61,7 +61,7 @@ public abstract class TransactionServiceEntity extends BaseEntity {
     @JoinColumn(name = "EXPENSE_ID", referencedColumnName = "ID")
     private ExpenseEntity expense;
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 

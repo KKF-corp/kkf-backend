@@ -8,7 +8,7 @@ import pl.corp.kkf.kkf.services.shared.types.ContractorType;
 public class Contractor {
 
     @Schema(description = "Identyfikator")
-    private Long id;
+    private long id;
 
     @Schema(description = "Nazwa")
     private String name;
@@ -52,7 +52,7 @@ public class Contractor {
     @Schema(description = "Adres kontrahenta")
     private Address address;
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 

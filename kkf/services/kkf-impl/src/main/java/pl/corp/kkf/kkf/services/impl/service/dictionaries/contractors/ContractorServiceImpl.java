@@ -1,69 +1,90 @@
 package pl.corp.kkf.kkf.services.impl.service.dictionaries.contractors;
 
+import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import pl.corp.kkf.commons.rest.types.api.pages.PageDTO;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
+import org.springframework.stereotype.Service;
+import pl.corp.kkf.commons.base.service.rest.PageUtils;
+import pl.corp.kkf.commons.rest.types.api.pages.PageDTO;
 import pl.corp.kkf.commons.rest.types.api.responses.GeneralResponse;
 import pl.corp.kkf.kkf.services.api.dictionaries.contractors.dto.Contractor;
 import pl.corp.kkf.kkf.services.api.dictionaries.contractors.dto.ContractorSearchRequest;
-import pl.corp.kkf.kkf.services.impl.dao.repositories.dictionaries.ContractorRepository;
 import pl.corp.kkf.kkf.services.impl.dao.converters.dictionaries.ContractorConverter;
-import pl.corp.kkf.commons.base.service.PageUtils;
+import pl.corp.kkf.kkf.services.impl.dao.exceptions.dictionaries.ContractorException;
+import pl.corp.kkf.kkf.services.impl.dao.repositories.dictionaries.ContractorRepository;
+import pl.corp.kkf.kkf.services.impl.dao.validators.ContractorValidator;
 import pl.corp.kkf.kkf.services.model.dictionaries.ContractorEntity;
-import org.springframework.data.jpa.domain.Specification;
-import pl.corp.kkf.kkf.services.api.dictionaries.contractors.dto.ContractorCriteria;
 
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.function.Supplier;
+
+import static pl.corp.kkf.kkf.services.impl.dao.converters.dictionaries.ContractorConverter.toDto;
+import static pl.corp.kkf.kkf.services.impl.dao.converters.dictionaries.ContractorConverter.toEntity;
 
 @Service
 public class ContractorServiceImpl implements ContractorService {
+
+    public static final Supplier<@NotNull ContractorException> CONTRACTOR_NOT_FOUND_EXCEPTION_SUPPLIER = () -> new ContractorException("Nie znaleziono kontrahenta o podanym identyfikatorze");
 
     @Autowired
     private ContractorRepository contractorRepository;
 
     @Override
     public Contractor getContractor(long id) {
-        return null;
+        return toDto(contractorRepository.findById(id)
+                .orElseThrow(CONTRACTOR_NOT_FOUND_EXCEPTION_SUPPLIER));
     }
 
     @Override
     public Contractor createContractor(Contractor contractor) {
-        return null;
+        ContractorValidator.validateCreation(contractor);
+        ContractorEntity entity = toEntity(new ContractorEntity(), contractor);
+        return toDto(contractorRepository.save(entity));
     }
 
     @Override
     public Contractor updateContractor(Contractor contractor) {
-        return null;
+        ContractorValidator.validateUpdate(contractor);
+        ContractorEntity entity = contractorRepository.findById(contractor.getId())
+                .orElseThrow(CONTRACTOR_NOT_FOUND_EXCEPTION_SUPPLIER);
+        return toDto(contractorRepository.save(toEntity(entity, contractor)));
     }
 
     @Override
     public GeneralResponse archiveContractor(long id) {
-        return null;
+        ContractorEntity entity = contractorRepository.findById(id)
+                .orElseThrow(CONTRACTOR_NOT_FOUND_EXCEPTION_SUPPLIER);
+        ContractorValidator.validateArchivization(entity.isArchival(), true);
+        entity.setArchival(true);
+        contractorRepository.save(entity);
+        return new GeneralResponse(true);
     }
 
     @Override
     public GeneralResponse unarchiveContractor(long id) {
-        return null;
+        ContractorEntity entity = contractorRepository.findById(id)
+                .orElseThrow(CONTRACTOR_NOT_FOUND_EXCEPTION_SUPPLIER);
+        ContractorValidator.validateArchivization(entity.isArchival(), false);
+        entity.setArchival(false);
+        contractorRepository.save(entity);
+        return new GeneralResponse(true);
     }
 
     @Override
     public List<Contractor> getAllContractors() {
-        return new ArrayList<>();
+        return contractorRepository.findAll().stream()
+                .map(ContractorConverter::toDto)
+                .toList();
     }
 
     @Override
     public PageDTO<Contractor> findByCriteria(ContractorSearchRequest request) {
-        Pageable pageable = PageUtils.convertToPageable(request.getPageRequestDTO());
+        Pageable pageable = PageUtils.convertTo(request.getPageRequestDTO());
         Specification<ContractorEntity> specification = contractorRepository.getSpecification(request.getCriteria());
         Page<ContractorEntity> contractorEntities = contractorRepository.findAll(specification, pageable);
-
-        PageDTO<Contractor> pageDTO = PageUtils.convertToPageDTO(contractorEntities.map(ContractorConverter::toDto));
-
-
-        return pageDTO;
+        return PageUtils.convertTo(contractorEntities.map(ContractorConverter::toDto));
     }
 
 }

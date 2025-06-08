@@ -18,7 +18,7 @@ public class ExpenseEntity extends BaseEntity {
     @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SequenceExpenseEntity")
     @SequenceGenerator(name = "SequenceExpenseEntity", schema = "BILLING", sequenceName = "SEQ_EXPENSES")
-    private Long id;
+    private long id;
 
     @Column(name = "NAME")
     private String name;
@@ -49,7 +49,7 @@ public class ExpenseEntity extends BaseEntity {
     @OneToMany(mappedBy = "expense", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<TransactionServiceEntity> transactionServices;
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 

@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 import pl.corp.kkf.commons.rest.types.api.responses.GeneralResponse;
 import pl.corp.kkf.kkf.services.api.expenses.ExpenseApiService;
 import pl.corp.kkf.kkf.services.api.expenses.dto.Expense;
+import pl.corp.kkf.kkf.services.api.expenses.dto.ExpenseSearchRequest;
+import pl.corp.kkf.kkf.services.api.expenses.dto.ExpenseSearchResponse;
 
 import java.util.List;
 
@@ -48,5 +50,12 @@ public class ExpenseApiServiceImpl implements ExpenseApiService {
     @Override
     public List<Expense> getAllExpenses() {
         return expenseService.getAllExpenses();
+    }
+
+    @Override
+    public ExpenseSearchResponse findByCriteria(ExpenseSearchRequest request) {
+        ExpenseSearchResponse expenseSearchResponse = new ExpenseSearchResponse();
+        expenseSearchResponse.setPageDTO(expenseService.findByCriteria(request));
+        return expenseSearchResponse;
     }
 }

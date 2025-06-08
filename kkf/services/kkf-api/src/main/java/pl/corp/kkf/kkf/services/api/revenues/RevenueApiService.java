@@ -7,6 +7,8 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import pl.corp.kkf.commons.rest.types.api.responses.GeneralResponse;
 import pl.corp.kkf.kkf.services.api.revenues.dto.Revenue;
+import pl.corp.kkf.kkf.services.api.revenues.dto.RevenueSearchRequest;
+import pl.corp.kkf.kkf.services.api.revenues.dto.RevenueSearchResponse;
 
 import java.util.List;
 
@@ -50,6 +52,7 @@ public interface RevenueApiService {
                                      @PathParam("id") long id);
 
     @GET
+    @Path("/all")
     @Produces(MediaType.APPLICATION_JSON)
     List<Revenue> getAllRevenues();
 
@@ -57,5 +60,6 @@ public interface RevenueApiService {
     @Path("/pages")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    RevenueSearchResponse findByCriteria(@Parameter(description = "Zapytanie wyszukiwania przychodów") RevenueSearchRequest request);
+    RevenueSearchResponse findByCriteria(@Parameter(description = "Zapytanie wyszukiwania przychodów")
+                                         RevenueSearchRequest request);
 }

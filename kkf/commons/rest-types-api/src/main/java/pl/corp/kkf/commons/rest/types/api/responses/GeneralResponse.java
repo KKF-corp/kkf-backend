@@ -14,6 +14,16 @@ public class GeneralResponse {
     @Schema(description = "Komunikaty błędów")
     private List<MessageDTO> messages;
 
+    public GeneralResponse() {
+    }
+
+    public GeneralResponse(boolean success) {
+        this.success = success;
+    }
+
+    public GeneralResponse(boolean success, List<MessageDTO> messages) {
+    }
+
     public boolean isSuccess() {
         return success;
     }

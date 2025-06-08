@@ -1,62 +1,73 @@
 package pl.corp.kkf.kkf.services.impl.service.dictionaries.addresses;
 
+import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import pl.corp.kkf.commons.base.service.rest.PageUtils;
 import pl.corp.kkf.commons.rest.types.api.pages.PageDTO;
 import pl.corp.kkf.kkf.services.api.dictionaries.addresses.dto.Address;
 import pl.corp.kkf.kkf.services.api.dictionaries.addresses.dto.AddressSearchRequest;
 import pl.corp.kkf.kkf.services.impl.dao.converters.dictionaries.AddressConverter;
+import pl.corp.kkf.kkf.services.impl.dao.exceptions.dictionaries.AddressException;
 import pl.corp.kkf.kkf.services.impl.dao.repositories.dictionaries.AddressRepository;
 import pl.corp.kkf.kkf.services.model.dictionaries.AddressEntity;
 
 import java.util.List;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
+
+import static pl.corp.kkf.kkf.services.impl.dao.converters.dictionaries.AddressConverter.toDto;
+import static pl.corp.kkf.kkf.services.impl.dao.converters.dictionaries.AddressConverter.toEntity;
 
 @Service
 public class AddressServiceImpl implements AddressService {
 
-    private final AddressRepository addressRepository;
+    public static final Supplier<@NotNull AddressException> ADDRESS_NOT_FOUND_EXCEPTION_SUPPLIER = () -> new AddressException("Nie znaleziono adresu kontrahenta o podanym identyfikatorze");
 
     @Autowired
-    public AddressServiceImpl(AddressRepository addressRepository) {
-        this.addressRepository = addressRepository;
-    }
+    private AddressRepository addressRepository;
 
     @Override
     public Address getAddress(long id) {
         AddressEntity addressEntity = addressRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Address not found with id: " + id));
-        return AddressConverter.toDto(addressEntity);
+                .orElseThrow(ADDRESS_NOT_FOUND_EXCEPTION_SUPPLIER);
+        return toDto(addressEntity);
     }
 
     @Override
     public Address createAddress(Address address) {
-        AddressEntity addressEntity = AddressConverter.toEntity(address);
-        AddressEntity savedAddressEntity = addressRepository.save(addressEntity);
-        return AddressConverter.toDto(savedAddressEntity);
+        // TODO: validacja
+        AddressEntity entity = toEntity(new AddressEntity(), address);
+        return toDto(addressRepository.save(entity));
     }
 
     @Override
     public Address updateAddress(Address address) {
-        AddressEntity addressEntity = AddressConverter.toEntity(address);
-        AddressEntity updatedAddressEntity = addressRepository.save(addressEntity);
-        return AddressConverter.toDto(updatedAddressEntity);
+        // TODO: validacja
+        AddressEntity entity = addressRepository.findById(address.getId())
+                .orElseThrow(ADDRESS_NOT_FOUND_EXCEPTION_SUPPLIER);
+        return toDto(addressRepository.save(toEntity(entity, address)));
     }
 
     @Override
     public void archiveAddress(long id) {
-        AddressEntity addressEntity = addressRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Address not found with id: " + id));
-        addressEntity.setArchival(true);
-        addressRepository.save(addressEntity);
+        // TODO: validacja
+        AddressEntity entity = addressRepository.findById(id)
+                .orElseThrow(ADDRESS_NOT_FOUND_EXCEPTION_SUPPLIER);
+        entity.setArchival(true);
+        addressRepository.save(entity);
     }
 
     @Override
     public void unarchiveAddress(long id) {
-        AddressEntity addressEntity = addressRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Address not found with id: " + id));
-        addressEntity.setArchival(false);
-        addressRepository.save(addressEntity);
+        // TODO: validacja
+        AddressEntity entity = addressRepository.findById(id)
+                .orElseThrow(ADDRESS_NOT_FOUND_EXCEPTION_SUPPLIER);
+        entity.setArchival(false);
+        addressRepository.save(entity);
     }
 
     @Override
@@ -69,7 +80,9 @@ public class AddressServiceImpl implements AddressService {
 
     @Override
     public PageDTO<Address> findByCriteria(AddressSearchRequest request) {
-        // TODO: Implementacja wyszukiwania po kryteriach i paginacji
-        throw new UnsupportedOperationException("Wyszukiwanie po kryteriach niezaimplementowane");
+        Pageable pageable = PageUtils.convertTo(request.getPageRequestDTO());
+        Specification<AddressEntity> specification = addressRepository.getSpecification(request.getCriteria());
+        Page<AddressEntity> entities = addressRepository.findAll(specification, pageable);
+        return PageUtils.convertTo(entities.map(AddressConverter::toDto));
     }
 }
