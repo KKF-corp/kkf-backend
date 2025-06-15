@@ -20,6 +20,7 @@
         <module>rest-types-api</module>
         <module>base-service</module>
         <module>base-dto</module>
+        <module>base-dao</module>
     </modules>
 
 </project>
