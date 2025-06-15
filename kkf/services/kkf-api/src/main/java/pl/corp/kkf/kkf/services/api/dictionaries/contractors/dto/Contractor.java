@@ -43,12 +43,10 @@ public class Contractor {
     @Schema(description = "Numer telefonu")
     private String phoneNumber;
 
-    @NotNull
     @Size(max = 26)
     @Schema(description = "Numer konta")
     private String bankAccountNumber;
 
-    @NotNull
     @Size(max = 45)
     @Schema(description = "Nazwa banku")
     private String bankName;

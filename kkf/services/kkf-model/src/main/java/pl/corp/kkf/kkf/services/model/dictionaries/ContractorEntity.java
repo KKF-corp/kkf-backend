@@ -8,13 +8,13 @@ import java.util.Objects;
 
 //@NamedEntityGraphs()
 @Entity
-@Table(name = "CONTRACTORS", schema = "DICTIONARIES")
+@Table(name = "CONTRACTORS", schema = "KKF")
 public class ContractorEntity extends BaseEntity {
 
     @Id
     @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SequenceContractorEntity")
-    @SequenceGenerator(name = "SequenceContractorEntity", schema = "DICTIONARIES",
+    @SequenceGenerator(name = "SequenceContractorEntity", schema = "KKF",
             sequenceName = "SEQ_CONTRACTORS")
     private Long id;
 
@@ -55,7 +55,7 @@ public class ContractorEntity extends BaseEntity {
     private String swift;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "CONTRACTOR_TYPE")
+    @Column(name = "CONTRACTOR_TYPE", nullable = false)
     private ContractorType contractorType;
 
     @ManyToOne(fetch = FetchType.LAZY)

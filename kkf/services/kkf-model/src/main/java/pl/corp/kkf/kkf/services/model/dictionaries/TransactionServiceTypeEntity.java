@@ -6,16 +6,16 @@ import pl.corp.kkf.commons.base.model.BaseEntity;
 import java.util.Objects;
 
 @Entity
-@Table(name = "TRANSACTION_SERVICE_TYPES", schema = "DICTIONARIES")
+@Table(name = "TRANSACTION_SERVICE_TYPES", schema = "KKF")
 public class TransactionServiceTypeEntity extends BaseEntity {
 
     @Id
     @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SequenceTransactionServiceTypeEntity")
-    @SequenceGenerator(name = "SequenceTransactionServiceTypeEntity", schema = "DICTIONARIES", sequenceName = "SEQ_TRANSACTION_SERVICE_TYPES")
+    @SequenceGenerator(name = "SequenceTransactionServiceTypeEntity", schema = "KKF", sequenceName = "SEQ_TRANSACTION_SERVICE_TYPES")
     private Long id;
 
-    @Column(name = "NAME")
+    @Column(name = "NAME", nullable = false)
     private String name;
 
     @Column(name = "DESCRIPTION")

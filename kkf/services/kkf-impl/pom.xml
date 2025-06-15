@@ -18,35 +18,21 @@
     </properties>
 
     <dependencies>
-        <dependency>
-            <groupId>pl.corp.kkf</groupId>
-            <artifactId>kkf-service-impl-deps</artifactId>
-            <type>pom</type>
-            <version>${project.version}</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>pl.corp.kkf</groupId>-->
+<!--            <artifactId>kkf-service-impl-deps</artifactId>-->
+<!--            <type>pom</type>-->
+<!--            <version>${project.version}</version>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>pl.corp.kkf</groupId>
             <artifactId>kkf-services-kkf-model</artifactId>
-            <type>pom</type>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>pl.corp.kkf</groupId>
-            <artifactId>kkf-services-kkf-api</artifactId>
-            <type>pom</type>
             <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>pl.corp.kkf</groupId>
             <artifactId>kkf-services-kkf-api</artifactId>
             <version>${project.version}</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>pl.corp.kkf</groupId>
-            <artifactId>kkf-services-kkf-model</artifactId>
-            <version>${project.version}</version>
-            <scope>compile</scope>
         </dependency>
         <!-- Spring Data JPA -->
         <dependency>
@@ -56,8 +42,12 @@
         <dependency>
             <groupId>pl.corp.kkf</groupId>
             <artifactId>kkf-commons-base-dao</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
-            <scope>compile</scope>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>pl.corp.kkf</groupId>
+            <artifactId>kkf-commons-base-service</artifactId>
+            <version>${project.version}</version>
         </dependency>
     </dependencies>
 

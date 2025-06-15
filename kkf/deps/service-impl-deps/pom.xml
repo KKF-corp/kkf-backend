@@ -42,11 +42,6 @@
             <groupId>com.fasterxml.jackson.datatype</groupId>
             <artifactId>jackson-datatype-jsr310</artifactId>
         </dependency>
-        <dependency>
-            <groupId>pl.corp.kkf</groupId>
-            <artifactId>kkf-commons-base-service</artifactId>
-            <version>${project.version}</version>
-        </dependency>
     </dependencies>
 
 </project>
