@@ -10,11 +10,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.flyway.FlywayAutoConfiguration;
 import org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration;
 import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.scheduling.annotation.EnableAsync;
-import pl.corp.kkf.commons.base.service.ModuleConfigurationTemplate;
 
 @SpringBootApplication(exclude = {FlywayAutoConfiguration.class, UserDetailsServiceAutoConfiguration.class, JmsHealthContributorAutoConfiguration.class})
 @ComponentScan({KKFApplication.ROOT_PACKAGE})

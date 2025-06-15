@@ -86,6 +86,13 @@
             <version>2.3.0</version>
         </dependency>
 
+        <!-- Dodano zależność od modułu kkf-impl -->
+        <dependency>
+            <groupId>pl.corp.kkf</groupId>
+            <artifactId>kkf-services-kkf-impl</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
     </dependencies>
 
     <build>

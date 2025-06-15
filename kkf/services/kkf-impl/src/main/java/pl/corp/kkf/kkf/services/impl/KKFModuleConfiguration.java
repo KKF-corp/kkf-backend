@@ -34,13 +34,13 @@ public class KKFModuleConfiguration extends ModuleConfigurationTemplate {
     }
 
     @Override
-    @Bean(DATA_SOURCE_BEAN_NAME)
+    @Bean(name = DATA_SOURCE_BEAN_NAME)
     @ConfigurationProperties(DATA_SOURCE_PROPERTIES_NAME)
     public DataSource getDataSource() {
         return super.getDataSource();
     }
 
-    @Bean(ENTITY_MANAGER_FACTORY_BEAN_NAME)
+    @Bean(name = ENTITY_MANAGER_FACTORY_BEAN_NAME)
     @DependsOn(DATA_SOURCE_BEAN_NAME)
     public LocalContainerEntityManagerFactoryBean getEntityManagerFactory() {
         return getEntityManagerFactory(PERSISTENCE_UNIT_NAME);
