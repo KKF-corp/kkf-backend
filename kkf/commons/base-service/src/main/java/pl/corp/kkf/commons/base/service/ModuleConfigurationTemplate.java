@@ -42,7 +42,7 @@ public abstract class ModuleConfigurationTemplate {
     }
 
     public LocalContainerEntityManagerFactoryBean getEntityManagerFactory(String persistenceUnitName) {
-//        flywayMigrate();
+        flywayMigrate();
         LocalContainerEntityManagerFactoryBean entity = new LocalContainerEntityManagerFactoryBean();
         entity.setDataSource(dataSource);
         entity.setPersistenceProviderClass(HibernatePersistenceProvider.class);
