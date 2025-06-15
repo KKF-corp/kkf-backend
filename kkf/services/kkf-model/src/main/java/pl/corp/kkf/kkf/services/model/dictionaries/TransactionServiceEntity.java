@@ -7,13 +7,13 @@ import java.math.BigDecimal;
 import java.util.Objects;
 
 @Entity
-@Table(name = "TRANSACTION_SERVICES", schema = "DICTIONARIES")
+@Table(name = "TRANSACTION_SERVICES", schema = "KKF")
 public class TransactionServiceEntity extends BaseEntity {
 
     @Id
     @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SequenceTransactionServiceEntity")
-    @SequenceGenerator(name = "SequenceTransactionServiceEntity", schema = "DICTIONARIES", sequenceName = "SEQ_TRANSACTION_SERVICES")
+    @SequenceGenerator(name = "SequenceTransactionServiceEntity", schema = "KKF", sequenceName = "SEQ_TRANSACTION_SERVICES")
     private Long id;
 
     @Column(name = "NAME")
@@ -44,7 +44,7 @@ public class TransactionServiceEntity extends BaseEntity {
     private Integer quantity;
 
     @ManyToOne
-    @JoinColumn(name = "SERVICE_TYPE_ID", referencedColumnName = "ID")
+    @JoinColumn(name = "TRANSACTION_SERVICE_TYPE_ID", referencedColumnName = "ID")
     private TransactionServiceTypeEntity transactionServiceType;
 
     public Long getId() {

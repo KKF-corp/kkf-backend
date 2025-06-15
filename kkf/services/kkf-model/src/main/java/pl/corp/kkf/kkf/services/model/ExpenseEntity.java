@@ -11,25 +11,25 @@ import java.util.Objects;
 import java.util.Set;
 
 @Entity
-@Table(name = "EXPENSES", schema = "BILLING")
+@Table(name = "EXPENSES", schema = "KKF")
 public class ExpenseEntity extends BaseEntity {
 
     @Id
     @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SequenceExpenseEntity")
-    @SequenceGenerator(name = "SequenceExpenseEntity", schema = "BILLING", sequenceName = "SEQ_EXPENSES")
+    @SequenceGenerator(name = "SequenceExpenseEntity", schema = "KKF", sequenceName = "SEQ_EXPENSES")
     private Long id;
 
-    @Column(name = "NAME")
+    @Column(name = "NAME", nullable = false)
     private String name;
 
     @Column(name = "DESCRIPTION")
     private String description;
 
     @Column(name = "DELETED")
-    private Boolean deleted;
+    private boolean deleted;
 
-    @Column(name = "PURCHASE_DATE")
+    @Column(name = "PURCHASE_DATE", nullable = false)
     private LocalDate purchaseDate;
 
     @Column(name = "TOTAL_NET_PRICE")
@@ -39,7 +39,7 @@ public class ExpenseEntity extends BaseEntity {
     private BigDecimal TotalGrossPrice;
 
     @ManyToOne
-    @JoinColumn(name = "TRANSACTION_TYPE_ID", referencedColumnName = "ID")
+    @JoinColumn(name = "TRANSACTION_TYPE_ID", referencedColumnName = "ID", nullable = false)
     private TransactionTypeEntity transactionType;
 
     @ManyToOne
@@ -73,11 +73,11 @@ public class ExpenseEntity extends BaseEntity {
         this.description = description;
     }
 
-    public Boolean getDeleted() {
+    public boolean getDeleted() {
         return deleted;
     }
 
-    public void setDeleted(Boolean deleted) {
+    public void setDeleted(boolean deleted) {
         this.deleted = deleted;
     }
 

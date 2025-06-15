@@ -11,13 +11,13 @@ import java.util.Objects;
 import java.util.Set;
 
 @Entity
-@Table(name = "REVENUES", schema = "BILLING")
+@Table(name = "REVENUES", schema = "KKF")
 public class RevenueEntity extends BaseEntity {
 
     @Id
     @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SequenceRevenueEntity")
-    @SequenceGenerator(name = "SequenceRevenueEntity", schema = "BILLING", sequenceName = "SEQ_REVENUES")
+    @SequenceGenerator(name = "SequenceRevenueEntity", schema = "KKF", sequenceName = "SEQ_REVENUES")
     private Long id;
 
     @Column(name = "NAME")

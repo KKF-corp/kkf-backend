@@ -8,42 +8,42 @@ import java.math.BigDecimal;
 import java.util.Objects;
 
 @Entity
-@Table(name = "TRANSACTION_SERVICES", schema = "BILLING")
+@Table(name = "TRANSACTION_SERVICES_FOR_BILLINGS", schema = "KKF")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public abstract class TransactionServiceEntity extends BaseEntity {
 
     @Id
     @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SequenceTransactionServiceEntity")
-    @SequenceGenerator(name = "SequenceTransactionServiceEntity", schema = "BILLING", sequenceName = "SEQ_TRANSACTION_SERVICES")
+    @SequenceGenerator(name = "SequenceTransactionServiceEntity", schema = "KKF", sequenceName = "SEQ_TRANSACTION_SERVICES_FOR_BILLINGS")
     private Long id;
 
-    @Column(name = "NAME")
+    @Column(name = "NAME", nullable = false)
     private String name;
 
     @Column(name = "DESCRIPTION")
     private String description;
 
-    @Column(name = "DISCOUNT")
+    @Column(name = "DISCOUNT", nullable = false)
     private BigDecimal discount;
 
-    @Column(name = "NET_PRICE")
+    @Column(name = "NET_PRICE", nullable = false)
     private BigDecimal netPrice;
 
-    @Column(name = "GROSS_PRICE")
+    @Column(name = "GROSS_PRICE", nullable = false)
     private BigDecimal grossPrice;
 
-    @Column(name = "VAT")
+    @Column(name = "VAT", nullable = false)
     private BigDecimal vat;
 
-    @Column(name = "UNIT")
+    @Column(name = "UNIT", nullable = false)
     private String unit;
 
-    @Column(name = "QUANTITY")
+    @Column(name = "QUANTITY", nullable = false)
     private Integer quantity;
 
     @ManyToOne
-    @JoinColumn(name = "SERVICE_TYPE_ID", referencedColumnName = "ID", nullable = false)
+    @JoinColumn(name = "TRANSACTION_SERVICE_TYPE_ID", referencedColumnName = "ID", nullable = false)
     private TransactionServiceTypeEntity transactionServiceType;
 
     @Column(name = "ARCHIVAL")

@@ -57,7 +57,6 @@ public class AddressServiceImpl implements AddressService {
     public void archiveAddress(long id) {
         AddressEntity entity = addressRepository.findById(id)
                 .orElseThrow(ADDRESS_NOT_FOUND_EXCEPTION_SUPPLIER);
-        entity.setArchival(true);
         addressRepository.save(entity);
     }
 
@@ -65,7 +64,6 @@ public class AddressServiceImpl implements AddressService {
     public void unarchiveAddress(long id) {
         AddressEntity entity = addressRepository.findById(id)
                 .orElseThrow(ADDRESS_NOT_FOUND_EXCEPTION_SUPPLIER);
-        entity.setArchival(false);
         addressRepository.save(entity);
     }
 

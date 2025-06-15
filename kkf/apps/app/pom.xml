@@ -10,6 +10,12 @@
     </parent>
 
     <artifactId>kkf-apps-app</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+
+    <properties>
+        <x-rootPackage>pl.corp.kkf.apps.app</x-rootPackage>
+        <x-packageType>lib</x-packageType>
+    </properties>
 
     <dependencies>
         <dependency>
@@ -86,7 +92,6 @@
             <version>2.3.0</version>
         </dependency>
 
-        <!-- Dodano zależność od modułu kkf-impl -->
         <dependency>
             <groupId>pl.corp.kkf</groupId>
             <artifactId>kkf-services-kkf-impl</artifactId>

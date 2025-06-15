@@ -6,13 +6,13 @@ import pl.corp.kkf.commons.base.model.BaseEntity;
 import java.util.Objects;
 
 @Entity
-@Table(name = "ADDRESSES", schema = "DICTIONARIES")
+@Table(name = "ADDRESSES", schema = "KKF")
 public class AddressEntity extends BaseEntity {
 
     @Id
     @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SequenceAddressEntity")
-    @SequenceGenerator(name = "SequenceAddressEntity", schema = "DICTIONARIES", sequenceName = "SEQ_ADDRESSES")
+    @SequenceGenerator(name = "SequenceAddressEntity", schema = "KKF", sequenceName = "SEQ_ADDRESSES")
     private Long id;
 
     @Column(name = "STREET")
@@ -26,9 +26,6 @@ public class AddressEntity extends BaseEntity {
 
     @Column(name = "COUNTRY")
     private String country;
-
-    @Column(name = "ARCHIVAL")
-    private boolean archival;
 
     public Long getId() {
         return id;
@@ -70,24 +67,20 @@ public class AddressEntity extends BaseEntity {
         this.country = country;
     }
 
-    public boolean isArchival() {
-        return archival;
-    }
-
-    public void setArchival(boolean archival) {
-        this.archival = archival;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         AddressEntity that = (AddressEntity) o;
-        return Objects.equals(id, that.id) && Objects.equals(street, that.street) && Objects.equals(postcode, that.postcode) && Objects.equals(city, that.city) && Objects.equals(country, that.country) && Objects.equals(archival, that.archival);
+        return Objects.equals(id, that.id)
+                && Objects.equals(street, that.street)
+                && Objects.equals(postcode, that.postcode)
+                && Objects.equals(city, that.city)
+                && Objects.equals(country, that.country);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, street, postcode, city, country, archival);
+        return Objects.hash(id, street, postcode, city, country);
     }
 }

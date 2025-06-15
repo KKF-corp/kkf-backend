@@ -14,7 +14,7 @@ public class TransactionType {
     private String name;
 
     @NotNull
-    @Schema(description = "Typ")
+    @Schema(description = "Typ")    // revenue/expense
     private String type;
 
     @Schema(description = "Wskaźnik czy zarchiwizowano")
