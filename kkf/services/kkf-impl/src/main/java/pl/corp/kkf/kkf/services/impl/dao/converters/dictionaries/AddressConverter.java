@@ -2,7 +2,7 @@ package pl.corp.kkf.kkf.services.impl.dao.converters.dictionaries;
 
 
 import pl.corp.kkf.kkf.services.api.dictionaries.addresses.dto.Address;
-import pl.corp.kkf.kkf.services.model.dictionaries.AddressEntity;
+import pl.corp.kkf.kkf.services.model.AddressEntity;
 
 public class AddressConverter {
     public static Address toDto(AddressEntity entity) {

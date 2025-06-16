@@ -21,6 +21,8 @@
         <module>base-service</module>
         <module>base-dto</module>
         <module>base-dao</module>
+        <module>openapi-codegen-extension</module>
+        <module>openapi-extension</module>
     </modules>
 
 </project>

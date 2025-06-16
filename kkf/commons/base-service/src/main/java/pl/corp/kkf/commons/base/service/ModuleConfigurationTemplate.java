@@ -48,6 +48,7 @@ public abstract class ModuleConfigurationTemplate {
         entity.setPersistenceProviderClass(HibernatePersistenceProvider.class);
         entity.setPersistenceUnitName(persistenceUnitName);
         entity.setPackagesToScan(getModelPackage());
+        entity.setPackagesToScan(getModelPackage2());
         entity.setJpaProperties(jpaProperties);
         return entity;
     }
@@ -58,6 +59,10 @@ public abstract class ModuleConfigurationTemplate {
 
     protected String getModelPackage() {
         return "pl.corp.kkf." + getModuleNameAsDotted() + ".services.model";
+    }
+
+    protected String getModelPackage2() {
+        return "pl.corp.kkf.commons.base.model";
     }
 
     private String getModuleNameAsDotted() {

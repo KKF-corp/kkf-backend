@@ -13,12 +13,8 @@ import pl.corp.kkf.kkf.services.impl.KKFModuleConstants;
 @Service
 public class AddressApiServiceImpl implements AddressApiService {
 
-    private final AddressService addressService;
-
     @Autowired
-    public AddressApiServiceImpl(AddressService addressService) {
-        this.addressService = addressService;
-    }
+    private AddressService addressService;
 
     @DenyAll
     @Override

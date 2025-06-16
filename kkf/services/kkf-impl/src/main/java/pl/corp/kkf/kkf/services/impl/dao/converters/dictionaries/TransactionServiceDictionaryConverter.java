@@ -3,8 +3,8 @@ package pl.corp.kkf.kkf.services.impl.dao.converters.dictionaries;
 import pl.corp.kkf.commons.rest.types.api.pages.PageDTO;
 import pl.corp.kkf.kkf.services.api.dictionaries.transactionservices.dto.TransactionServiceDto;
 import pl.corp.kkf.kkf.services.api.dictionaries.transactionservices.dto.TransactionServiceSearchResponse;
-import pl.corp.kkf.kkf.services.model.dictionaries.TransactionServiceEntity;
-import pl.corp.kkf.kkf.services.model.dictionaries.TransactionServiceTypeEntity;
+import pl.corp.kkf.kkf.services.model.TransactionServiceEntity;
+import pl.corp.kkf.kkf.services.model.TransactionServiceTypeEntity;
 
 import java.util.Objects;
 import java.util.Optional;

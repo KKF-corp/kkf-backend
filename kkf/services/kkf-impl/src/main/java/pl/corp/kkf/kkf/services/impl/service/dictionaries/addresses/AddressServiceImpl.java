@@ -12,9 +12,9 @@ import pl.corp.kkf.kkf.services.api.dictionaries.addresses.dto.Address;
 import pl.corp.kkf.kkf.services.api.dictionaries.addresses.dto.AddressSearchRequest;
 import pl.corp.kkf.kkf.services.impl.dao.converters.dictionaries.AddressConverter;
 import pl.corp.kkf.kkf.services.impl.dao.exceptions.dictionaries.AddressException;
-import pl.corp.kkf.kkf.services.impl.dao.repositories.dictionaries.AddressRepository;
+import pl.corp.kkf.kkf.services.impl.dao.repositories.AddressRepository;
 import pl.corp.kkf.kkf.services.impl.dao.validators.dictionaries.AddressValidator;
-import pl.corp.kkf.kkf.services.model.dictionaries.AddressEntity;
+import pl.corp.kkf.kkf.services.model.AddressEntity;
 
 import java.util.List;
 import java.util.function.Supplier;

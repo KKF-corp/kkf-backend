@@ -18,12 +18,8 @@ import java.util.List;
 @Service
 public class RevenueApiServiceImpl implements RevenueApiService {
 
-    private final RevenueService revenueService;
-
     @Autowired
-    public RevenueApiServiceImpl(RevenueService revenueService) {
-        this.revenueService = revenueService;
-    }
+    private RevenueService revenueService;
 
     @Override
     @Transactional(transactionManager = KKFModuleConstants.TRANSACTION_MANAGER, readOnly = true)

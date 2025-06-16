@@ -14,7 +14,7 @@ import pl.corp.kkf.kkf.services.impl.dao.converters.RevenueConverter;
 import pl.corp.kkf.kkf.services.impl.dao.exceptions.RevenueException;
 import pl.corp.kkf.kkf.services.impl.dao.repositories.RevenueRepository;
 import pl.corp.kkf.kkf.services.impl.dao.validators.RevenueValidator;
-import pl.corp.kkf.kkf.services.impl.dao.validators.TransactionServiceValidator;
+import pl.corp.kkf.kkf.services.impl.dao.validators.TransactionPositionValidator;
 import pl.corp.kkf.kkf.services.impl.service.dictionaries.contractors.ContractorService;
 import pl.corp.kkf.kkf.services.impl.service.dictionaries.transactiontypes.TransactionTypeService;
 import pl.corp.kkf.kkf.services.model.RevenueEntity;
@@ -36,7 +36,7 @@ public class RevenueServiceImpl implements RevenueService {
     @Autowired
     private RevenueValidator revenueValidator;
     @Autowired
-    private TransactionServiceValidator transactionServiceValidator;
+    private TransactionPositionValidator transactionPositionValidator;
     @Autowired
     private ContractorService contractorService;
     @Autowired
@@ -89,10 +89,10 @@ public class RevenueServiceImpl implements RevenueService {
     }
 
     private void validateForCreation(Revenue revenue) {
-        revenueValidator.validateForCreation(revenue, transactionServiceValidator, contractorService, transactionTypeService);
+        revenueValidator.validateForCreation(revenue, transactionPositionValidator, contractorService, transactionTypeService);
     }
 
     private void validateForUpdate(Revenue revenue) {
-        revenueValidator.validateForUpdate(revenue, transactionServiceValidator, contractorService, transactionTypeService);
+        revenueValidator.validateForUpdate(revenue, transactionPositionValidator, contractorService, transactionTypeService);
     }
 }

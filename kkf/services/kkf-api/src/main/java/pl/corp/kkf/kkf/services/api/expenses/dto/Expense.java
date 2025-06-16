@@ -7,8 +7,7 @@ import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.Size;
 import pl.corp.kkf.kkf.services.api.dictionaries.contractors.dto.Contractor;
 import pl.corp.kkf.kkf.services.api.dictionaries.transactiontypes.dto.TransactionType;
-import pl.corp.kkf.kkf.services.api.transactionservices.dto.ExpenseServiceDto;
-import pl.corp.kkf.kkf.services.api.transactionservices.dto.RevenueServiceDto;
+import pl.corp.kkf.kkf.services.api.transactionservices.dto.ExpensePosition;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -53,7 +52,7 @@ public class Expense {
     @Valid
     @NotNull
     @Schema(description = "Pozycje rozchodu")
-    private List<ExpenseServiceDto> expenseServiceDtos;
+    private List<ExpensePosition> expenseServiceDtos;
 
     public Long getId() {
         return id;
@@ -127,11 +126,11 @@ public class Expense {
         this.contractor = contractor;
     }
 
-    public List<ExpenseServiceDto> getExpenseServiceDtos() {
+    public List<ExpensePosition> getExpenseServiceDtos() {
         return expenseServiceDtos;
     }
 
-    public void setExpenseServiceDtos(List<ExpenseServiceDto> expenseServiceDtos) {
+    public void setExpenseServiceDtos(List<ExpensePosition> expenseServiceDtos) {
         this.expenseServiceDtos = expenseServiceDtos;
     }
 }

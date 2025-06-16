@@ -14,7 +14,7 @@ import pl.corp.kkf.kkf.services.impl.dao.converters.ExpenseConverter;
 import pl.corp.kkf.kkf.services.impl.dao.exceptions.ExpenseException;
 import pl.corp.kkf.kkf.services.impl.dao.repositories.ExpenseRepository;
 import pl.corp.kkf.kkf.services.impl.dao.validators.ExpenseValidator;
-import pl.corp.kkf.kkf.services.impl.dao.validators.TransactionServiceValidator;
+import pl.corp.kkf.kkf.services.impl.dao.validators.TransactionPositionValidator;
 import pl.corp.kkf.kkf.services.impl.service.dictionaries.contractors.ContractorService;
 import pl.corp.kkf.kkf.services.impl.service.dictionaries.transactiontypes.TransactionTypeService;
 import pl.corp.kkf.kkf.services.model.ExpenseEntity;
@@ -36,7 +36,7 @@ public class ExpenseServiceImpl implements ExpenseService {
     @Autowired
     private ExpenseValidator expenseValidator;
     @Autowired
-    private TransactionServiceValidator transactionServiceValidator;
+    private TransactionPositionValidator transactionPositionValidator;
     @Autowired
     private ContractorService contractorService;
     @Autowired
@@ -89,10 +89,10 @@ public class ExpenseServiceImpl implements ExpenseService {
     }
 
     private void validateForCreation(Expense expense) {
-        expenseValidator.validateForCreation(expense, transactionServiceValidator, contractorService, transactionTypeService);
+        expenseValidator.validateForCreation(expense, transactionPositionValidator, contractorService, transactionTypeService);
     }
 
     private void validateForUpdate(Expense expense) {
-        expenseValidator.validateForUpdate(expense, transactionServiceValidator, contractorService, transactionTypeService);
+        expenseValidator.validateForUpdate(expense, transactionPositionValidator, contractorService, transactionTypeService);
     }
 }

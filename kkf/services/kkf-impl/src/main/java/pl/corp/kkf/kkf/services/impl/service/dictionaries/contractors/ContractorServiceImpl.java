@@ -12,9 +12,9 @@ import pl.corp.kkf.kkf.services.api.dictionaries.contractors.dto.Contractor;
 import pl.corp.kkf.kkf.services.api.dictionaries.contractors.dto.ContractorSearchRequest;
 import pl.corp.kkf.kkf.services.impl.dao.converters.dictionaries.ContractorConverter;
 import pl.corp.kkf.kkf.services.impl.dao.exceptions.dictionaries.ContractorException;
-import pl.corp.kkf.kkf.services.impl.dao.repositories.dictionaries.ContractorRepository;
+import pl.corp.kkf.kkf.services.impl.dao.repositories.ContractorRepository;
 import pl.corp.kkf.kkf.services.impl.dao.validators.dictionaries.ContractorValidator;
-import pl.corp.kkf.kkf.services.model.dictionaries.ContractorEntity;
+import pl.corp.kkf.kkf.services.model.ContractorEntity;
 
 import java.util.List;
 import java.util.function.Supplier;

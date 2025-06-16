@@ -22,12 +22,8 @@ import java.util.List;
 @Service
 public class TransactionServiceApiServiceImpl implements TransactionServiceApiService {
 
-    private final TransactionServiceService transactionServiceService;
-
     @Autowired
-    public TransactionServiceApiServiceImpl(TransactionServiceService transactionServiceService) {
-        this.transactionServiceService = transactionServiceService;
-    }
+    private TransactionServiceService transactionServiceService;
 
     @Override
     @Transactional(transactionManager = KKFModuleConstants.TRANSACTION_MANAGER, readOnly = true)

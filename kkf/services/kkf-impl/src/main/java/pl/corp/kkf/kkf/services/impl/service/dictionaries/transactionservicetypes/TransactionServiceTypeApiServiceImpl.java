@@ -18,12 +18,8 @@ import java.util.List;
 @Service
 public class TransactionServiceTypeApiServiceImpl implements TransactionServiceTypeApiService {
 
-    private final TransactionServiceTypeService transactionServiceTypeService;
-
     @Autowired
-    public TransactionServiceTypeApiServiceImpl(TransactionServiceTypeService transactionServiceTypeService) {
-        this.transactionServiceTypeService = transactionServiceTypeService;
-    }
+    private TransactionServiceTypeService transactionServiceTypeService;
 
     @Override
     @Transactional(transactionManager = KKFModuleConstants.TRANSACTION_MANAGER, readOnly = true)

@@ -18,12 +18,8 @@ import java.util.List;
 @Service
 public class ExpenseApiServiceImpl implements ExpenseApiService {
 
-    private final ExpenseService expenseService;
-
     @Autowired
-    public ExpenseApiServiceImpl(ExpenseService expenseService) {
-        this.expenseService = expenseService;
-    }
+    private ExpenseService expenseService;
 
     @Override
     @Transactional(transactionManager = KKFModuleConstants.TRANSACTION_MANAGER, readOnly = true)
