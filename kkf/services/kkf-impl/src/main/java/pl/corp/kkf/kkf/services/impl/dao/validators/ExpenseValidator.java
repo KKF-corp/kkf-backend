@@ -11,45 +11,45 @@ import pl.corp.kkf.kkf.services.impl.service.dictionaries.contractors.Contractor
 import pl.corp.kkf.kkf.services.impl.service.dictionaries.transactiontypes.TransactionTypeService;
 
 import java.util.Objects;
+import java.util.function.Supplier;
+
+import static pl.corp.kkf.commons.base.service.validate.BaseValidator.check;
 
 public class ExpenseValidator implements BaseValidator {
 
-    @Override
-    public RuntimeException createException(String message) {
-        return new ExpenseException(message);
-    }
-
-    public void validateForCreation(@Valid @NotNull Expense dto,
-                                    final TransactionPositionValidator transactionPositionValidator,
-                                    final ContractorService contractorService,
-                                    final TransactionTypeService transactionTypeService) {
-        check(Objects.nonNull(dto.getId()), "Znaleziono identyfikator podczas tworzenia!");
+    public static void validateForCreation(@Valid @NotNull Expense dto,
+                                           final ContractorService contractorService,
+                                           final TransactionTypeService transactionTypeService) {
+        check(Objects.nonNull(dto.getId()), ex("Znaleziono identyfikator podczas tworzenia!"));
         check(ObjectUtils.allNotNull(dto.getContractor(), dto.getContractor().getId())
-                && !contractorService.existsById(dto.getContractor().getId()), "Nie znaleziono kontrahenta o podanym identyfikatorze!");
-        check(Objects.isNull(dto.getTransactionType().getId()), "Nie znaleziono identyfikatora rodzaju transakcji");
+                && !contractorService.existsById(dto.getContractor().getId()), ex("Nie znaleziono kontrahenta o podanym identyfikatorze!"));
+        check(Objects.isNull(dto.getTransactionType().getId()), ex("Nie znaleziono identyfikatora rodzaju transakcji"));
         check(Objects.isNull(dto.getTransactionType().getId())
-                && !transactionTypeService.existsById(dto.getTransactionType().getId()), "Nie znaleziono rodzaju rozchodu o podanym identyfikatorze!");
-        check(CollectionUtils.isEmpty(dto.getExpenseServiceDtos()), "Brak pozycji rozchodu!");
+                && !transactionTypeService.existsById(dto.getTransactionType().getId()), ex("Nie znaleziono rodzaju rozchodu o podanym identyfikatorze!"));
+        check(CollectionUtils.isEmpty(dto.getExpenseServiceDtos()), ex("Brak pozycji rozchodu!"));
 
-        dto.getExpenseServiceDtos().forEach(transactionPositionValidator::validateForCreation);
+        dto.getExpenseServiceDtos().forEach(TransactionPositionValidator::validateForCreation);
     }
 
-    public void validateForUpdate(@NotNull Expense dto,
-                                  final TransactionPositionValidator transactionPositionValidator,
-                                  final ContractorService contractorService,
-                                  final TransactionTypeService transactionTypeService) {
-        check(Objects.isNull(dto.getId()), "Nie znaleziono identyfikatora podczas modyfikacji!");
+    public static void validateForUpdate(@NotNull Expense dto,
+                                         final ContractorService contractorService,
+                                         final TransactionTypeService transactionTypeService) {
+        check(Objects.isNull(dto.getId()), ex("Nie znaleziono identyfikatora podczas modyfikacji!"));
         check(ObjectUtils.allNotNull(dto.getContractor(), dto.getContractor().getId())
-                && !contractorService.existsById(dto.getContractor().getId()), "Nie znaleziono kontrahenta o podanym identyfikatorze!");
-        check(Objects.isNull(dto.getTransactionType().getId()), "Nie znaleziono identyfikatora rodzaju transakcji");
+                && !contractorService.existsById(dto.getContractor().getId()), ex("Nie znaleziono kontrahenta o podanym identyfikatorze!"));
+        check(Objects.isNull(dto.getTransactionType().getId()), ex("Nie znaleziono identyfikatora rodzaju transakcji"));
         check(Objects.isNull(dto.getTransactionType().getId())
-                && !transactionTypeService.existsById(dto.getTransactionType().getId()), "Nie znaleziono rodzaju rozchodu o podanym identyfikatorze!");
-        check(CollectionUtils.isEmpty(dto.getExpenseServiceDtos()), "Brak pozycji rozchodu!");
+                && !transactionTypeService.existsById(dto.getTransactionType().getId()), ex("Nie znaleziono rodzaju rozchodu o podanym identyfikatorze!"));
+        check(CollectionUtils.isEmpty(dto.getExpenseServiceDtos()), ex("Brak pozycji rozchodu!"));
 
-        dto.getExpenseServiceDtos().forEach(transactionPositionValidator::validateForCreation);
+        dto.getExpenseServiceDtos().forEach(TransactionPositionValidator::validateForCreation);
     }
 
-    public void validateForDelete(boolean isDeleted) {
-        check(isDeleted, "Rozchód został już usunięty!");
+    public static void validateForDelete(boolean isDeleted) {
+        check(isDeleted, ex("Rozchód został już usunięty!"));
+    }
+
+    private static Supplier<ExpenseException> ex(String message) {
+        return () -> new ExpenseException(message);
     }
 }

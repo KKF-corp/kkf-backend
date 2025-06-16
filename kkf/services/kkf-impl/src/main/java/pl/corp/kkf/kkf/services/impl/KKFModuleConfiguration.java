@@ -19,7 +19,6 @@ import static pl.corp.kkf.kkf.services.impl.KKFModuleConstants.*;
 
 @Configuration
 @ConfigurationProperties(PROPERTIES_PREFIX)
-//@EntityScan("pl.corp.kkf.kkf.services.model")
 @EnableJpaRepositories(entityManagerFactoryRef = ENTITY_MANAGER_FACTORY_BEAN_NAME, transactionManagerRef = TRANSACTION_MANAGER, basePackages = REPOSITORY_PACKAGES)
 public class KKFModuleConfiguration extends ModuleConfigurationTemplate {
 
@@ -28,10 +27,10 @@ public class KKFModuleConfiguration extends ModuleConfigurationTemplate {
         return "kkf";
     }
 
-//    @Ov`erride
+//    @Override
 //    protected String getModelPackage() {
 //        return COMMON_ROOT_PACKAGE;
-//    }`
+//    }
 
     @Override
     @Bean(name = DATA_SOURCE_BEAN_NAME)

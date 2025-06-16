@@ -15,9 +15,6 @@ public class ContractorCriteria {
     @Schema(description = "Filtrowanie według nazwiska")
     private String filterByLastName;
 
-    @Schema(description = "Filtrowanie według opisu")
-    private String filterByDescription;
-
     @Schema(description = "Filtrowanie według archiwalny")
     private Boolean filterByArchival;
 
@@ -35,12 +32,6 @@ public class ContractorCriteria {
 
     @Schema(description = "Filtrowanie według nazwy banku")
     private String filterByBankName;
-
-    @Schema(description = "Filtrowanie według faksu")
-    private String filterByFax;
-
-    @Schema(description = "Filtrowanie według swift")
-    private String filterBySwift;
 
     @Schema(description = "Filtrowanie według rodzaju kontrahenta")
     private ContractorType filterByContractorType;
@@ -70,14 +61,6 @@ public class ContractorCriteria {
 
     public void setFilterByLastName(String filterByLastName) {
         this.filterByLastName = filterByLastName;
-    }
-
-    public String getFilterByDescription() {
-        return filterByDescription;
-    }
-
-    public void setFilterByDescription(String filterByDescription) {
-        this.filterByDescription = filterByDescription;
     }
 
     public Boolean getFilterByArchival() {
@@ -126,22 +109,6 @@ public class ContractorCriteria {
 
     public void setFilterByBankName(String filterByBankName) {
         this.filterByBankName = filterByBankName;
-    }
-
-    public String getFilterByFax() {
-        return filterByFax;
-    }
-
-    public void setFilterByFax(String filterByFax) {
-        this.filterByFax = filterByFax;
-    }
-
-    public String getFilterBySwift() {
-        return filterBySwift;
-    }
-
-    public void setFilterBySwift(String filterBySwift) {
-        this.filterBySwift = filterBySwift;
     }
 
     public ContractorType getFilterByContractorType() {

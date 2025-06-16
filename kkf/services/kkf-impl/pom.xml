@@ -20,6 +20,11 @@
 <!--        </dependency>-->
         <dependency>
             <groupId>pl.corp.kkf</groupId>
+            <artifactId>kkf-services-kkf-scripts</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>pl.corp.kkf</groupId>
             <artifactId>kkf-services-kkf-model</artifactId>
             <version>${project.version}</version>
         </dependency>

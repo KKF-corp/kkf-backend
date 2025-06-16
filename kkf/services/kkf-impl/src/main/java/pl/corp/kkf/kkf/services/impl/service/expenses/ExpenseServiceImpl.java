@@ -14,7 +14,6 @@ import pl.corp.kkf.kkf.services.impl.dao.converters.ExpenseConverter;
 import pl.corp.kkf.kkf.services.impl.dao.exceptions.ExpenseException;
 import pl.corp.kkf.kkf.services.impl.dao.repositories.ExpenseRepository;
 import pl.corp.kkf.kkf.services.impl.dao.validators.ExpenseValidator;
-import pl.corp.kkf.kkf.services.impl.dao.validators.TransactionPositionValidator;
 import pl.corp.kkf.kkf.services.impl.service.dictionaries.contractors.ContractorService;
 import pl.corp.kkf.kkf.services.impl.service.dictionaries.transactiontypes.TransactionTypeService;
 import pl.corp.kkf.kkf.services.model.ExpenseEntity;
@@ -33,10 +32,6 @@ public class ExpenseServiceImpl implements ExpenseService {
 
     @Autowired
     private ExpenseRepository expenseRepository;
-    @Autowired
-    private ExpenseValidator expenseValidator;
-    @Autowired
-    private TransactionPositionValidator transactionPositionValidator;
     @Autowired
     private ContractorService contractorService;
     @Autowired
@@ -67,7 +62,7 @@ public class ExpenseServiceImpl implements ExpenseService {
     public void deleteExpense(long id) {
         ExpenseEntity entity = expenseRepository.findById(id)
                 .orElseThrow(EXPENSE_NOT_FOUND_EXCEPTION_SUPPLIER);
-        expenseValidator.validateForDelete(entity.getDeleted());
+        ExpenseValidator.validateForDelete(entity.getDeleted());
         entity.setDeleted(true);
         expenseRepository.save(entity);
     }
@@ -89,10 +84,10 @@ public class ExpenseServiceImpl implements ExpenseService {
     }
 
     private void validateForCreation(Expense expense) {
-        expenseValidator.validateForCreation(expense, transactionPositionValidator, contractorService, transactionTypeService);
+        ExpenseValidator.validateForCreation(expense, contractorService, transactionTypeService);
     }
 
     private void validateForUpdate(Expense expense) {
-        expenseValidator.validateForUpdate(expense, transactionPositionValidator, contractorService, transactionTypeService);
+        ExpenseValidator.validateForUpdate(expense, contractorService, transactionTypeService);
     }
 }

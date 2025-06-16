@@ -14,12 +14,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.scheduling.annotation.EnableAsync;
 
-@SpringBootApplication(exclude = {FlywayAutoConfiguration.class, UserDetailsServiceAutoConfiguration.class, JmsHealthContributorAutoConfiguration.class})
+@SpringBootApplication(exclude = {FlywayAutoConfiguration.class, UserDetailsServiceAutoConfiguration.class})
 @ComponentScan({KKFApplication.ROOT_PACKAGE})
 @ConfigurationPropertiesScan({KKFApplication.ROOT_PACKAGE})
 @EnableAsync
 @OpenAPIDefinition(info = @Info(title = "KKF API", version = "1.0"))
-//@EnableConfigurationProperties(ModuleConfigurationTemplate.class)
 public class KKFApplication {
 
     public static final String ROOT_PACKAGE = "pl.corp.kkf";

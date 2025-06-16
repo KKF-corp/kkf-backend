@@ -11,45 +11,46 @@ import pl.corp.kkf.kkf.services.impl.service.dictionaries.contractors.Contractor
 import pl.corp.kkf.kkf.services.impl.service.dictionaries.transactiontypes.TransactionTypeService;
 
 import java.util.Objects;
+import java.util.function.Supplier;
+
+import static pl.corp.kkf.commons.base.service.validate.BaseValidator.check;
 
 public class RevenueValidator implements BaseValidator {
 
-    @Override
-    public RuntimeException createException(String message) {
-        return new RevenueException(message);
-    }
 
-    public void validateForCreation(@Valid @NotNull Revenue revenue,
-                                    final TransactionPositionValidator transactionPositionValidator,
-                                    final ContractorService contractorService,
-                                    final TransactionTypeService transactionTypeService) {
-        check(Objects.nonNull(revenue.getId()), "Znaleziono identyfikator podczas tworzenia!");
+    public static void validateForCreation(@Valid @NotNull Revenue revenue,
+                                           final ContractorService contractorService,
+                                           final TransactionTypeService transactionTypeService) {
+        check(Objects.nonNull(revenue.getId()), ex("Znaleziono identyfikator podczas tworzenia!"));
         check(ObjectUtils.allNotNull(revenue.getContractor(), revenue.getContractor().getId())
-                && !contractorService.existsById(revenue.getContractor().getId()), "Nie znaleziono kontrahenta o podanym identyfikatorze!");
-        check(Objects.isNull(revenue.getTransactionType().getId()), "Nie znaleziono identyfikatora rodzaju transakcji");
+                && !contractorService.existsById(revenue.getContractor().getId()), ex("Nie znaleziono kontrahenta o podanym identyfikatorze!"));
+        check(Objects.isNull(revenue.getTransactionType().getId()), ex("Nie znaleziono identyfikatora rodzaju transakcji"));
         check(Objects.isNull(revenue.getTransactionType().getId())
-                && !transactionTypeService.existsById(revenue.getTransactionType().getId()), "Nie znaleziono rodzaju przychodu o podanym identyfikatorze!");
-        check(CollectionUtils.isEmpty(revenue.getRevenueServiceDtos()), "Brak pozycji przychodu!");
+                && !transactionTypeService.existsById(revenue.getTransactionType().getId()), ex("Nie znaleziono rodzaju przychodu o podanym identyfikatorze!"));
+        check(CollectionUtils.isEmpty(revenue.getRevenueServiceDtos()), ex("Brak pozycji przychodu!"));
 
-        revenue.getRevenueServiceDtos().forEach(transactionPositionValidator::validateForCreation);
+        revenue.getRevenueServiceDtos().forEach(TransactionPositionValidator::validateForCreation);
     }
 
-    public void validateForUpdate(@NotNull Revenue revenue,
-                                  final TransactionPositionValidator transactionPositionValidator,
-                                  final ContractorService contractorService,
-                                  final TransactionTypeService transactionTypeService) {
-        check(Objects.isNull(revenue.getId()), "Nie znaleziono identyfikatora podczas modyfikacji!");
+    public static void validateForUpdate(@NotNull Revenue revenue,
+                                         final ContractorService contractorService,
+                                         final TransactionTypeService transactionTypeService) {
+        check(Objects.isNull(revenue.getId()), ex("Nie znaleziono identyfikatora podczas modyfikacji!"));
         check(ObjectUtils.allNotNull(revenue.getContractor(), revenue.getContractor().getId())
-                && !contractorService.existsById(revenue.getContractor().getId()), "Nie znaleziono kontrahenta o podanym identyfikatorze!");
-        check(Objects.isNull(revenue.getTransactionType().getId()), "Nie znaleziono identyfikatora rodzaju transakcji");
+                && !contractorService.existsById(revenue.getContractor().getId()), ex("Nie znaleziono kontrahenta o podanym identyfikatorze!"));
+        check(Objects.isNull(revenue.getTransactionType().getId()), ex("Nie znaleziono identyfikatora rodzaju transakcji"));
         check(Objects.isNull(revenue.getTransactionType().getId())
-                && !transactionTypeService.existsById(revenue.getTransactionType().getId()), "Nie znaleziono rodzaju przychodu o podanym identyfikatorze!");
-        check(CollectionUtils.isEmpty(revenue.getRevenueServiceDtos()), "Brak pozycji przychodu!");
+                && !transactionTypeService.existsById(revenue.getTransactionType().getId()), ex("Nie znaleziono rodzaju przychodu o podanym identyfikatorze!"));
+        check(CollectionUtils.isEmpty(revenue.getRevenueServiceDtos()), ex("Brak pozycji przychodu!"));
 
-        revenue.getRevenueServiceDtos().forEach(transactionPositionValidator::validateForCreation);
+        revenue.getRevenueServiceDtos().forEach(TransactionPositionValidator::validateForCreation);
     }
 
-    public void validateForDelete(boolean isDeleted) {
-        check(isDeleted, "Przychód został już usunięty!");
+    public static void validateForDelete(boolean isDeleted) {
+        check(isDeleted, ex("Przychód został już usunięty!"));
+    }
+
+    private static Supplier<RevenueException> ex(String message) {
+        return () -> new RevenueException(message);
     }
 }

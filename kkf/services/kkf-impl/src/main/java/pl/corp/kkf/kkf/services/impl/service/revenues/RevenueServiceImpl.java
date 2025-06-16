@@ -14,7 +14,6 @@ import pl.corp.kkf.kkf.services.impl.dao.converters.RevenueConverter;
 import pl.corp.kkf.kkf.services.impl.dao.exceptions.RevenueException;
 import pl.corp.kkf.kkf.services.impl.dao.repositories.RevenueRepository;
 import pl.corp.kkf.kkf.services.impl.dao.validators.RevenueValidator;
-import pl.corp.kkf.kkf.services.impl.dao.validators.TransactionPositionValidator;
 import pl.corp.kkf.kkf.services.impl.service.dictionaries.contractors.ContractorService;
 import pl.corp.kkf.kkf.services.impl.service.dictionaries.transactiontypes.TransactionTypeService;
 import pl.corp.kkf.kkf.services.model.RevenueEntity;
@@ -25,6 +24,7 @@ import java.util.stream.Collectors;
 
 import static pl.corp.kkf.kkf.services.impl.dao.converters.RevenueConverter.toDto;
 import static pl.corp.kkf.kkf.services.impl.dao.converters.RevenueConverter.toEntity;
+import static pl.corp.kkf.kkf.services.impl.dao.validators.RevenueValidator.validateForDelete;
 
 @Service
 public class RevenueServiceImpl implements RevenueService {
@@ -33,10 +33,6 @@ public class RevenueServiceImpl implements RevenueService {
 
     @Autowired
     private RevenueRepository revenueRepository;
-    @Autowired
-    private RevenueValidator revenueValidator;
-    @Autowired
-    private TransactionPositionValidator transactionPositionValidator;
     @Autowired
     private ContractorService contractorService;
     @Autowired
@@ -67,7 +63,7 @@ public class RevenueServiceImpl implements RevenueService {
     public void deleteRevenue(long id) {
         RevenueEntity entity = revenueRepository.findById(id)
                 .orElseThrow(REVENUE_NOT_FOUND_EXCEPTION_SUPPLIER);
-        revenueValidator.validateForDelete(entity.getDeleted());
+        validateForDelete(entity.getDeleted());
         entity.setDeleted(true);
         revenueRepository.save(entity);
     }
@@ -89,10 +85,10 @@ public class RevenueServiceImpl implements RevenueService {
     }
 
     private void validateForCreation(Revenue revenue) {
-        revenueValidator.validateForCreation(revenue, transactionPositionValidator, contractorService, transactionTypeService);
+        RevenueValidator.validateForCreation(revenue, contractorService, transactionTypeService);
     }
 
     private void validateForUpdate(Revenue revenue) {
-        revenueValidator.validateForUpdate(revenue, transactionPositionValidator, contractorService, transactionTypeService);
+        RevenueValidator.validateForUpdate(revenue, contractorService, transactionTypeService);
     }
 }

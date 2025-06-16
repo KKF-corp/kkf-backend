@@ -10,6 +10,18 @@
     </parent>
 
     <artifactId>kkf-services-kkf-scripts</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
 
+    <!--    <properties>-->
+    <!--        <x-rootPackage>pl.corp.kkf.kkf.services.scripts</x-rootPackage>-->
+    <!--        <x-packageType>flyway</x-packageType>-->
+    <!--    </properties>-->
+
+    <!--    <dependencies>-->
+    <!--        <dependency>-->
+    <!--            <groupId></groupId>-->
+    <!--            <artifactId></artifactId>-->
+    <!--        </dependency>-->
+    <!--    </dependencies>-->
 
 </project>

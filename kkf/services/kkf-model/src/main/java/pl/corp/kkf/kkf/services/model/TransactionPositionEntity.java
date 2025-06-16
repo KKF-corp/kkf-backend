@@ -48,10 +48,6 @@ public abstract class TransactionPositionEntity extends BaseEntity {
     @Column(name = "ARCHIVAL")
     private boolean archival;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "DTYPE")
-    private String dType;
-
     @ManyToOne
     @JoinColumn(name = "REVENUE_ID", referencedColumnName = "ID")
     private RevenueEntity revenue;
@@ -148,14 +144,6 @@ public abstract class TransactionPositionEntity extends BaseEntity {
         this.archival = archival;
     }
 
-    public String getdType() {
-        return dType;
-    }
-
-    public void setdType(String dType) {
-        this.dType = dType;
-    }
-
     public RevenueEntity getRevenue() {
         return revenue;
     }
@@ -188,7 +176,6 @@ public abstract class TransactionPositionEntity extends BaseEntity {
                 && Objects.equals(quantity, that.quantity)
                 && Objects.equals(transactionServiceType, that.transactionServiceType)
                 && Objects.equals(archival, that.archival)
-                && Objects.equals(dType, that.dType)
                 && Objects.equals(revenue, that.revenue)
                 && Objects.equals(expense, that.expense);
     }
@@ -196,6 +183,6 @@ public abstract class TransactionPositionEntity extends BaseEntity {
     @Override
     public int hashCode() {
         return Objects.hash(id, name, description, discount, netPrice, grossPrice, vat, unit, quantity,
-                transactionServiceType, archival, dType, revenue, expense);
+                transactionServiceType, archival, revenue, expense);
     }
 }

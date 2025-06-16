@@ -6,6 +6,7 @@ import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
 import jakarta.persistence.metamodel.SingularAttribute;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,7 +45,17 @@ public class FilterBuilder<T> {
         return this;
     }
 
-    public FilterBuilder<T> equalTo(SingularAttribute<? super T, String> field, Object value) {
+    public FilterBuilder<T> equalTo(SingularAttribute<? super T, String> field, String value) {
+        commonEqualTo(field, value);
+        return this;
+    }
+
+    public FilterBuilder<T> equalTo(SingularAttribute<? super T, Boolean> field, Boolean value) {
+        commonEqualTo(field, value);
+        return this;
+    }
+
+    public FilterBuilder<T> equalTo(SingularAttribute<? super T, BigDecimal> field, BigDecimal value) {
         commonEqualTo(field, value);
         return this;
     }

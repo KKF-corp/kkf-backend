@@ -4,6 +4,7 @@ import jakarta.validation.constraints.NotNull;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import pl.corp.kkf.commons.base.dao.FilterBuilder;
 import pl.corp.kkf.kkf.services.api.dictionaries.contractors.dto.ContractorCriteria;
 import pl.corp.kkf.kkf.services.model.ContractorEntity;
 
@@ -12,10 +13,17 @@ public interface ContractorRepository extends JpaRepository<ContractorEntity, Lo
         JpaSpecificationExecutor<ContractorEntity> {
 
     default Specification<ContractorEntity> getSpecification(@NotNull ContractorCriteria criteria) {
-        return null;
-//        return (root, query, builder) -> new FilterBuilder<ContractorEntity_>(root, query, builder)
-//                .equalTo(ContractorEntity_.isArchival, criteria.getFilterByArchival())
-//                .build();
+        return (root, query, builder) -> new FilterBuilder<>(root, query, builder)
+//                .equalTo(ContractorEntity_.name, criteria.getFilterByName())
+//                .equalTo(ContractorEntity_.firstName, criteria.getFilterByFirstName())
+//                .equalTo(ContractorEntity_.lastName, criteria.getFilterByLastName())
+//                .equalTo(ContractorEntity_.archival, criteria.getFilterByArchival())
+//                .equalTo(ContractorEntity_.nip, criteria.getFilterByNip())
+//                .equalTo(ContractorEntity_.email, criteria.getFilterByEmail())
+//                .equalTo(ContractorEntity_.phoneNumber, criteria.getFilterByPhoneNumber())
+//                .equalTo(ContractorEntity_.bankAccountNumber, criteria.getFilterByBankAccountNumber())
+//                .equalTo(ContractorEntity_.bankName, criteria.getFilterByBankName())
+                .build();
 
 
 //        {

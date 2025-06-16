@@ -48,7 +48,6 @@ public abstract class ModuleConfigurationTemplate {
         entity.setPersistenceProviderClass(HibernatePersistenceProvider.class);
         entity.setPersistenceUnitName(persistenceUnitName);
         entity.setPackagesToScan(getModelPackage());
-        entity.setPackagesToScan(getModelPackage2());
         entity.setJpaProperties(jpaProperties);
         return entity;
     }
@@ -61,10 +60,6 @@ public abstract class ModuleConfigurationTemplate {
         return "pl.corp.kkf." + getModuleNameAsDotted() + ".services.model";
     }
 
-    protected String getModelPackage2() {
-        return "pl.corp.kkf.commons.base.model";
-    }
-
     private String getModuleNameAsDotted() {
         return getModuleName()
                 .replaceAll("([A-Z]+)([A-Z][a-z])", "$1\\.$2")
@@ -74,7 +69,7 @@ public abstract class ModuleConfigurationTemplate {
 
     private String getSchemaLocation() {
         String schemaName = getModuleName();
-        return "classpath:db/" + getModuleName()
+        return "classpath:db/" + schemaName
                 .replaceAll("([A-Z]+)([A-Z][a-z])", "$1\\/$2")
                 .replaceAll("([a-z])([A-Z])", "$1\\/$2")
                 .toLowerCase() + "/migration";

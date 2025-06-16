@@ -35,6 +35,8 @@
         <openapitools.swagger.version>2.1.5</openapitools.swagger.version>
         <swagger.codegen.version>3.0.34</swagger.codegen.version>
         <swagger.version>2.2.1</swagger.version>
+
+        <hibernate.version>6.2.7.Final</hibernate.version>
 <!--        <contract.server.id>nima</contract.server.id>-->
 <!--        <contract.server.url>nima</contract.server.url>-->
     </properties>
@@ -298,14 +300,14 @@
                 </plugin>
 
                 <!--                Konfiguruje wersję Java i parametry kompilacji:-->
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-compiler-plugin</artifactId>
-                    <version>3.11.0</version>
-                    <configuration>
-                        <parameters>true</parameters>
-                    </configuration>
-                </plugin>
+<!--                <plugin>-->
+<!--                    <groupId>org.apache.maven.plugins</groupId>-->
+<!--                    <artifactId>maven-compiler-plugin</artifactId>-->
+<!--                    <version>3.11.0</version>-->
+<!--                    <configuration>-->
+<!--                        <parameters>true</parameters>-->
+<!--                    </configuration>-->
+<!--                </plugin>-->
                 <!--            Pakuje aplikację w wykonywalny JAR/WAR: -->
                 <plugin>
                     <groupId>org.springframework.boot</groupId>
