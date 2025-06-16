@@ -2,64 +2,50 @@ package pl.corp.kkf.kkf.services.model;
 
 import jakarta.persistence.*;
 import pl.corp.kkf.commons.base.model.BaseEntity;
-import pl.corp.kkf.kkf.services.model.dictionaries.TransactionServiceTypeEntity;
 
 import java.math.BigDecimal;
 import java.util.Objects;
 
 @Entity
-@Table(name = "TRANSACTION_SERVICES_FOR_BILLINGS", schema = "KKF")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-public abstract class TransactionServiceEntity extends BaseEntity {
+@Table(name = "TRANSACTION_SERVICES", schema = "KKF")
+public class TransactionServiceEntity extends BaseEntity {
 
     @Id
     @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SequenceTransactionServiceEntity")
-    @SequenceGenerator(name = "SequenceTransactionServiceEntity", schema = "KKF", sequenceName = "SEQ_TRANSACTION_SERVICES_FOR_BILLINGS")
+    @SequenceGenerator(name = "SequenceTransactionServiceEntity", schema = "KKF", sequenceName = "SEQ_TRANSACTION_SERVICES")
     private Long id;
 
-    @Column(name = "NAME", nullable = false)
+    @Column(name = "NAME")
     private String name;
 
     @Column(name = "DESCRIPTION")
     private String description;
 
-    @Column(name = "DISCOUNT", nullable = false)
-    private BigDecimal discount;
-
-    @Column(name = "NET_PRICE", nullable = false)
-    private BigDecimal netPrice;
-
-    @Column(name = "GROSS_PRICE", nullable = false)
-    private BigDecimal grossPrice;
-
-    @Column(name = "VAT", nullable = false)
-    private BigDecimal vat;
-
-    @Column(name = "UNIT", nullable = false)
-    private String unit;
-
-    @Column(name = "QUANTITY", nullable = false)
-    private Integer quantity;
-
-    @ManyToOne
-    @JoinColumn(name = "TRANSACTION_SERVICE_TYPE_ID", referencedColumnName = "ID", nullable = false)
-    private TransactionServiceTypeEntity transactionServiceType;
-
     @Column(name = "ARCHIVAL")
     private boolean archival;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "DTYPE")
-    private String dType;
+    @Column(name = "DISCOUNT")
+    private BigDecimal discount;
+
+    @Column(name = "NET_PRICE")
+    private BigDecimal netPrice;
+
+    @Column(name = "GROSS_PRICE")
+    private BigDecimal grossPrice;
+
+    @Column(name = "VAT")
+    private BigDecimal vat;
+
+    @Column(name = "UNIT")
+    private String unit;
+
+    @Column(name = "QUANTITY")
+    private Integer quantity;
 
     @ManyToOne
-    @JoinColumn(name = "REVENUE_ID", referencedColumnName = "ID")
-    private RevenueEntity revenue;
-
-    @ManyToOne
-    @JoinColumn(name = "EXPENSE_ID", referencedColumnName = "ID")
-    private ExpenseEntity expense;
+    @JoinColumn(name = "TRANSACTION_SERVICE_TYPE_ID", referencedColumnName = "ID")
+    private TransactionServiceTypeEntity transactionServiceType;
 
     public Long getId() {
         return id;
@@ -83,6 +69,14 @@ public abstract class TransactionServiceEntity extends BaseEntity {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public boolean getArchival() {
+        return archival;
+    }
+
+    public void setArchival(boolean archival) {
+        this.archival = archival;
     }
 
     public BigDecimal getDiscount() {
@@ -141,62 +135,16 @@ public abstract class TransactionServiceEntity extends BaseEntity {
         this.transactionServiceType = serviceType;
     }
 
-    public boolean getArchival() {
-        return archival;
-    }
-
-    public void setArchival(boolean archival) {
-        this.archival = archival;
-    }
-
-    public String getdType() {
-        return dType;
-    }
-
-    public void setdType(String dType) {
-        this.dType = dType;
-    }
-
-    public RevenueEntity getRevenue() {
-        return revenue;
-    }
-
-    public void setRevenue(RevenueEntity revenue) {
-        this.revenue = revenue;
-    }
-
-    public ExpenseEntity getExpense() {
-        return expense;
-    }
-
-    public void setExpense(ExpenseEntity expense) {
-        this.expense = expense;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         TransactionServiceEntity that = (TransactionServiceEntity) o;
-        return Objects.equals(id, that.id)
-                && Objects.equals(name, that.name)
-                && Objects.equals(description, that.description)
-                && Objects.equals(discount, that.discount)
-                && Objects.equals(netPrice, that.netPrice)
-                && Objects.equals(grossPrice, that.grossPrice)
-                && Objects.equals(vat, that.vat)
-                && Objects.equals(unit, that.unit)
-                && Objects.equals(quantity, that.quantity)
-                && Objects.equals(transactionServiceType, that.transactionServiceType)
-                && Objects.equals(archival, that.archival)
-                && Objects.equals(dType, that.dType)
-                && Objects.equals(revenue, that.revenue)
-                && Objects.equals(expense, that.expense);
+        return Objects.equals(id, that.id) && Objects.equals(name, that.name) && Objects.equals(description, that.description) && Objects.equals(archival, that.archival) && Objects.equals(discount, that.discount) && Objects.equals(netPrice, that.netPrice) && Objects.equals(grossPrice, that.grossPrice) && Objects.equals(vat, that.vat) && Objects.equals(unit, that.unit) && Objects.equals(quantity, that.quantity) && Objects.equals(transactionServiceType, that.transactionServiceType);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, description, discount, netPrice, grossPrice, vat, unit, quantity,
-                transactionServiceType, archival, dType, revenue, expense);
+        return Objects.hash(id, name, description, archival, discount, netPrice, grossPrice, vat, unit, quantity, transactionServiceType);
     }
 }

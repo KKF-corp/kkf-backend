@@ -1,0 +1,5 @@
+cacheTTL: 0
+openAPI:
+  info:
+    version: '${project.version}-${contract.version.timestamp}'
+    title: MOduł ${project.groupId}:${project.artifactId}

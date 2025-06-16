@@ -5,8 +5,8 @@ import pl.corp.kkf.kkf.services.api.dictionaries.contractors.dto.Contractor;
 import pl.corp.kkf.kkf.services.api.dictionaries.contractors.dto.ContractorListResponse;
 import pl.corp.kkf.kkf.services.api.dictionaries.contractors.dto.ContractorResponse;
 import pl.corp.kkf.kkf.services.api.dictionaries.contractors.dto.ContractorSearchResponse;
-import pl.corp.kkf.kkf.services.model.dictionaries.AddressEntity;
-import pl.corp.kkf.kkf.services.model.dictionaries.ContractorEntity;
+import pl.corp.kkf.kkf.services.model.AddressEntity;
+import pl.corp.kkf.kkf.services.model.ContractorEntity;
 
 import java.util.List;
 import java.util.Objects;

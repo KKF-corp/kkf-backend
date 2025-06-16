@@ -3,7 +3,7 @@ package pl.corp.kkf.kkf.services.impl.dao.converters.dictionaries;
 import pl.corp.kkf.commons.rest.types.api.pages.PageDTO;
 import pl.corp.kkf.kkf.services.api.dictionaries.transactiontypes.dto.TransactionType;
 import pl.corp.kkf.kkf.services.api.dictionaries.transactiontypes.dto.TransactionTypeSearchResponse;
-import pl.corp.kkf.kkf.services.model.dictionaries.TransactionTypeEntity;
+import pl.corp.kkf.kkf.services.model.TransactionTypeEntity;
 
 public class TransactionTypeConverter {
 

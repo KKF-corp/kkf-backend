@@ -20,7 +20,7 @@ public class ExpenseValidator implements BaseValidator {
     }
 
     public void validateForCreation(@Valid @NotNull Expense dto,
-                                    final TransactionServiceValidator transactionServiceValidator,
+                                    final TransactionPositionValidator transactionPositionValidator,
                                     final ContractorService contractorService,
                                     final TransactionTypeService transactionTypeService) {
         check(Objects.nonNull(dto.getId()), "Znaleziono identyfikator podczas tworzenia!");
@@ -31,11 +31,11 @@ public class ExpenseValidator implements BaseValidator {
                 && !transactionTypeService.existsById(dto.getTransactionType().getId()), "Nie znaleziono rodzaju rozchodu o podanym identyfikatorze!");
         check(CollectionUtils.isEmpty(dto.getExpenseServiceDtos()), "Brak pozycji rozchodu!");
 
-        dto.getExpenseServiceDtos().forEach(transactionServiceValidator::validateForCreation);
+        dto.getExpenseServiceDtos().forEach(transactionPositionValidator::validateForCreation);
     }
 
     public void validateForUpdate(@NotNull Expense dto,
-                                  final TransactionServiceValidator transactionServiceValidator,
+                                  final TransactionPositionValidator transactionPositionValidator,
                                   final ContractorService contractorService,
                                   final TransactionTypeService transactionTypeService) {
         check(Objects.isNull(dto.getId()), "Nie znaleziono identyfikatora podczas modyfikacji!");
@@ -46,7 +46,7 @@ public class ExpenseValidator implements BaseValidator {
                 && !transactionTypeService.existsById(dto.getTransactionType().getId()), "Nie znaleziono rodzaju rozchodu o podanym identyfikatorze!");
         check(CollectionUtils.isEmpty(dto.getExpenseServiceDtos()), "Brak pozycji rozchodu!");
 
-        dto.getExpenseServiceDtos().forEach(transactionServiceValidator::validateForCreation);
+        dto.getExpenseServiceDtos().forEach(transactionPositionValidator::validateForCreation);
     }
 
     public void validateForDelete(boolean isDeleted) {

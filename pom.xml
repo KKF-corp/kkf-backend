@@ -17,21 +17,26 @@
     </modules>
 
     <properties>
-        <maven.compiler.source>23</maven.compiler.source>
-        <maven.compiler.target>23</maven.compiler.target>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <contract.version.timestamp>${maven.build.timestamp}</contract.version.timestamp>
 
-        <flyway-core.version>11.3.4</flyway-core.version>
+<!--        <flyway-core.version>11.3.4</flyway-core.version>-->
         <spring-data-jpa.version>3.4.3</spring-data-jpa.version>
         <spring-core.version>6.2.3</spring-core.version>
         <h2.version>2.3.232</h2.version>
         <junit.version>3.8.1</junit.version>
         <commons-lang3.version>3.14.0</commons-lang3.version>
         <cxf-version>4.0.0</cxf-version>
-        <swagger.codegen.maven.plugin.version>3.0.34</swagger.codegen.maven.plugin.version>
-        <swagger.maven.plugin.version>2.1.5</swagger.maven.plugin.version>
-        <spring.boot.dependencies.version>3.2.0</spring.boot.dependencies.version>
         <postgresql.version>42.4.0</postgresql.version>
+
+        <spring.boot.dependencies.version>3.1.3</spring.boot.dependencies.version>
+        <openapitools.swagger.version>2.1.5</openapitools.swagger.version>
+        <swagger.codegen.version>3.0.34</swagger.codegen.version>
+        <swagger.version>2.2.1</swagger.version>
+<!--        <contract.server.id>nima</contract.server.id>-->
+<!--        <contract.server.url>nima</contract.server.url>-->
     </properties>
 
     <dependencyManagement>
@@ -50,15 +55,15 @@
 <!--            </dependency>-->
 
             <dependency>
-                <groupId>org.glassfish.jersey.media</groupId>
-                <artifactId>jersey-media-multipart</artifactId>
-                <version>3.1.1</version>
-            </dependency>
-
-            <dependency>
                 <groupId>org.postgresql</groupId>
                 <artifactId>postgresql</artifactId>
                 <version>${postgresql.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.swagger.core.v3</groupId>
+                <artifactId>swagger-annotations</artifactId>
+                <version>${swagger.version}</version>
             </dependency>
 
             <dependency>
@@ -68,34 +73,21 @@
             </dependency>
 
             <dependency>
-                <groupId>org.flywaydb</groupId>
-                <artifactId>flyway-core</artifactId>
-                <version>${flyway-core.version}</version>
+                <groupId>com.opencsv</groupId>
+                <artifactId>opencsv</artifactId>
+                <version>5.6</version>
             </dependency>
+
             <dependency>
-                <groupId>org.springframework.data</groupId>
-                <artifactId>spring-data-jpa</artifactId>
-                <version>${spring-data-jpa.version}</version>
+                <groupId>commons-io</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>2.11.0</version>
             </dependency>
+
             <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-core</artifactId>
-                <version>${spring-core.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.h2database</groupId>
-                <artifactId>h2</artifactId>
-                <version>${h2.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>junit</groupId>
-                <artifactId>junit</artifactId>
-                <version>${junit.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.commons</groupId>
-                <artifactId>commons-lang3</artifactId>
-                <version>${commons-lang3.version}</version>
+                <groupId>org.glassfish.jersey.media</groupId>
+                <artifactId>jersey-media-multipart</artifactId>
+                <version>3.1.1</version>
             </dependency>
 
             <dependency>
@@ -109,43 +101,47 @@
                 <version>6.20.0</version>
             </dependency>
 
-            <dependency>
-                <groupId>io.swagger.core.v3</groupId>
-                <artifactId>swagger-annotations</artifactId>
-                <version>2.2.8</version>
-            </dependency>
-            <!--            <dependency>-->
-            <!--                <groupId>io.openapitools.swagger</groupId>-->
-            <!--                <artifactId>swagger-maven-plugin</artifactId>-->
-            <!--                <version>${swagger.maven.plugin.version}</version>-->
-            <!--            </dependency>-->
-            <!--            <dependency>-->
-            <!--                <groupId>io.swagger.codegen.v3</groupId>-->
-            <!--                <artifactId>swagger-codegen-project</artifactId>-->
-            <!--                <version>3.0.62</version>-->
-            <!--            </dependency>-->
-            <!--            <dependency>-->
-            <!--                <groupId>io.swagger.codegen.v3</groupId>-->
-            <!--                <artifactId>swagger-annotations</artifactId>-->
-            <!--                <version>2.2.1</version>-->
-            <!--            </dependency>-->
-            <!--            <dependency>-->
-            <!--                <groupId>io.swagger.codegen.v3</groupId>-->
-            <!--                <artifactId>swagger-codegen-maven-plugin</artifactId>-->
-            <!--                <version>${swagger.codegen.maven.plugin.version}</version>-->
-            <!--            </dependency>-->
-
             <!-- Swagger 3 -->
             <dependency>
-                <groupId>org.springdoc</groupId>
-                <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-                <version>2.3.0</version>
+                <groupId>io.openapitools.swagger</groupId>
+                <artifactId>swagger-maven-plugin</artifactId>
+                <version>${openapitools.swagger.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.springdoc</groupId>
-                <artifactId>springdoc-openapi-starter-webmvc-api</artifactId>
-                <version>2.3.0</version>
+                <groupId>io.swagger.codegen.v3</groupId>
+                <artifactId>swagger-codegen-maven-plugin</artifactId>
+                <version>${swagger.codegen.version}</version>
             </dependency>
+
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>${commons-lang3.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-text</artifactId>
+                <version>1.10.0</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.fasterxml.jackson.module</groupId>
+                <artifactId>jackson-module-parameter-names</artifactId>
+                <version>2.14.1</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.datatype</groupId>
+                <artifactId>jackson-datatype-jdk8</artifactId>
+                <version>2.14.1</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.datatype</groupId>
+                <artifactId>jackson-datatype-jsr310</artifactId>
+                <version>2.14.1</version>
+            </dependency>
+
+<!--            CXF         -->
 
             <dependency>
                 <groupId>org.apache.cxf</groupId>
@@ -154,60 +150,138 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-
-            <!-- https://mvnrepository.com/artifact/jakarta.ws.rs/jakarta.ws.rs-api -->
             <dependency>
-                <groupId>jakarta.ws.rs</groupId>
-                <artifactId>jakarta.ws.rs-api</artifactId>
-                <version>4.0.0</version>
+                <groupId>org.apache.cxf.xjc-utils</groupId>
+                <artifactId>cxf-xjc-runtime</artifactId>
+                <version>${cxf-version}</version>
+            </dependency>
+<!--            test-->
+            <dependency>
+                <groupId>com.tngtec.archunit</groupId>
+                <artifactId>archunit-junit5</artifactId>
+                <version>1.2.1</version>
+            </dependency>
+<!--            <dependency>-->
+<!--                <groupId>junit</groupId>-->
+<!--                <artifactId>junit</artifactId>-->
+<!--                <version>${junit.version}</version>-->
+<!--            </dependency>-->
+
+            <dependency>
+                <groupId>com.google.zxing</groupId>
+                <artifactId>core</artifactId>
+                <version>3.5.1</version>
+            </dependency>
+            <dependency>
+                <groupId>com.google.zxing</groupId>
+                <artifactId>javase</artifactId>
+                <version>3.5.1</version>
             </dependency>
 
-            <dependency>
-                <groupId>org.reflections</groupId>
-                <artifactId>reflections</artifactId>
-                <version>0.10.2</version>
-            </dependency>
 
-            <dependency>
-                <groupId>org.projectlombok</groupId>
-                <artifactId>lombok</artifactId>
-                <optional>true</optional>
-            </dependency>
+<!--            <dependency>-->
+<!--                <groupId>org.flywaydb</groupId>-->
+<!--                <artifactId>flyway-core</artifactId>-->
+<!--                <version>${flyway-core.version}</version>-->
+<!--            </dependency>-->
+
+<!--            <dependency>-->
+<!--                <groupId>org.springframework.data</groupId>-->
+<!--                <artifactId>spring-data-jpa</artifactId>-->
+<!--                <version>${spring-data-jpa.version}</version>-->
+<!--            </dependency>-->
+<!--            <dependency>-->
+<!--                <groupId>org.springframework</groupId>-->
+<!--                <artifactId>spring-core</artifactId>-->
+<!--                <version>${spring-core.version}</version>-->
+<!--            </dependency>-->
+<!--            <dependency>-->
+<!--                <groupId>com.h2database</groupId>-->
+<!--                <artifactId>h2</artifactId>-->
+<!--                <version>${h2.version}</version>-->
+<!--            </dependency>-->
+
+<!--            &lt;!&ndash; https://mvnrepository.com/artifact/io.swagger.core.v3/swagger-maven-plugin-jakarta &ndash;&gt;-->
+<!--            <dependency>-->
+<!--                <groupId>io.swagger.core.v3</groupId>-->
+<!--                <artifactId>swagger-maven-plugin-jakarta</artifactId>-->
+<!--                <version>${swagger.version}</version>-->
+<!--            </dependency>-->
+<!--            <dependency>-->
+<!--                <groupId>io.swagger.core.v3</groupId>-->
+<!--                <artifactId>swagger-core-jakarta</artifactId>-->
+<!--                <version>${swagger.version}</version>-->
+<!--            </dependency>-->
+<!--            <dependency>-->
+<!--                <groupId>io.swagger.core.v3</groupId>-->
+<!--                <artifactId>swagger-jaxrs2-jakarta</artifactId>-->
+<!--                <version>${swagger.version}</version>-->
+<!--            </dependency>-->
+
+<!--            &lt;!&ndash; https://mvnrepository.com/artifact/jakarta.ws.rs/jakarta.ws.rs-api &ndash;&gt;-->
+<!--            <dependency>-->
+<!--                <groupId>jakarta.ws.rs</groupId>-->
+<!--                <artifactId>jakarta.ws.rs-api</artifactId>-->
+<!--                <version>4.0.0</version>-->
+<!--            </dependency>-->
+
+<!--            <dependency>-->
+<!--                <groupId>org.reflections</groupId>-->
+<!--                <artifactId>reflections</artifactId>-->
+<!--                <version>0.10.2</version>-->
+<!--            </dependency>-->
+
+<!--            <dependency>-->
+<!--                <groupId>org.projectlombok</groupId>-->
+<!--                <artifactId>lombok</artifactId>-->
+<!--                <optional>true</optional>-->
+<!--            </dependency>-->
+
+            <!--            <dependency>-->
+            <!--                <groupId>org.springdoc</groupId>-->
+            <!--                <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>-->
+            <!--                <version>2.3.0</version>-->
+            <!--            </dependency>-->
+            <!--            <dependency>-->
+            <!--                <groupId>org.springdoc</groupId>-->
+            <!--                <artifactId>springdoc-openapi-starter-webmvc-api</artifactId>-->
+            <!--                <version>2.3.0</version>-->
+            <!--            </dependency>-->
         </dependencies>
     </dependencyManagement>
 
     <build>
         <pluginManagement>
             <plugins>
-                <!--            <plugin>-->
-                <!--                <groupId>org.apache.cxf</groupId>-->
-                <!--                <artifactId>cxf.codegen-plugin</artifactId>-->
-                <!--                <version>${cxf-version}</version>-->
-                <!--            </plugin>-->
+                <plugin>
+                    <groupId>org.apache.cxf</groupId>
+                    <artifactId>cxf.codegen-plugin</artifactId>
+                    <version>${cxf-version}</version>
+                </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-jar-plugin</artifactId>
-                    <version>3.4.2</version>
+                    <version>3.2.2</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-enforcer-plugin</artifactId>
-                    <version>3.5.0</version>
+                    <version>3.0.0-M3</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
-                    <version>3.1.2</version>
+                    <version>3.0.0-M5</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-resources-plugin</artifactId>
-                    <version>3.3.1</version>
+                    <version>3.1.0</version>
                 </plugin>
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>exec-maven-plugin</artifactId>
-                    <version>3.4.1</version>
+                    <version>3.1.0</version>
                 </plugin>
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
@@ -217,7 +291,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-deploy-plugin</artifactId>
-                    <version>3.1.2</version>
+                    <version>2.8.2</version>
                     <configuration>
                         <skip>true</skip>
                     </configuration>
@@ -227,7 +301,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
-                    <version>3.14.0</version>
+                    <version>3.11.0</version>
                     <configuration>
                         <parameters>true</parameters>
                     </configuration>
@@ -245,17 +319,93 @@
                     </configuration>
                 </plugin>
 
+<!--                <plugin>-->
+<!--                    &lt;!&ndash;                Automatyzuje migracje bazodanowe:&ndash;&gt;-->
+<!--                    <groupId>org.flywaydb</groupId>-->
+<!--                    <artifactId>flyway-maven-plugin</artifactId>-->
+<!--                    <version>10.11.0</version>-->
+<!--                    <configuration>-->
+<!--                        <url>jdbc:postgresql://localhost:5432/kkf</url>-->
+<!--                        <user>kkf</user>-->
+<!--                        <password>kkf</password>-->
+<!--                    </configuration>-->
+<!--                </plugin>-->
                 <plugin>
-                    <!--                Automatyzuje migracje bazodanowe:-->
-                    <groupId>org.flywaydb</groupId>
-                    <artifactId>flyway-maven-plugin</artifactId>
-                    <version>10.11.0</version>
+                    <groupId>io.openapitools.swagger</groupId>
+                    <artifactId>swagger-maven-plugin</artifactId>
+                    <version>${openapitools.swagger.version}</version>
                     <configuration>
-                        <url>jdbc:postgresql://localhost:5432/kkf</url>
-                        <user>kkf</user>
-                        <password>kkf</password>
+                        <resourcePackages>
+                            <resourcePackage>pl.corp.kkf</resourcePackage>
+                        </resourcePackages>
+                        <useResourcePackagesChildren>true</useResourcePackagesChildren>
+                        <outputDirectory>${basedir}/target/swagger-resources/META-INF/resources</outputDirectory>
+                        <outputFilename>swagger-${project.artifactId}</outputFilename>
+                        <outputFormats>YAML,JSON</outputFormats>
+                        <prettyPrint>true</prettyPrint>
+                        <attachSwaggerArtifact>true</attachSwaggerArtifact>
+
+                        <swaggerConfig>
+                            <servers>
+                                <server>
+                                    <url>http://localhost/kkf/services</url>
+                                    <description>Usługi KKF</description>
+                                </server>
+                            </servers>
+                            <info>
+                                <title>Moduł ${project.groupId}:${project.artifactId}</title>
+                                <version>${project.version}-${contract.version.timestamp}</version> <!-- -${git.commit.id}-->
+                            </info>
+                        </swaggerConfig>
                     </configuration>
+                    <dependencies>
+                        <dependency>
+                            <groupId>pl.corp.kkf</groupId>
+                            <artifactId>kkf-commons-openapi-extension</artifactId>
+                            <version>${project.version}</version>
+                        </dependency>
+                    </dependencies>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>generate</goal>
+                            </goals>
+                            <phase>process-classes</phase>
+                        </execution>
+                    </executions>
                 </plugin>
+
+                <plugin>
+                    <groupId>io.swagger.codegen.v3</groupId>
+                    <artifactId>swagger-codegen-maven-plugin</artifactId>
+                    <version>${swagger.codegen.version}</version>
+                    <dependencies>
+                        <dependency>
+                            <groupId>pl.corp.kkf</groupId>
+                            <artifactId>kkf-commons-openapi-codegen-extension</artifactId>
+                            <version>${project.version}</version>
+                        </dependency>
+                    </dependencies>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>generate</goal>
+                            </goals>
+                            <phase>package</phase>
+                            <configuration>
+                                <inputSpec>
+                                    ${basedir}/target/swagger-resources/META-INF/resources/swagger-${project.artifactId}.json
+                                </inputSpec>
+                                <language>typescript-angular-extension</language>
+                                <output>${basedir}/target/ts-client</output>
+                                <addCompileSourceRoot>false</addCompileSourceRoot>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
+
+
+
                 <!--            TODO: gdy ogarniemy dockerka-->
                 <!--            <plugin>-->
                 <!--                &lt;!&ndash;                Buduje i publikuje obrazy Dockera:&ndash;&gt;-->
@@ -272,96 +422,6 @@
                 <!--                    <repository>my-registry/app</repository>-->
                 <!--                    <tag>${project.version}</tag>-->
                 <!--                </configuration>-->
-                <!--            </plugin>-->
-
-                <!--                TODO: wywala błędy - zastąpiony springdoc, ale nie wiem z takimi możliwościami konfiguracyjnymi ręcznie-->
-                <!--            <plugin>-->
-                <!--                <groupId>io.openapitools.swagger</groupId>-->
-                <!--                <artifactId>swagger-maven-plugin</artifactId>-->
-                <!--                <version>${swagger.maven.plugin.version}</version>-->
-                <!--                <configuration>-->
-                <!--                    <resourcePackages>-->
-                <!--                        <resourcePackage>pl.corp.kkf</resourcePackage>-->
-                <!--                    </resourcePackages>-->
-                <!--                    <useResourcePackagesChildren>true</useResourcePackagesChildren>-->
-                <!--                    <outputDirectory>${basedir}/target/swagger-resources/META-INF/resources</outputDirectory>-->
-                <!--                    <outputFilename>swagger-${project.artifactId}}</outputFilename>-->
-                <!--                    <outputFormats>JSON,YAML</outputFormats>-->
-                <!--                    <prettyPrint>true</prettyPrint>-->
-                <!--                    <attachSwaggerArtifact>true</attachSwaggerArtifact>-->
-
-                <!--                    <swaggerConfig>-->
-                <!--                        <servers>-->
-                <!--                            <server>-->
-                <!--                                <url>http://localhost/kkf/services</url>-->
-                <!--                                <description>Usługi KKF</description>-->
-                <!--                            </server>-->
-                <!--                        </servers>-->
-                <!--                        <info>-->
-                <!--                            <title>Moduł ${project.groupId}:${project.artifactId}</title>-->
-                <!--                            <version>${project.version}-yyyy-MM-dd-HHmmss-${git.commit.id}</version>-->
-                <!--                        </info>-->
-                <!--                    </swaggerConfig>-->
-                <!--                </configuration>-->
-                <!--                <executions>-->
-                <!--                    <execution>-->
-                <!--                        <goals>-->
-                <!--                            <goal>generate</goal>-->
-                <!--                        </goals>-->
-                <!--                        <phase>process-classes</phase>-->
-                <!--                    </execution>-->
-                <!--                </executions>-->
-                <!--            </plugin>-->
-
-                <!--            TODO: to complete-->
-                <!--            <plugin>-->
-                <!--                <groupId>io.swagger.codegen.v3</groupId>-->
-                <!--                <artifactId>swagger-codegen-maven-plugin</artifactId>-->
-                <!--                <version>${swagger.codegen.maven.plugin.version}</version>-->
-                <!--                <dependencies>-->
-                <!--&lt;!&ndash;                    <dependency>&ndash;&gt;-->
-                <!--&lt;!&ndash;                        <groupId>pl.corp.kkf</groupId>&ndash;&gt;-->
-                <!--&lt;!&ndash;                        <artifactId>kkf-commons-openapi-codegen-extension</artifactId>&ndash;&gt;-->
-                <!--&lt;!&ndash;                        <version>${project.version}</version>&ndash;&gt;-->
-                <!--&lt;!&ndash;                    </dependency>&ndash;&gt;-->
-                <!--                </dependencies>-->
-                <!--                <executions>-->
-                <!--                    <execution>-->
-                <!--                        <goals>-->
-                <!--                            <goal>generate</goal>-->
-                <!--                        </goals>-->
-                <!--                        <phase>package</phase>-->
-                <!--                        <configuration>-->
-                <!--                            <inputSpec>-->
-                <!--                                ${basedir}/target/swagger-resources/META-INF/resources/swagger-${project.artifactId}.json-->
-                <!--                            </inputSpec>-->
-                <!--&lt;!&ndash;                            TODO: dokończyć&ndash;&gt;-->
-                <!--                            <language>typescript-angular-extension</language>-->
-                <!--                            <output>${basedir}/target/ts-client</output>-->
-                <!--                            <addCompileSourceRoot>false</addCompileSourceRoot>-->
-                <!--                        </configuration>-->
-                <!--                    </execution>-->
-                <!--                </executions>-->
-                <!--            </plugin>-->
-
-
-                <!--            <plugin>-->
-                <!--&lt;!&ndash;                Wymusza wersje Java/Maven:&ndash;&gt;-->
-                <!--                <groupId>org.apache.maven.plugins</groupId>-->
-                <!--                <artifactId>maven-enforcer-plugin</artifactId>-->
-                <!--                <version>3.6.0</version>-->
-                <!--                <executions>-->
-                <!--                    <execution>-->
-                <!--                        <id>enforce-versions</id>-->
-                <!--                        <goals><goal>enforce</goal></goals>-->
-                <!--                        <configuration>-->
-                <!--                            <rules>-->
-                <!--                                <requireJavaVersion><version>17</version></requireJavaVersion>-->
-                <!--                                <requireMavenVersion><version>3.9.0</version></requireMavenVersion>-->
-                <!--                            </rules>-->
-                <!--                        </configuration>-->
-                <!--                    </execution>-->
-                <!--                </executions>-->
                 <!--            </plugin>-->
 
                 <plugin>

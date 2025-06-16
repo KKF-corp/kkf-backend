@@ -1,13 +1,12 @@
 package pl.corp.kkf.kkf.services.api.revenues.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.Size;
 import pl.corp.kkf.kkf.services.api.dictionaries.contractors.dto.Contractor;
 import pl.corp.kkf.kkf.services.api.dictionaries.transactiontypes.dto.TransactionType;
-import pl.corp.kkf.kkf.services.api.transactionservices.dto.RevenueServiceDto;
+import pl.corp.kkf.kkf.services.api.transactionservices.dto.RevenuePosition;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -51,7 +50,7 @@ public class Revenue {
 
     @NotNull
     @Schema(description = "Pozycje przychodu")
-    private List<RevenueServiceDto> revenueServiceDtos;
+    private List<RevenuePosition> revenueServiceDtos;
 
     public Long getId() {
         return id;
@@ -125,11 +124,11 @@ public class Revenue {
         this.contractor = contractor;
     }
 
-    public List<RevenueServiceDto> getRevenueServiceDtos() {
+    public List<RevenuePosition> getRevenueServiceDtos() {
         return revenueServiceDtos;
     }
 
-    public void setRevenueServiceDtos(List<RevenueServiceDto> revenueServiceDtos) {
+    public void setRevenueServiceDtos(List<RevenuePosition> revenueServiceDtos) {
         this.revenueServiceDtos = revenueServiceDtos;
     }
 }

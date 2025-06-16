@@ -8,8 +8,8 @@ import pl.corp.kkf.kkf.services.api.revenues.dto.RevenueSearchResponse;
 import pl.corp.kkf.kkf.services.impl.dao.converters.dictionaries.ContractorConverter;
 import pl.corp.kkf.kkf.services.impl.dao.converters.dictionaries.TransactionTypeConverter;
 import pl.corp.kkf.kkf.services.model.RevenueEntity;
-import pl.corp.kkf.kkf.services.model.dictionaries.ContractorEntity;
-import pl.corp.kkf.kkf.services.model.dictionaries.TransactionTypeEntity;
+import pl.corp.kkf.kkf.services.model.ContractorEntity;
+import pl.corp.kkf.kkf.services.model.TransactionTypeEntity;
 
 import java.util.Optional;
 

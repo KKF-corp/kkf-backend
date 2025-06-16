@@ -20,9 +20,17 @@
     <dependencies>
         <dependency>
             <groupId>pl.corp.kkf</groupId>
+            <artifactId>kkf-services-kkf-impl</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>pl.corp.kkf</groupId>
             <artifactId>kkf-commons-base-service</artifactId>
             <version>${project.version}</version>
         </dependency>
+
+<!--        external libraries  -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
@@ -45,8 +53,19 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-jdbc</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-validation</artifactId>
@@ -56,43 +75,49 @@
             <artifactId>spring-boot-starter-jersey</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-<!--            <scope>test</scope>-->
-        </dependency>
-
-        <dependency>
-            <groupId>org.postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-        </dependency>
-
-        <dependency>
             <groupId>org.glassfish.jersey.media</groupId>
             <artifactId>jersey-media-multipart</artifactId>
         </dependency>
+
         <dependency>
-            <groupId>io.swagger.core.v3</groupId>
-            <artifactId>swagger-annotations</artifactId>
-            <version>2.2.1</version>
-            <scope>compile</scope>
-        </dependency>
-        <!-- W głównym pom.xml -->
-        <dependency>
-            <groupId>org.springdoc</groupId>
-            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-            <version>2.3.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springdoc</groupId>
-            <artifactId>springdoc-openapi-starter-webmvc-api</artifactId>
-            <version>2.3.0</version>
+            <groupId>jakarta.ws.rs</groupId>
+            <artifactId>jakarta.ws.rs-api</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>pl.corp.kkf</groupId>
-            <artifactId>kkf-services-kkf-impl</artifactId>
-            <version>${project.version}</version>
+            <groupId>org.apache.httpcomponents.client5</groupId>
+            <artifactId>httpclient5</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+<!--        <dependency>-->
+<!--            <groupId>com.tngtech.archunit</groupId>-->
+<!--            <artifactId>archunit-junit5</artifactId>-->
+<!--            <scope>test</scope>-->
+<!--        </dependency>-->
+
+<!--        <dependency>-->
+<!--            <groupId>io.swagger.core.v3</groupId>-->
+<!--            <artifactId>swagger-annotations</artifactId>-->
+<!--            &lt;!&ndash;            <version>2.2.1</version>&ndash;&gt;-->
+<!--            <scope>compile</scope>-->
+<!--        </dependency>-->
+        <!-- W głównym pom.xml -->
+<!--        <dependency>-->
+<!--            <groupId>org.springdoc</groupId>-->
+<!--            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>-->
+<!--            &lt;!&ndash;            <version>2.3.0</version>&ndash;&gt;-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>org.springdoc</groupId>-->
+<!--            <artifactId>springdoc-openapi-starter-webmvc-api</artifactId>-->
+<!--            &lt;!&ndash;            <version>2.3.0</version>&ndash;&gt;-->
+<!--        </dependency>-->
 
     </dependencies>
 
@@ -112,7 +137,7 @@
                             </customClasspathLayout>
                         </manifest>
                     </archive>
-                    <finalName>kkf-app.jar</finalName>
+                    <finalName>kkf-app</finalName>
                 </configuration>
             </plugin>
 
@@ -134,7 +159,85 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>io.swagger.core.v3</groupId>
+                <artifactId>swagger-maven-plugin-jakarta</artifactId>
+                <version>2.2.15</version>
+<!--                <version>2.2.1</version>-->
+<!--                <version>2.2.25</version>-->
+                <configuration>
+                    <contextId>kkf-apps-app</contextId>
+                    <outputFileName>swagger</outputFileName>
+                    <outputPath>${basedir}/target/swagger-resources/META-INF/resources</outputPath>
+                    <outputFormat>JSONANDYAML</outputFormat>
+                    <resourcePackages>
+                        <package>pl.corp.kkf</package>
+                    </resourcePackages>
+                    <prettyPrint>true</prettyPrint>
+                    <encoding>UTF-8</encoding>
+                    <configurationFilePath>${basedir}/target/classes/openapi-configuration.yaml</configurationFilePath>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>pl.corp.kkf</groupId>
+                        <artifactId>kkf-commons-openapi-extension</artifactId>
+                        <version>${project.version}</version>
+                    </dependency>
+                </dependencies>
+                <executions>
+                    <execution>
+                        <id>generate-openapi</id>
+                        <phase>process-classes</phase>
+                        <goals>
+                            <goal>resolve</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>io.swagger.codegen.v3</groupId>
+                <artifactId>swagger-codegen-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <configuration>
+                            <inputSpec>${basedir}/target/swagger-resources/META-INF/resources/swagger.json</inputSpec>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+<!--            <plugin>-->
+<!--                <groupId>org.codehaus.mojo</groupId>-->
+<!--                <artifactId>wagon-maven-plugin</artifactId>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <phase>deploy</phase>-->
+<!--                        <goals>-->
+<!--                            <goal>upload</goal>-->
+<!--                        </goals>-->
+<!--                        <configuration>-->
+<!--                            <serverId>${contract.server.id}</serverId>-->
+<!--                            <fromDir>target/swagger-resources/META-INF/resources</fromDir>-->
+<!--                            <includes>swagger.yaml,swagger.json</includes>-->
+<!--                            <url>-->
+<!--                                ${contract.server.url}/${project.groupId}/${project.artifactId}/${project.version}-${contract.version.timestamp}-->
+<!--                            </url> &lt;!&ndash; -${git.commit.id}&ndash;&gt;-->
+<!--                        </configuration>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+
+<!--            </plugin>-->
+
         </plugins>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
     </build>
+    <!--    <profiles>-->
+    <!--    </profiles>-->
 
 </project>

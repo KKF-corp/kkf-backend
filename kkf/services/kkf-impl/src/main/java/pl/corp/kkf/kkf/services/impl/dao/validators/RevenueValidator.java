@@ -20,7 +20,7 @@ public class RevenueValidator implements BaseValidator {
     }
 
     public void validateForCreation(@Valid @NotNull Revenue revenue,
-                                    final TransactionServiceValidator transactionServiceValidator,
+                                    final TransactionPositionValidator transactionPositionValidator,
                                     final ContractorService contractorService,
                                     final TransactionTypeService transactionTypeService) {
         check(Objects.nonNull(revenue.getId()), "Znaleziono identyfikator podczas tworzenia!");
@@ -31,11 +31,11 @@ public class RevenueValidator implements BaseValidator {
                 && !transactionTypeService.existsById(revenue.getTransactionType().getId()), "Nie znaleziono rodzaju przychodu o podanym identyfikatorze!");
         check(CollectionUtils.isEmpty(revenue.getRevenueServiceDtos()), "Brak pozycji przychodu!");
 
-        revenue.getRevenueServiceDtos().forEach(transactionServiceValidator::validateForCreation);
+        revenue.getRevenueServiceDtos().forEach(transactionPositionValidator::validateForCreation);
     }
 
     public void validateForUpdate(@NotNull Revenue revenue,
-                                  final TransactionServiceValidator transactionServiceValidator,
+                                  final TransactionPositionValidator transactionPositionValidator,
                                   final ContractorService contractorService,
                                   final TransactionTypeService transactionTypeService) {
         check(Objects.isNull(revenue.getId()), "Nie znaleziono identyfikatora podczas modyfikacji!");
@@ -46,7 +46,7 @@ public class RevenueValidator implements BaseValidator {
                 && !transactionTypeService.existsById(revenue.getTransactionType().getId()), "Nie znaleziono rodzaju przychodu o podanym identyfikatorze!");
         check(CollectionUtils.isEmpty(revenue.getRevenueServiceDtos()), "Brak pozycji przychodu!");
 
-        revenue.getRevenueServiceDtos().forEach(transactionServiceValidator::validateForCreation);
+        revenue.getRevenueServiceDtos().forEach(transactionPositionValidator::validateForCreation);
     }
 
     public void validateForDelete(boolean isDeleted) {

@@ -2,8 +2,6 @@ package pl.corp.kkf.kkf.services.model;
 
 import jakarta.persistence.*;
 import pl.corp.kkf.commons.base.model.BaseEntity;
-import pl.corp.kkf.kkf.services.model.dictionaries.ContractorEntity;
-import pl.corp.kkf.kkf.services.model.dictionaries.TransactionTypeEntity;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -47,7 +45,7 @@ public class RevenueEntity extends BaseEntity {
     private ContractorEntity contractor;
 
     @OneToMany(mappedBy = "revenue", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<RevenueTransactionServiceEntity> transactionServices;
+    private Set<RevenueTransactionPositionEntity> transactionServices;
 
     public Long getId() {
         return id;
@@ -121,11 +119,11 @@ public class RevenueEntity extends BaseEntity {
         this.contractor = contractor;
     }
 
-    public Set<RevenueTransactionServiceEntity> getTransactionServices() {
+    public Set<RevenueTransactionPositionEntity> getTransactionServices() {
         return transactionServices;
     }
 
-    public void setTransactionServices(Set<RevenueTransactionServiceEntity> transactionServices) {
+    public void setTransactionServices(Set<RevenueTransactionPositionEntity> transactionServices) {
         this.transactionServices = transactionServices;
     }
 

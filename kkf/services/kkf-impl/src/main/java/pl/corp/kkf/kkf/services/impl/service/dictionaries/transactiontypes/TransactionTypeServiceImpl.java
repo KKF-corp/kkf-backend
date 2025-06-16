@@ -11,9 +11,9 @@ import pl.corp.kkf.kkf.services.api.dictionaries.transactiontypes.dto.Transactio
 import pl.corp.kkf.kkf.services.api.dictionaries.transactiontypes.dto.TransactionTypeSearchRequest;
 import pl.corp.kkf.kkf.services.impl.dao.converters.dictionaries.TransactionTypeConverter;
 import pl.corp.kkf.kkf.services.impl.dao.exceptions.dictionaries.TransactionTypeException;
-import pl.corp.kkf.kkf.services.impl.dao.repositories.dictionaries.TransactionTypeRepository;
+import pl.corp.kkf.kkf.services.impl.dao.repositories.TransactionTypeRepository;
 import pl.corp.kkf.kkf.services.impl.dao.validators.dictionaries.TransactionTypeValidator;
-import pl.corp.kkf.kkf.services.model.dictionaries.TransactionTypeEntity;
+import pl.corp.kkf.kkf.services.model.TransactionTypeEntity;
 
 import java.util.List;
 import java.util.stream.Collectors;
